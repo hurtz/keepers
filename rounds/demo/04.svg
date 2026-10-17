@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<rect width="600" height="880" rx="10" fill="#C83E3E"/>
+<text x="60" y="330" font-family="Georgia, serif" font-size="210" font-style="italic" fill="#fff" opacity=".18">x²+y</text><text x="72" y="590" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#fff" opacity=".9">Now With More Letters</text>
+<text x="70" y="520" font-family="'Helvetica Neue', Arial, sans-serif" font-size="92" font-weight="700" font-style="normal" fill="#FFFFFF">ALGEBRA 2</text>
+<text x="70" y="810" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#FFFFFF" opacity=".85">THE TEXTBOOK COMMITTEE</text>
+<rect width="34" height="880" rx="10" fill="#000" opacity=".16"/>
+<rect x="34" width="3" height="880" fill="#fff" opacity=".12"/>
+</svg>

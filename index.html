@@ -1,0 +1,558 @@
+<title>Keepers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Keepers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Rubik+Mono+One&family=Shrikhand&display=swap">
+<style>
+/* Layout: one screen swipe deck. Wordmark strip on top, card stack fills the middle, thumb reach buttons at the bottom.
+   Look: label maker tape on garage boxes, rubber stamps, marigold tape accent. */
+:root{
+  --bg:#ECEEF3; --surface:#FFFFFF; --ink:#17171F; --muted:#5D6173; --line:#D7DAE3;
+  --tape:#17171F; --tape-ink:#F3F4F8;
+  --accent:#FFB300; --accent-ink:#1C1500;
+  --keep:#0E9B6A; --toss:#E2434A;
+  --shadow:0 1px 2px rgb(22 22 44 / .06), 0 14px 34px rgb(22 22 44 / .15);
+  --f-display:"Shrikhand", Georgia, "Times New Roman", serif;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-label:"Rubik Mono One", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E0F15; --surface:#1A1C26; --ink:#F1F2F7; --muted:#A1A6B9; --line:#2C2F3D;
+    --tape:#F1F2F7; --tape-ink:#13141B;
+    --accent:#FFC23D; --accent-ink:#1C1500;
+    --keep:#2CC48C; --toss:#FF6A70;
+    --shadow:0 1px 2px rgb(0 0 0 / .4), 0 14px 34px rgb(0 0 0 / .55);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E0F15; --surface:#1A1C26; --ink:#F1F2F7; --muted:#A1A6B9; --line:#2C2F3D;
+  --tape:#F1F2F7; --tape-ink:#13141B;
+  --accent:#FFC23D; --accent-ink:#1C1500;
+  --keep:#2CC48C; --toss:#FF6A70;
+  --shadow:0 1px 2px rgb(0 0 0 / .4), 0 14px 34px rgb(0 0 0 / .55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 var(--f-body);overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.app{height:100%;max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding-block:12px 14px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
+.wordmark{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;margin:0;letter-spacing:.3px}
+.wordmark i{font-style:normal;color:var(--accent)}
+.pillbtn{appearance:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;cursor:pointer}
+
+.screen{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px}
+.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;gap:18px;padding-bottom:10px}
+
+.tape{display:inline-block;align-self:flex-start;background:var(--tape);color:var(--tape-ink);font-family:var(--f-label);font-size:10.5px;line-height:1.2;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px 4px;border-radius:3px;transform:rotate(-1.2deg);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tape.accent{background:var(--accent);color:var(--accent-ink)}
+
+/* Intro */
+.intro{justify-content:center;gap:18px}
+.intro h1{font-family:var(--f-display);font-weight:400;font-size:clamp(34px, 10vw, 50px);line-height:1.04;margin:0;text-wrap:balance}
+.lede{margin:0;font-size:18px;font-weight:600}
+.note{margin:0;padding:14px 16px;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;font-size:16px}
+.note b{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.how{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.how li{display:flex;align-items:center;gap:12px;font-size:16px}
+.how .ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--surface);box-shadow:var(--shadow);flex:none}
+.how .ic svg{width:18px;height:18px}
+.btn{appearance:none;border:none;border-radius:16px;padding:16px 20px;font-weight:800;font-size:17px;cursor:pointer;text-align:center;text-decoration:none;display:block;width:100%}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.plain{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
+.btn.warn{background:var(--toss);color:#fff}
+
+/* Deck */
+.meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex:none}
+.meta h2{font-size:15px;font-weight:800;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.meta .num{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;font-weight:700;flex:none}
+.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;flex:none;margin-top:-6px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s ease}
+.deck{position:relative;flex:1;min-height:330px}
+.card{position:absolute;inset:0;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;z-index:2;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.card.under{z-index:1;transform:translateY(12px) scale(.95);pointer-events:none}
+.card.gone{z-index:5;pointer-events:none}
+.photo{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:var(--line)}
+.photo img{pointer-events:none}
+.photo .blur{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);max-width:none;object-fit:cover;filter:blur(22px) saturate(1.15);opacity:.6}
+.photo .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;filter:drop-shadow(0 10px 18px rgb(0 0 0 / .28))}
+.stamp{position:absolute;top:22px;z-index:3;font-family:var(--f-label);font-size:25px;line-height:1;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px 6px;border:4px solid currentColor;border-radius:9px;background:var(--surface);opacity:0;pointer-events:none}
+.stamp.keep{left:16px;color:var(--keep);transform:rotate(-14deg)}
+.stamp.toss{right:16px;color:var(--toss);transform:rotate(14deg)}
+.info{flex:none;padding:14px 18px 16px;display:flex;flex-direction:column;gap:7px;max-height:50%;overflow:hidden}
+.info h3{font-size:24px;font-weight:800;line-height:1.1;margin:0;text-wrap:balance}
+.sub{margin:-3px 0 0;color:var(--muted);font-size:14px;font-weight:600}
+.bio{margin:2px 0 0;font-size:15.5px;line-height:1.42;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card.open .bio{display:block}
+.card.open .info{max-height:72%}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
+.tags li{border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700;color:var(--muted)}
+
+.actions{flex:none;display:flex;align-items:flex-end;justify-content:center;gap:26px}
+.act{appearance:none;border:none;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.act .ring{display:grid;place-items:center;border-radius:50%;background:var(--surface);box-shadow:var(--shadow);transition:transform .15s ease}
+.act:active .ring{transform:scale(.9)}
+.act.big .ring{width:72px;height:72px}
+.act.big svg{width:32px;height:32px}
+.act.small .ring{width:50px;height:50px}
+.act.small svg{width:22px;height:22px}
+.act.toss .ring{color:var(--toss)}
+.act.keep .ring{color:var(--keep)}
+.act:focus-visible{outline:none}
+.act:focus-visible .ring{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Summary */
+.sum h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px, 8.6vw, 42px);line-height:1.06;margin:0;text-wrap:balance}
+.hint{margin:-8px 0 0;color:var(--muted);font-size:15px}
+.group{display:flex;flex-direction:column;gap:10px}
+.group-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:0}
+.group-h .dot{width:10px;height:10px;border-radius:50%;background:currentColor}
+.group-h.keep{color:var(--keep)}
+.group-h.toss{color:var(--toss)}
+.group-h span:last-child{font-variant-numeric:tabular-nums}
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:10px}
+.thumb{appearance:none;border:none;padding:0;width:100%;background:var(--surface);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;text-align:left;display:flex;flex-direction:column}
+.thumb .im{aspect-ratio:3 / 4;max-width:100%;background:var(--line);overflow:hidden;display:block}
+.thumb img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+.thumb .t{font-size:12.5px;font-weight:700;line-height:1.25;padding:6px 8px 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.empty{margin:0;color:var(--muted);font-size:15px}
+.send{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.send h2{margin:0;font-size:20px;font-weight:800}
+.result{margin:0;white-space:pre-wrap;font:500 13px/1.5 ui-monospace, "SF Mono", Menlo, monospace;background:var(--bg);border-radius:10px;padding:12px;max-height:190px;overflow:auto;user-select:text;-webkit-user-select:text}
+.fine{margin:0;font-size:13px;color:var(--muted)}
+.fine b{color:var(--ink);user-select:all;-webkit-user-select:all}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row .btn{font-size:15px;padding:14px 12px}
+
+/* Rounds */
+.rounds h1, .empty-s h1{font-family:var(--f-display);font-weight:400;font-size:36px;line-height:1.05;margin:0}
+.rlist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.rbtn{appearance:none;width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left}
+.rbtn .rt{flex:1;min-width:0}
+.rbtn .rt b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rbtn .rt small{color:var(--muted);font-size:13px;font-weight:600}
+.pill{flex:none;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+.pill.new{background:var(--accent);color:var(--accent-ink)}
+.pill.mid{background:var(--line);color:var(--ink)}
+.pill.done{border:1.5px solid var(--keep);color:var(--keep)}
+.empty-s{justify-content:center;gap:12px}
+
+.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom, 0px));transform:translate(-50%, 16px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:20;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%, 0)}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;animation:none !important} }
+</style>
+
+<div class="app">
+  <header class="top">
+    <h1 class="wordmark" id="wordmark">Keepers<i>.</i></h1>
+    <button class="pillbtn" id="roundsBtn" type="button">Rounds</button>
+  </header>
+
+  <section class="screen intro" id="introScreen" hidden>
+    <span class="tape accent" id="introKicker">New round</span>
+    <h1 id="introTitle"></h1>
+    <p class="lede" id="introLede"></p>
+    <p class="note" id="introNote" hidden><b></b><span></span></p>
+    <ul class="how">
+      <li><span class="ic" style="color:var(--keep)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.4-4.5-9.5-9.2C1 8.4 3.1 4.5 6.9 4.5c2.1 0 3.6 1.1 4.4 2.6.8-1.5 2.3-2.6 4.4-2.6 3.8 0 5.9 3.9 4.4 7.3C18.9 16.5 12 21 12 21z"/></svg></span><span id="howKeep">Swipe right to keep it</span></li>
+      <li><span class="ic" style="color:var(--toss)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span id="howToss">Swipe left to donate it</span></li>
+      <li><span class="ic" style="color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><span>Changed your mind? Tap undo, or fix it at the end.</span></li>
+    </ul>
+    <button class="btn primary" id="startBtn" type="button">Start swiping</button>
+  </section>
+
+  <section class="screen" id="deckScreen" hidden>
+    <div class="meta"><h2 id="deckTitle"></h2><span class="num" id="deckCount"></span></div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="deck" id="deck"></div>
+    <div class="actions">
+      <button class="act big toss" id="tossBtn" type="button"><span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span id="tossLabel">Donate</span></button>
+      <button class="act small" id="undoBtn" type="button"><span class="ring" style="color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><span>Undo</span></button>
+      <button class="act big keep" id="keepBtn" type="button"><span class="ring"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.4-4.5-9.5-9.2C1 8.4 3.1 4.5 6.9 4.5c2.1 0 3.6 1.1 4.4 2.6.8-1.5 2.3-2.6 4.4-2.6 3.8 0 5.9 3.9 4.4 7.3C18.9 16.5 12 21 12 21z"/></svg></span><span id="keepLabel">Keep</span></button>
+    </div>
+  </section>
+
+  <section class="screen scroll sum" id="sumScreen" hidden>
+    <span class="tape" id="sumKicker">Round done</span>
+    <h1 id="sumHead"></h1>
+    <p class="hint">Tap anything to switch it.</p>
+    <div class="group">
+      <h2 class="group-h keep"><span class="dot"></span><span id="keepHead">Keeping</span><span id="keepNum"></span></h2>
+      <ul class="grid" id="keepGrid"></ul>
+      <p class="empty" id="keepEmpty" hidden>Nothing. Bold move.</p>
+    </div>
+    <div class="group">
+      <h2 class="group-h toss"><span class="dot"></span><span id="tossHead">Donating</span><span id="tossNum"></span></h2>
+      <ul class="grid" id="tossGrid"></ul>
+      <p class="empty" id="tossEmpty" hidden>Nothing. You love it all.</p>
+    </div>
+    <div class="send">
+      <h2 id="sendHead">Send it to Dad</h2>
+      <pre class="result" id="resultText"></pre>
+      <a class="btn primary" id="textBtn" href="#">Copy and text Dad</a>
+      <button class="btn plain" id="copyBtn" type="button">Copy the list</button>
+      <p class="fine" id="fineNum" hidden>If the text doesn't open, paste the list in a message to <b id="dadNum"></b>.</p>
+    </div>
+    <div class="row">
+      <button class="btn plain" id="redoBtn" type="button">Start over</button>
+      <button class="btn plain" id="allBtn" type="button">All rounds</button>
+    </div>
+  </section>
+
+  <section class="screen scroll rounds" id="roundsScreen" hidden>
+    <h1>Rounds</h1>
+    <ul class="rlist" id="roundList"></ul>
+  </section>
+
+  <section class="screen empty-s" id="emptyScreen" hidden>
+    <span class="tape accent">Nothing yet</span>
+    <h1>No rounds yet.</h1>
+    <p class="lede">When a new round is ready, it shows up right here.</p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script id="keepers-data" type="application/json">{}</script>
+<script>
+(() => {
+  const DEFAULTS = { appName: "Keepers", kidName: "", dadName: "Dad", dadPhone: "", keepWord: "Keep", tossWord: "Donate", keepStamp: "Keeper" };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s) => document.querySelector(s);
+  const SCREENS = ["introScreen", "deckScreen", "sumScreen", "roundsScreen", "emptyScreen"];
+  let CFG = DEFAULTS, ROUNDS = [], cur = null, busy = false, drag = null, toastTimer = 0, redoTimer = 0;
+
+  /* ---------- saved progress (on this phone only) ---------- */
+  const mem = {};
+  const key = (r) => "keepers:v1:" + r.id;
+  function st(r) {
+    const k = key(r);
+    if (!mem[k]) {
+      let s = null;
+      try { s = JSON.parse(localStorage.getItem(k) || "null"); } catch (e) {}
+      if (!s || typeof s !== "object" || !s.d) s = { d: {}, order: [], started: false };
+      mem[k] = s;
+    }
+    return mem[k];
+  }
+  function save(r) { try { localStorage.setItem(key(r), JSON.stringify(st(r))); } catch (e) {} }
+  const left = (r) => r.items.filter((it) => !st(r).d[it.id]);
+  const isDone = (r) => r.items.length > 0 && left(r).length === 0;
+
+  function el(tag, props, ...kids) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (v == null || v === false) continue;
+      if (k === "class") n.className = v;
+      else if (k === "text") n.textContent = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v);
+    }
+    for (const c of kids.flat()) if (c != null && c !== false) n.append(c);
+    return n;
+  }
+  function show(id) {
+    SCREENS.forEach((s) => { $("#" + s).hidden = s !== id; });
+    $("#roundsBtn").textContent = id === "roundsScreen" ? "Back" : "Rounds";
+    $("#roundsBtn").hidden = id === "emptyScreen";
+  }
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+
+  /* ---------- data ---------- */
+  async function loadData() {
+    const t = ($("#keepers-data")?.textContent || "").trim();
+    if (t.startsWith("{")) { try { const d = JSON.parse(t); if (d.rounds) return d; } catch (e) {} }
+    try { const r = await fetch("rounds.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {}
+    return { rounds: [] };
+  }
+
+  /* ---------- intro ---------- */
+  function renderIntro() {
+    const r = cur, n = r.items.length;
+    $("#introKicker").textContent = r.kicker || "New round";
+    $("#introTitle").textContent = r.title;
+    $("#introLede").textContent = `${CFG.kidName ? "Hey " + CFG.kidName + "." : "Hey you."} ${n} ${n === 1 ? "thing is" : "things are"} waiting on you.`;
+    const note = $("#introNote");
+    note.hidden = !r.note;
+    if (r.note) { note.querySelector("b").textContent = "From " + CFG.dadName; note.querySelector("span").textContent = r.note; }
+    show("introScreen");
+  }
+
+  /* ---------- deck ---------- */
+  function startDeck() {
+    const s = st(cur); s.started = true; save(cur);
+    $("#deckTitle").textContent = cur.title;
+    $("#deck").replaceChildren();
+    show("deckScreen");
+    fillDeck();
+  }
+  function cardEl(it) {
+    const c = el("article", { class: "card", "data-id": it.id, "aria-label": it.name || "Item" },
+      el("div", { class: "photo" },
+        el("img", { class: "blur", src: it.img, alt: "", "aria-hidden": "true", draggable: "false" }),
+        el("img", { class: "fg", src: it.img, alt: it.name || "", draggable: "false" }),
+        el("span", { class: "stamp keep", text: CFG.keepStamp }),
+        el("span", { class: "stamp toss", text: CFG.tossWord })),
+      el("div", { class: "info" },
+        el("h3", { text: it.name || "Mystery item" }),
+        it.sub ? el("p", { class: "sub", text: it.sub }) : null,
+        it.where ? el("span", { class: "tape", text: it.where }) : null,
+        it.bio ? el("p", { class: "bio", text: it.bio }) : null,
+        it.tags && it.tags.length ? el("ul", { class: "tags" }, it.tags.map((t) => el("li", { text: t }))) : null));
+    c.addEventListener("pointerdown", down);
+    return c;
+  }
+  const cards = () => [...$("#deck").children];
+  const topCard = () => cards().find((c) => !c.classList.contains("under") && !c.classList.contains("gone"));
+  function progress() {
+    const tot = cur.items.length, done = tot - left(cur).length;
+    $("#deckCount").textContent = `${Math.min(done + 1, tot)} of ${tot}`;
+    $("#bar").style.width = (done / tot) * 100 + "%";
+  }
+  function fillDeck() {
+    const rest = left(cur);
+    progress();
+    if (!rest.length) { setTimeout(renderSummary, reduce ? 0 : 160); return; }
+    const want = rest.slice(0, 2);
+    cards().forEach((c) => { if (!c.classList.contains("gone") && !want.some((it) => it.id === c.dataset.id)) c.remove(); });
+    want.forEach((it, i) => {
+      let c = cards().find((x) => x.dataset.id === it.id);
+      if (!c) { c = cardEl(it); if (i === 1) c.classList.add("under"); $("#deck").append(c); }
+      c.classList.toggle("under", i === 1);
+    });
+    rest.slice(2, 6).forEach((it) => { const im = new Image(); im.src = it.img; });
+  }
+  function lean(c, dx) {
+    const a = Math.max(-1, Math.min(1, dx / 110));
+    c.querySelector(".stamp.keep").style.opacity = Math.max(0, a);
+    c.querySelector(".stamp.toss").style.opacity = Math.max(0, -a);
+    $("#keepBtn .ring").style.transform = a > 0 ? `scale(${1 + a * 0.14})` : "";
+    $("#tossBtn .ring").style.transform = a < 0 ? `scale(${1 - a * 0.14})` : "";
+  }
+  function resetButtons() { $("#keepBtn .ring").style.transform = ""; $("#tossBtn .ring").style.transform = ""; }
+
+  function down(e) {
+    const c = e.currentTarget;
+    if (busy || c !== topCard() || (e.pointerType === "mouse" && e.button !== 0)) return;
+    drag = { c, x0: e.clientX, y0: e.clientY, t0: performance.now(), dx: 0, dy: 0, moved: false, id: e.pointerId };
+    try { c.setPointerCapture(e.pointerId); } catch (err) {}
+    c.style.transition = "none";
+    c.addEventListener("pointermove", move);
+    c.addEventListener("pointerup", up);
+    c.addEventListener("pointercancel", up);
+  }
+  function move(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
+    if (Math.abs(drag.dx) + Math.abs(drag.dy) > 8) drag.moved = true;
+    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${drag.dx / 16}deg)`;
+    lean(drag.c, drag.dx);
+  }
+  function up(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const { c, dx, moved, t0 } = drag;
+    c.removeEventListener("pointermove", move);
+    c.removeEventListener("pointerup", up);
+    c.removeEventListener("pointercancel", up);
+    const v = dx / Math.max(1, performance.now() - t0);
+    const th = Math.min(120, c.offsetWidth * 0.28);
+    if (e.type !== "pointercancel") {
+      if (dx > th || (v > 0.55 && dx > 36)) return decide("keep");
+      if (dx < -th || (v < -0.55 && dx < -36)) return decide("toss");
+    }
+    drag = null;
+    c.style.transition = reduce ? "none" : "transform .4s cubic-bezier(.3,1.5,.5,1)";
+    c.style.transform = "";
+    lean(c, 0); resetButtons();
+    if (!moved) c.classList.toggle("open");
+  }
+  function decide(choice) {
+    const c = topCard();
+    if (!c || busy) return;
+    busy = true;
+    const dy = drag ? drag.dy * 0.3 : 0;
+    drag = null;
+    const dir = choice === "keep" ? 1 : -1;
+    const s = st(cur);
+    s.d[c.dataset.id] = choice; s.order.push(c.dataset.id); save(cur);
+    c.classList.add("gone");
+    lean(c, dir * 200); resetButtons();
+    const under = cards().find((x) => x.classList.contains("under"));
+    if (under) under.classList.remove("under");
+    c.style.transition = reduce ? "none" : "transform .34s cubic-bezier(.25,.6,.3,1)";
+    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 28}deg)`;
+    progress();
+    setTimeout(() => { c.remove(); busy = false; fillDeck(); }, reduce ? 0 : 320);
+  }
+  function undo() {
+    if (busy) return;
+    const s = st(cur);
+    const id = s.order.pop();
+    if (!id) { toast("Nothing to undo yet"); return; }
+    const prev = s.d[id];
+    delete s.d[id]; save(cur);
+    const it = cur.items.find((i) => i.id === id);
+    if (!it || $("#deckScreen").hidden) { startDeck(); return; }
+    busy = true;
+    cards().forEach((x) => { if (x.classList.contains("under")) x.remove(); else x.classList.add("under"); });
+    const c = cardEl(it), dir = prev === "keep" ? 1 : -1;
+    c.classList.add("gone");
+    c.style.transition = "none";
+    c.style.transform = `translate(${dir * (innerWidth + 300)}px, 40px) rotate(${dir * 28}deg)`;
+    $("#deck").append(c);
+    c.getBoundingClientRect();
+    c.style.transition = reduce ? "none" : "transform .36s cubic-bezier(.2,.8,.25,1)";
+    c.style.transform = "";
+    progress();
+    setTimeout(() => { c.classList.remove("gone"); c.style.transition = ""; busy = false; fillDeck(); }, reduce ? 0 : 370);
+  }
+
+  /* ---------- summary ---------- */
+  function prettyPhone(p) {
+    let d = String(p).replace(/\D/g, "");
+    if (d.length === 11 && d[0] === "1") d = d.slice(1);
+    return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)} ${d.slice(6)}` : p;
+  }
+  function resultText(r) {
+    const s = st(r);
+    const line = (it) => `• ${it.name || "Mystery item"} (#${r.items.indexOf(it) + 1})`;
+    const k = r.items.filter((i) => s.d[i.id] === "keep"), t = r.items.filter((i) => s.d[i.id] === "toss");
+    return [
+      `${CFG.appName}: ${r.title}`, "",
+      `${CFG.keepWord.toUpperCase()} (${k.length})`, ...(k.length ? k.map(line) : ["• none"]), "",
+      `${CFG.tossWord.toUpperCase()} (${t.length})`, ...(t.length ? t.map(line) : ["• none"]),
+    ].join("\n");
+  }
+  function headline(k, t) {
+    if (!t) return `Keeping all ${k}. Every single one.`;
+    if (!k) return `All ${t} are off to a new home.`;
+    return `Keeping ${k}. ${t} ${t === 1 ? "is" : "are"} off to a new home.`;
+  }
+  function grid(listId, emptyId, items, flipTo) {
+    $(listId).replaceChildren(...items.map((it) => el("li", null,
+      el("button", { class: "thumb", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
+        el("span", { class: "im" }, el("img", { src: it.img, alt: "", loading: "lazy" })),
+        el("span", { class: "t", text: it.name || "Mystery item" })))));
+    $(emptyId).hidden = items.length > 0;
+  }
+  function renderSummary() {
+    const r = cur, s = st(r);
+    const keep = r.items.filter((i) => s.d[i.id] === "keep"), toss = r.items.filter((i) => s.d[i.id] === "toss");
+    $("#sumKicker").textContent = r.title;
+    $("#sumHead").textContent = headline(keep.length, toss.length);
+    $("#keepNum").textContent = keep.length; $("#tossNum").textContent = toss.length;
+    grid("#keepGrid", "#keepEmpty", keep, "toss");
+    grid("#tossGrid", "#tossEmpty", toss, "keep");
+    const txt = resultText(r);
+    $("#resultText").textContent = txt;
+    $("#sendHead").textContent = `Send it to ${CFG.dadName}`;
+    const a = $("#textBtn");
+    if (CFG.dadPhone) {
+      a.hidden = false;
+      a.textContent = `Copy and text ${CFG.dadName}`;
+      a.href = `sms:${CFG.dadPhone.replace(/[^\d+]/g, "")}&body=${encodeURIComponent(txt)}`;
+      $("#dadNum").textContent = prettyPhone(CFG.dadPhone);
+      $("#fineNum").hidden = false;
+    } else { a.hidden = true; $("#fineNum").hidden = true; }
+    resetRedo();
+    if ($("#sumScreen").hidden) { show("sumScreen"); $("#sumScreen").scrollTop = 0; }
+  }
+  function flip(it, to) {
+    const s = st(cur), keepY = $("#sumScreen").scrollTop;
+    s.d[it.id] = to;
+    if (!s.order.includes(it.id)) s.order.push(it.id);
+    save(cur);
+    renderSummary();
+    $("#sumScreen").scrollTop = keepY;
+    toast(`Moved to ${to === "keep" ? "keeping" : "donating"}`);
+  }
+  function selectResult() {
+    try {
+      const range = document.createRange(); range.selectNodeContents($("#resultText"));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      return document.execCommand("copy");
+    } catch (e) { return false; }
+  }
+  function copyResult() {
+    const txt = resultText(cur);
+    try {
+      const p = navigator.clipboard && navigator.clipboard.writeText(txt);
+      if (p) return p.then(() => true, () => selectResult());
+    } catch (e) {}
+    return Promise.resolve(selectResult());
+  }
+  function resetRedo() { clearTimeout(redoTimer); const b = $("#redoBtn"); b.textContent = "Start over"; b.className = "btn plain"; b.dataset.armed = ""; }
+
+  /* ---------- rounds ---------- */
+  function renderRounds() {
+    $("#roundList").replaceChildren(...[...ROUNDS].reverse().map((r) => {
+      const tot = r.items.length, l = left(r).length, s = st(r);
+      const kept = r.items.filter((i) => s.d[i.id] === "keep").length;
+      const [pill, cls] = !l ? [`${kept} kept`, "done"] : l === tot ? ["New", "new"] : [`${l} left`, "mid"];
+      return el("li", null, el("button", { class: "rbtn", type: "button", onclick: () => openRound(r) },
+        el("span", { class: "rt" }, el("b", { text: r.title }), el("small", { text: `${tot} ${tot === 1 ? "thing" : "things"}${r.date ? " · " + r.date : ""}` })),
+        el("span", { class: "pill " + cls, text: pill })));
+    }));
+    show("roundsScreen");
+  }
+  function openRound(r) {
+    cur = r;
+    const s = st(r);
+    if (isDone(r)) renderSummary();
+    else if (!s.started && !s.order.length) renderIntro();
+    else startDeck();
+  }
+
+  /* ---------- wiring ---------- */
+  $("#startBtn").addEventListener("click", startDeck);
+  $("#keepBtn").addEventListener("click", () => decide("keep"));
+  $("#tossBtn").addEventListener("click", () => decide("toss"));
+  $("#undoBtn").addEventListener("click", undo);
+  $("#roundsBtn").addEventListener("click", () => { if (!$("#roundsScreen").hidden && cur) openRound(cur); else renderRounds(); });
+  $("#allBtn").addEventListener("click", renderRounds);
+  $("#copyBtn").addEventListener("click", () => copyResult().then((ok) => toast(ok ? "Copied. Paste it in a text." : "Select the list above and copy it.")));
+  $("#textBtn").addEventListener("click", () => { copyResult(); toast("List copied too, just in case"); });
+  $("#redoBtn").addEventListener("click", (e) => {
+    const b = e.currentTarget;
+    if (b.dataset.armed) {
+      resetRedo();
+      mem[key(cur)] = { d: {}, order: [], started: false }; save(cur);
+      renderIntro();
+      return;
+    }
+    b.dataset.armed = "1"; b.textContent = "Tap again to reset"; b.className = "btn warn";
+    redoTimer = setTimeout(resetRedo, 3500);
+  });
+  addEventListener("keydown", (e) => {
+    if ($("#deckScreen").hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); decide("keep"); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); decide("toss"); }
+    else if (e.key === "Backspace" || e.key.toLowerCase() === "z") { e.preventDefault(); undo(); }
+  });
+
+  (async function boot() {
+    const data = await loadData();
+    CFG = { ...DEFAULTS, ...(data.config || {}) };
+    ROUNDS = (data.rounds || []).filter((r) => r && r.id && Array.isArray(r.items) && r.items.length);
+    $("#wordmark").firstChild.textContent = CFG.appName;
+    $("#keepLabel").textContent = CFG.keepWord; $("#tossLabel").textContent = CFG.tossWord;
+    $("#keepBtn").setAttribute("aria-label", CFG.keepWord); $("#tossBtn").setAttribute("aria-label", CFG.tossWord);
+    $("#howKeep").textContent = `Swipe right to ${CFG.keepWord.toLowerCase()} it`;
+    $("#howToss").textContent = `Swipe left to ${CFG.tossWord.toLowerCase()} it`;
+    if (!ROUNDS.length) { show("emptyScreen"); return; }
+    const pick = [...ROUNDS].reverse().find((r) => !isDone(r)) || ROUNDS[ROUNDS.length - 1];
+    openRound(pick);
+  })();
+})();
+</script>

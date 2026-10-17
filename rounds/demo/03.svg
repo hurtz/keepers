@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<rect width="600" height="880" rx="10" fill="#E6EEE0"/>
+<g stroke="#2F4A2A" stroke-width="7" stroke-linecap="round"><path d="M250 210l-60-40M250 250l-70 0M250 290l-60 40M350 210l60-40M350 250l70 0M350 290l60 40M285 160l-25-45M315 160l25-45"/></g><ellipse cx="300" cy="260" rx="62" ry="95" fill="#2F4A2A"/><circle cx="300" cy="165" r="34" fill="#2F4A2A"/><path d="M300 175v180" stroke="#E6EEE0" stroke-width="4"/><circle cx="275" cy="235" r="10" fill="#C9D8BE"/><circle cx="325" cy="290" r="12" fill="#C9D8BE"/>
+<text x="70" y="470" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" font-style="normal" fill="#2F4A2A">Field Guide to</text><text x="70" y="536" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" font-style="normal" fill="#2F4A2A">Suspicious</text><text x="70" y="602" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" font-style="normal" fill="#2F4A2A">Garden Bugs</text>
+<text x="70" y="810" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#2F4A2A" opacity=".85">DR. INES HOLLOWAY</text>
+<rect width="34" height="880" rx="10" fill="#000" opacity=".16"/>
+<rect x="34" width="3" height="880" fill="#fff" opacity=".12"/>
+</svg>

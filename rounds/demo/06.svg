@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<rect width="600" height="880" rx="10" fill="#2A9D8F"/>
+<path d="M120 260c0-90 140-90 140 0s-140 90-140 0zm110 0c0-90 140-90 140 0s-140 90-140 0zm110 0c0-90 140-90 140 0s-140 90-140 0z" stroke="#FDF6E3" stroke-width="16" fill="none" stroke-linecap="round"/><circle cx="52" cy="60" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="124" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="188" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="252" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="316" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="380" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="444" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="508" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="572" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="636" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="700" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="764" r="9" fill="#FDF6E3" opacity=".8"/><circle cx="52" cy="828" r="9" fill="#FDF6E3" opacity=".8"/>
+<text x="70" y="470" font-family="'Helvetica Neue', Arial, sans-serif" font-size="62" font-weight="700" font-style="normal" fill="#FDF6E3">Knots, Loops</text><text x="70" y="540" font-family="'Helvetica Neue', Arial, sans-serif" font-size="62" font-weight="700" font-style="normal" fill="#FDF6E3">and Lanyards</text>
+<text x="70" y="810" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#FDF6E3" opacity=".85">CAMP WILLOW STAFF</text>
+<rect width="34" height="880" rx="10" fill="#000" opacity=".16"/>
+<rect x="34" width="3" height="880" fill="#fff" opacity=".12"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<rect width="600" height="880" rx="10" fill="#1F2A55"/>
+<circle cx="410" cy="230" r="120" fill="#F6E7B0"/><circle cx="370" cy="200" r="22" fill="#E3D193"/><circle cx="450" cy="270" r="30" fill="#E3D193"/><circle cx="430" cy="175" r="12" fill="#E3D193"/><circle cx="90" cy="90" r="3" fill="#F6E7B0"/><circle cx="160" cy="170" r="3" fill="#F6E7B0"/><circle cx="250" cy="80" r="3" fill="#F6E7B0"/><circle cx="120" cy="300" r="3" fill="#F6E7B0"/><circle cx="540" cy="420" r="3" fill="#F6E7B0"/><circle cx="520" cy="100" r="3" fill="#F6E7B0"/><circle cx="230" cy="360" r="3" fill="#F6E7B0"/>
+<text x="70" y="470" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" font-style="normal" fill="#F6E7B0">The Moon</text><text x="70" y="542" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" font-style="normal" fill="#F6E7B0">Owes Me</text><text x="70" y="614" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" font-style="normal" fill="#F6E7B0">Twelve Dollars</text>
+<text x="70" y="810" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#F6E7B0" opacity=".85">WREN ABERNATHY</text>
+<rect width="34" height="880" rx="10" fill="#000" opacity=".16"/>
+<rect x="34" width="3" height="880" fill="#fff" opacity=".12"/>
+</svg>

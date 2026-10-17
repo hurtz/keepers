@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<rect width="600" height="880" rx="10" fill="#F2C14E"/>
+<g transform="rotate(-18 300 250)"><rect x="170" y="170" width="260" height="120" rx="60" fill="#4E8C3A"/><circle cx="220" cy="200" r="7" fill="#3B6E2C"/><circle cx="270" cy="250" r="7" fill="#3B6E2C"/><circle cx="320" cy="195" r="7" fill="#3B6E2C"/><circle cx="370" cy="245" r="7" fill="#3B6E2C"/><circle cx="395" cy="205" r="7" fill="#3B6E2C"/><circle cx="250" cy="215" r="10" fill="#fff"/><circle cx="252" cy="216" r="5" fill="#2B1B0E"/></g><path d="M470 120h40v70l25 25-20 20-45-35z" fill="#E2434A"/><path d="M80 300h36v60l22 22-18 18-40-30z" fill="#3D6BD8"/>
+<text x="70" y="470" font-family="Georgia, 'Times New Roman', serif" font-size="60" font-weight="700" font-style="normal" fill="#2B1B0E">Captain Pickle</text><text x="70" y="538" font-family="Georgia, 'Times New Roman', serif" font-size="60" font-weight="700" font-style="normal" fill="#2B1B0E">and the</text><text x="70" y="606" font-family="Georgia, 'Times New Roman', serif" font-size="60" font-weight="700" font-style="normal" fill="#2B1B0E">Sock Thieves</text>
+<text x="70" y="810" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#2B1B0E" opacity=".85">M. T. DRAWER</text>
+<rect width="34" height="880" rx="10" fill="#000" opacity=".16"/>
+<rect x="34" width="3" height="880" fill="#fff" opacity=".12"/>
+</svg>

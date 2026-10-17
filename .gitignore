@@ -1,0 +1,8 @@
+live/
+dist/
+__pycache__/
+*_sheet.jpg
+grid.jpg
+detect.jpg
+boxes.json
+.DS_Store

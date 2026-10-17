@@ -1,0 +1,100 @@
+{
+  "config": {
+    "appName": "Keepers",
+    "kidName": "",
+    "dadName": "Dad",
+    "dadPhone": "",
+    "keepWord": "Keep",
+    "tossWord": "Donate",
+    "keepStamp": "Keeper"
+  },
+  "rounds": [
+    {
+      "id": "demo",
+      "title": "Practice round",
+      "kicker": "Practice round",
+      "date": "",
+      "note": "These books are made up. Swipe around to get the feel of it. Nothing here counts.",
+      "items": [
+        {
+          "id": "demo-01",
+          "img": "rounds/demo/01.svg",
+          "name": "The Moon Owes Me Twelve Dollars",
+          "sub": "Wren Abernathy · Paperback · 214 pages",
+          "where": "Practice box · made up",
+          "bio": "We met in fifth grade. You laughed at page 40 and never told me why. Still not mad about the twelve dollars.",
+          "tags": [
+            "Space",
+            "Funny",
+            "Folded corners"
+          ]
+        },
+        {
+          "id": "demo-02",
+          "img": "rounds/demo/02.svg",
+          "name": "Captain Pickle and the Sock Thieves",
+          "sub": "M. T. Drawer · Hardcover · 48 pages",
+          "where": "Practice box · made up",
+          "bio": "Short, funny, a little crunchy. Looking for someone who still believes socks go missing on purpose.",
+          "tags": [
+            "Picture book",
+            "Mystery",
+            "Pickles"
+          ]
+        },
+        {
+          "id": "demo-03",
+          "img": "rounds/demo/03.svg",
+          "name": "Field Guide to Suspicious Garden Bugs",
+          "sub": "Dr. Ines Holloway · Paperback · 96 pages",
+          "where": "Practice box · made up",
+          "bio": "I know 41 beetles by name. Not all of them are friends. Swipe right if you still check under rocks.",
+          "tags": [
+            "Nature",
+            "Science",
+            "A bit creepy"
+          ]
+        },
+        {
+          "id": "demo-04",
+          "img": "rounds/demo/04.svg",
+          "name": "Algebra 2: Now With More Letters",
+          "sub": "Textbook · Hardcover · weighs about 6 pounds",
+          "where": "Practice box · made up",
+          "bio": "I was there for every late night. You never once enjoyed me. I respect the honesty.",
+          "tags": [
+            "Homework",
+            "Heavy",
+            "Former rival"
+          ]
+        },
+        {
+          "id": "demo-05",
+          "img": "rounds/demo/05.svg",
+          "name": "Twelve Summers at Juniper Lake",
+          "sub": "Clara Vance · Paperback · 388 pages",
+          "where": "Practice box · made up",
+          "bio": "We both cried on page 301. Comes with a sand stain and a bookmark from a pizza place.",
+          "tags": [
+            "Friendship",
+            "Summer",
+            "Sad but good"
+          ]
+        },
+        {
+          "id": "demo-06",
+          "img": "rounds/demo/06.svg",
+          "name": "Knots, Loops and Lanyards",
+          "sub": "Camp Willow · Spiral bound · 30 pages",
+          "where": "Practice box · made up",
+          "bio": "Taught you the box stitch. Somewhere out there is a keychain that proves it.",
+          "tags": [
+            "Crafts",
+            "Camp",
+            "Useful, maybe"
+          ]
+        }
+      ]
+    }
+  ]
+}
