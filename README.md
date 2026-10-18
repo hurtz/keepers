@@ -2,6 +2,8 @@
 
 **Swipe right to keep it. Swipe left to let it go.**
 
+**[Open the Keepers app](https://claude.ai/artifact/HJ9XSeBYKeMdY8UpvhPMWW)** (runs on Claude; this repo is the source code)
+
 Keepers turns a pile of your kid's old stuff into a deck of dating profiles. They swipe through it on their phone. You get a list of what to keep and what to donate.
 
 ## Why I made this
