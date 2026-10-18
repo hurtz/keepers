@@ -1,10 +1,10 @@
-# Keepers
+# Sift
 
 **Swipe right to keep it. Swipe left to let it go.**
 
-**[Open the Keepers app](https://claude.ai/artifact/HJ9XSeBYKeMdY8UpvhPMWW)** (runs on Claude; this repo is the source code)
+**[Open the Sift app](https://claude.ai/artifact/HJ9XSeBYKeMdY8UpvhPMWW)** (runs on Claude; this repo is the source code)
 
-Keepers turns a pile of your kid's old stuff into a deck of dating profiles. They swipe through it on their phone. You get a list of what to keep and what to donate.
+Sift turns a pile of your kid's old stuff into a deck of dating profiles. They swipe through it on their phone. You get a list of what to keep and what to donate.
 
 ## Why I made this
 
@@ -33,18 +33,19 @@ Everything saves as you go, so a half finished round is still there if your phon
 
 ## Features
 
+* Looks and feels like a native iPhone app, in the browser. System font, iOS colors, light and dark mode.
 * Feels like a dating app: drag, tilt, stamp, fly away.
 * AI item finding with a hand editor for anything it misses.
 * AI names and profiles, every field editable.
 * Live two way sync: send rounds, get picks back, no copy and paste.
 * Packing checklist for the keep pile and donate pile.
 * Preview her side before you send. Preview swipes are never saved.
-* Light and dark mode. Big touch targets. Keyboard arrows on a laptop.
+* Big touch targets. Keyboard arrows on a laptop.
 * One HTML file. No framework, no tracking.
 
 ## Where it runs
 
-Keepers runs as a Claude artifact, which gives the page three things it can't do on its own: a shared database (rounds and picks), image storage, and Claude's eyes (finding and naming items in photos).
+Sift runs as a Claude artifact, which gives the page three things it can't do on its own: a shared database (rounds and picks), image storage, and Claude's eyes (finding and naming items in photos).
 
 To let her swipes sync back, share the page with her by email and set her to **Editor**, with the public link off. If she opens it some other way, the deck still works and the summary offers a "text Dad the list" button instead.
 
@@ -72,23 +73,23 @@ pip install -r requirements.txt
 Then, for each photo:
 
 ```
-python3 tools/keepers.py detect photo.jpg              # guesses a box per item, saves boxes.json and detect.jpg
-python3 tools/keepers.py grid photo.jpg                # or draw a percent grid and write the boxes yourself
-python3 tools/keepers.py crop photo.jpg boxes.json --round books --title "Books from the blue tote" --where "Blue tote · garage"
+python3 tools/sift.py detect photo.jpg              # guesses a box per item, saves boxes.json and detect.jpg
+python3 tools/sift.py grid photo.jpg                # or draw a percent grid and write the boxes yourself
+python3 tools/sift.py crop photo.jpg boxes.json --round books --title "Books from the blue tote" --where "Blue tote · garage"
 ```
 
 `crop` saves one image per item in `rounds/books/`, adds the items to `rounds.json`, and makes a contact sheet (`_sheet.jpg`) so you can check every crop. Then open `rounds.json` and give each item a name, a bio and a few tags.
 
-Or skip the typing: give Claude the photo and this repo and say "make a Keepers round from this." It reads the photo, finds the items, writes the profiles, and builds the round.
+Or skip the typing: give Claude the photo and this repo and say "make a Sift round from this." It reads the photo, finds the items, writes the profiles, and builds the round.
 
 Detection works best on a plain floor with space between items. Touching items get merged into one box, so split those by hand.
 
 ## Host it
 
-Keepers is a static site. GitHub Pages, Netlify, Cloudflare Pages or any web host works. To ship it as a single file, run:
+Sift is a static site. GitHub Pages, Netlify, Cloudflare Pages or any web host works. To ship it as a single file, run:
 
 ```
-python3 tools/keepers.py build
+python3 tools/sift.py build
 ```
 
 That bakes `rounds.json` into `dist/index.html`. Upload it with the `rounds/` folder next to it.
@@ -100,7 +101,7 @@ Put your number in `rounds.json` under `config.dadPhone` so the text button know
 ```json
 {
   "config": {
-    "appName": "Keepers",
+    "appName": "Sift",
     "kidName": "",
     "dadName": "Dad",
     "dadPhone": "+15155550123",
@@ -134,7 +135,7 @@ The newest unfinished round opens first. Older rounds stay under **Rounds**.
 
 ## Privacy
 
-Photos live wherever you host them. Keepers has no server, no analytics and no accounts. Swipes are saved only on your kid's phone until they send you the list.
+Photos live wherever you host them. Sift has no server, no analytics and no accounts. Swipes are saved only on your kid's phone until they send you the list.
 
 ## Writing good profiles
 

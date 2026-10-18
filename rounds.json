@@ -1,12 +1,12 @@
 {
   "config": {
-    "appName": "Keepers",
+    "appName": "Sift",
     "kidName": "",
     "dadName": "Dad",
     "dadPhone": "",
     "keepWord": "Keep",
     "tossWord": "Donate",
-    "keepStamp": "Keeper"
+    "keepStamp": "Keep"
   },
   "rounds": [
     {

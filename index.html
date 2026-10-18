@@ -1,433 +1,483 @@
-<title>Keepers</title>
+<title>Sift</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Keepers">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Rubik+Mono+One&family=Shrikhand&display=swap">
+<meta name="apple-mobile-web-app-title" content="Sift">
 <style>
-/* Layout: one screen app. Wordmark strip on top; the swipe deck (her side) or the studio (Dad's side) fills the rest.
-   Look: label maker tape on garage boxes, rubber stamps, marigold tape accent. */
+/* Layout: one column app shell. Nav bar on top (small title fades in on scroll), screens scroll under it,
+   primary actions pinned at the bottom. Look: native iOS. System font, grouped inset lists, system colors, indigo tint. */
 :root{
-  --bg:#ECEEF3; --surface:#FFFFFF; --field:#F5F6FA; --ink:#17171F; --muted:#5D6173; --line:#D7DAE3;
-  --tape:#17171F; --tape-ink:#F3F4F8;
-  --accent:#FFB300; --accent-ink:#1C1500;
-  --keep:#0E9B6A; --toss:#E2434A; --mark:#FF2DAA;
-  --shadow:0 1px 2px rgb(22 22 44 / .06), 0 14px 34px rgb(22 22 44 / .15);
-  --f-display:"Shrikhand", Georgia, "Times New Roman", serif;
-  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --f-label:"Rubik Mono One", ui-monospace, "SF Mono", Menlo, monospace;
+  --bg:#F2F2F7; --card:#FFFFFF; --elev:#FFFFFF; --seg-on:#FFFFFF;
+  --label:#000000; --label2:rgba(60,60,67,.62); --label3:rgba(60,60,67,.3);
+  --sep:rgba(60,60,67,.2); --fill:rgba(118,118,128,.12); --fill2:rgba(118,118,128,.2);
+  --tint:#5856D6; --on-tint:#FFFFFF; --tint-soft:rgba(88,86,214,.12);
+  --green:#34C759; --red:#FF3B30; --orange:#FF9500; --gray:#8E8E93;
+  --shadow:0 1px 2px rgba(0,0,0,.05), 0 14px 34px rgba(0,0,0,.14);
+  --shadow-btn:0 1px 2px rgba(0,0,0,.06), 0 8px 22px rgba(0,0,0,.12);
+  --sys:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --disp:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --round:ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0E0F15; --surface:#1A1C26; --field:#12131A; --ink:#F1F2F7; --muted:#A1A6B9; --line:#2C2F3D;
-    --tape:#F1F2F7; --tape-ink:#13141B;
-    --accent:#FFC23D; --accent-ink:#1C1500;
-    --keep:#2CC48C; --toss:#FF6A70;
-    --shadow:0 1px 2px rgb(0 0 0 / .4), 0 14px 34px rgb(0 0 0 / .55);
+    --bg:#000000; --card:#1C1C1E; --elev:#2C2C2E; --seg-on:#636366;
+    --label:#FFFFFF; --label2:rgba(235,235,245,.62); --label3:rgba(235,235,245,.3);
+    --sep:rgba(84,84,88,.62); --fill:rgba(118,118,128,.24); --fill2:rgba(118,118,128,.36);
+    --tint:#6E6CF0; --on-tint:#FFFFFF; --tint-soft:rgba(110,108,240,.24);
+    --green:#30D158; --red:#FF453A; --orange:#FF9F0A; --gray:#8E8E93;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.6);
+    --shadow-btn:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.5);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0E0F15; --surface:#1A1C26; --field:#12131A; --ink:#F1F2F7; --muted:#A1A6B9; --line:#2C2F3D;
-  --tape:#F1F2F7; --tape-ink:#13141B;
-  --accent:#FFC23D; --accent-ink:#1C1500;
-  --keep:#2CC48C; --toss:#FF6A70;
-  --shadow:0 1px 2px rgb(0 0 0 / .4), 0 14px 34px rgb(0 0 0 / .55);
+  --bg:#000000; --card:#1C1C1E; --elev:#2C2C2E; --seg-on:#636366;
+  --label:#FFFFFF; --label2:rgba(235,235,245,.62); --label3:rgba(235,235,245,.3);
+  --sep:rgba(84,84,88,.62); --fill:rgba(118,118,128,.24); --fill2:rgba(118,118,128,.36);
+  --tint:#6E6CF0; --on-tint:#FFFFFF; --tint-soft:rgba(110,108,240,.24);
+  --green:#30D158; --red:#FF453A; --orange:#FF9F0A; --gray:#8E8E93;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.6);
+  --shadow-btn:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.5);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none !important}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 var(--f-body);overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
-button{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+body{margin:0;background:var(--bg);color:var(--label);font:400 17px/1.29 var(--sys);letter-spacing:-.01em;overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+button,input,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+:focus-visible{outline:2px solid var(--tint);outline-offset:2px}
+svg{flex:none}
 
-.app{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding-block:12px 14px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none}
-.topr{display:flex;gap:8px;align-items:center}
-.wordmark{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;margin:0;letter-spacing:.3px}
-.wordmark i{font-style:normal;color:var(--accent)}
-.pillbtn{appearance:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
-.pillbtn.dark{background:var(--tape);color:var(--tape-ink);border-color:var(--tape)}
-.pbar{flex:none;margin:0;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:13px;text-align:center;border-radius:10px;padding:7px 10px}
+.app{height:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;padding-block:4px 8px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 
-.screen{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px}
-.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;gap:18px;padding-bottom:10px;margin-inline:-4px;padding-inline:4px}
-.center{align-items:center;justify-content:center}
+/* Nav bar */
+.nav{flex:none;display:grid;grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr);align-items:center;min-height:44px;gap:6px;position:relative;margin-inline:-16px;padding-inline:8px}
+.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;border-bottom:.5px solid var(--sep);opacity:0;transition:opacity .2s}
+.nav.edge::after{opacity:1}
+.nav-l{justify-self:start;display:flex;min-width:0}
+.nav-r{justify-self:end;display:flex;align-items:center;gap:2px}
+.nav-t{font:600 17px/1.2 var(--sys);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(56vw, 340px);opacity:0;transition:opacity .2s}
+.nav.show-t .nav-t{opacity:1}
+.navbtn{appearance:none;border:0;background:none;color:var(--tint);font:400 17px/1 var(--sys);display:inline-flex;align-items:center;gap:1px;padding:10px 8px;cursor:pointer;border-radius:10px;white-space:nowrap;min-width:0}
+.navbtn span{overflow:hidden;text-overflow:ellipsis}
+.navbtn.strong{font-weight:600}
+.navbtn.back svg{width:26px;height:26px;stroke-width:2.6;margin:-4px -2px -4px -8px}
+.navbtn.circle{width:32px;height:32px;padding:0;justify-content:center;background:var(--fill);border-radius:50%;margin-left:6px}
+.navbtn.circle svg{width:17px;height:17px;stroke-width:2.8}
+.navbtn:active{opacity:.4}
+.pbar{flex:none;margin:2px 0 6px;background:var(--tint-soft);color:var(--tint);font:600 13px/1.3 var(--sys);text-align:center;border-radius:10px;padding:7px 12px}
 
-.tape{display:inline-block;align-self:flex-start;background:var(--tape);color:var(--tape-ink);font-family:var(--f-label);font-size:10.5px;line-height:1.2;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px 4px;border-radius:3px;transform:rotate(-1.2deg);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:none}
-.tape.accent{background:var(--accent);color:var(--accent-ink)}
-.tape.keep{background:var(--keep);color:var(--surface)}
+/* Screens */
+.screen{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;gap:24px;padding-bottom:16px;margin-inline:-16px;padding-inline:16px}
+.center{align-items:center;justify-content:center;text-align:center}
+.hero{display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.eyebrow{margin:0;font:600 15px/1.3 var(--sys);color:var(--tint)}
+.lt{margin:0;font:700 34px/1.12 var(--disp);letter-spacing:-.022em;text-wrap:balance}
+.lede{margin:2px 0 0;font:400 17px/1.4 var(--sys);color:var(--label2);text-wrap:pretty}
+.lede b{color:var(--label);font-weight:600}
 
-.spin{width:34px;height:34px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--accent);animation:spin .8s linear infinite}
+/* Grouped lists */
+.sect{display:flex;flex-direction:column;gap:7px}
+.sect-h{margin:0 16px;font:400 13px/1.3 var(--sys);letter-spacing:0;text-transform:uppercase;color:var(--label2);display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.sect-h.big{margin:0 2px;text-transform:none;font:700 22px/1.2 var(--disp);color:var(--label);letter-spacing:-.015em;justify-content:flex-start}
+.sect-h.big .n{color:var(--label2);font-weight:600}
+.sect-h .aux{text-transform:none;font-size:13px}
+.sect-f{margin:0 16px;font:400 13px/1.35 var(--sys);color:var(--label2)}
+.group{list-style:none;margin:0;padding:0;background:var(--card);border-radius:12px;overflow:hidden}
+.group > li{position:relative}
+.group > li + li::before{content:"";position:absolute;top:0;right:0;left:var(--sep-l, 16px);border-top:.5px solid var(--sep);z-index:1}
+.group.thumbs{--sep-l:80px}
+.group.icons{--sep-l:58px}
+.row{display:flex;align-items:center;gap:12px;min-height:46px;padding:10px 16px;width:100%;background:none;border:0;text-align:left;font:400 17px/1.29 var(--sys);color:var(--label);text-decoration:none;position:relative}
+button.row, a.row{cursor:pointer}
+button.row:active, a.row:active{background:var(--fill)}
+.row .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.row .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .s{font-size:15px;color:var(--label2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row.tint .t{color:var(--tint)}
+.row.danger .t{color:var(--red)}
+.row.armed{background:var(--red)}
+.row.armed .t{color:#fff}
+.row .val{color:var(--label2);font-size:17px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.row .chev{width:14px;height:14px;color:var(--label3);stroke-width:3;margin-left:-2px}
+.isq{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;flex:none}
+.isq svg{width:18px;height:18px}
+.isq.tint{background:var(--tint)}
+.isq.green{background:var(--green)}
+.isq.red{background:var(--red)}
+.isq.gray{background:var(--gray)}
+.isq.orange{background:var(--orange)}
+.thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--fill);flex:none;display:grid;place-items:center;color:var(--label3)}
+.thumb svg{width:24px;height:24px}
+.badge{font:600 13px/1 var(--sys);padding:5px 9px;border-radius:999px;background:var(--tint);color:var(--on-tint);white-space:nowrap}
+.stat{display:flex;align-items:center;gap:7px;font:400 15px var(--sys);color:var(--label2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.stat.done{color:var(--green);font-weight:600}
+.stat.done svg{width:20px;height:20px;stroke-width:2.6}
+.ring{width:26px;height:26px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.ring .trk{stroke:var(--fill2)}
+.ring .val{stroke:var(--tint);stroke-linecap:round}
+details.sect > summary{list-style:none;cursor:pointer}
+details.sect > summary::-webkit-details-marker{display:none}
+details.sect > summary svg{width:12px;height:12px;stroke-width:3;transition:transform .2s;margin-left:4px}
+details.sect[open] > summary svg{transform:rotate(90deg)}
+
+/* Form rows */
+.frow{display:flex;align-items:flex-start;gap:12px;padding:12px 16px}
+.frow:focus-within{background:var(--fill)}
+.frow .lbl{font:400 17px/1.3 var(--sys);color:var(--label);flex:none;width:58px}
+.inp{appearance:none;-webkit-appearance:none;border:0;background:none;font:400 17px/1.3 var(--sys);color:var(--label);width:100%;min-width:0;padding:0;outline:none;resize:none;display:block}
+.inp::placeholder{color:var(--label3);opacity:1}
+textarea.inp{min-height:3.9em}
+
+/* Buttons */
+.btn{appearance:none;border:0;border-radius:14px;min-height:50px;padding:14px 20px;font:600 17px/1.2 var(--sys);cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:opacity .15s}
+.btn svg{width:20px;height:20px;stroke-width:2.4}
+.btn.fill{background:var(--tint);color:var(--on-tint)}
+.btn.gray{background:var(--fill);color:var(--tint)}
+.btn:active{opacity:.7}
+.btn:disabled{opacity:.38;cursor:default}
+.bottom{position:sticky;bottom:-16px;z-index:6;display:grid;grid-template-columns:1fr;gap:10px;margin-top:auto;padding-block:14px 16px;background:linear-gradient(to top, var(--bg) 70%, transparent)}
+.bottom.two{grid-template-columns:1fr 1.7fr}
+.mini{appearance:none;border:0;background:var(--fill);color:var(--tint);border-radius:999px;padding:7px 12px;font:600 14px/1 var(--sys);display:inline-flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
+.mini svg{width:15px;height:15px;stroke-width:2.4}
+.mini.on{background:var(--tint);color:var(--on-tint)}
+.mini.danger{color:var(--red)}
+.mini.armed{background:var(--red);color:#fff}
+.mini:active{opacity:.6}
+.segm{display:grid;grid-template-columns:1fr 1fr;background:var(--fill);border-radius:9px;padding:2px;gap:2px;flex:none}
+.segm button{appearance:none;border:0;background:none;border-radius:7px;padding:7px 8px;font:500 13px/1.25 var(--sys);color:var(--label);cursor:pointer}
+.segm button[aria-pressed="true"]{background:var(--seg-on);font-weight:600;box-shadow:0 3px 8px rgba(0,0,0,.12), 0 0 0 .5px rgba(0,0,0,.04)}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--fill2);border-top-color:var(--label2);animation:spin .8s linear infinite;flex:none}
+.spin.lg{width:30px;height:30px;border-width:3px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.status{margin:0 4px;display:flex;align-items:center;gap:10px;font:400 15px/1.35 var(--sys);color:var(--label2);min-height:20px}
+.status:empty{display:none}
 
-/* Intro */
-.intro{justify-content:center;gap:18px}
-.intro h1{font-family:var(--f-display);font-weight:400;font-size:clamp(34px, 10vw, 50px);line-height:1.04;margin:0;text-wrap:balance}
-.lede{margin:0;font-size:18px;font-weight:600}
-.note{margin:0;padding:14px 16px;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;font-size:16px}
-.note b{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.how{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.how li{display:flex;align-items:center;gap:12px;font-size:16px}
-.how .ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--surface);box-shadow:var(--shadow);flex:none}
-.how .ic svg{width:18px;height:18px}
-.btn{appearance:none;border:none;border-radius:16px;padding:16px 20px;font-weight:800;font-size:17px;cursor:pointer;text-align:center;text-decoration:none;display:block;width:100%}
-.btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.plain{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
-.btn.warn{background:var(--toss);color:#fff}
-.btn:disabled{opacity:.45;cursor:default}
-.linkbtn{appearance:none;border:none;background:none;padding:6px 0;font-weight:700;font-size:15px;color:var(--muted);cursor:pointer;align-self:flex-start}
+/* Her intro */
+.how .t{white-space:normal}
+.msg{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.msg small{font:400 12px var(--sys);color:var(--label2);margin-left:14px}
+.bubble{margin:0;padding:9px 14px;border-radius:19px;font:400 17px/1.32 var(--sys);max-width:86%;white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble.in{background:var(--card);color:var(--label);border-bottom-left-radius:6px}
+.bubble.out{background:var(--tint);color:var(--on-tint);border-bottom-right-radius:6px;align-self:flex-end;user-select:text;-webkit-user-select:text}
 
 /* Deck */
-.meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex:none}
-.meta h2{font-size:15px;font-weight:800;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.meta .num{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;font-weight:700;flex:none}
-.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;flex:none}
-#deckScreen .bar{margin-top:-6px}
-.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s ease}
-.deck{position:relative;flex:1;min-height:330px}
-.card{position:absolute;inset:0;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;z-index:2;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.card.under{z-index:1;transform:translateY(12px) scale(.95);pointer-events:none}
+.prog{flex:none;display:flex;align-items:center;gap:12px;padding:2px 2px 0}
+.track{flex:1;height:4px;border-radius:2px;background:var(--fill2);overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--tint);border-radius:2px;transition:width .3s ease}
+.prog span{font:600 13px var(--sys);color:var(--label2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.deck{position:relative;flex:1;min-height:360px;margin-top:12px}
+.card{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:#2C2C2E;box-shadow:var(--shadow);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;z-index:2;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.card.under{z-index:1;transform:translateY(10px) scale(.955);pointer-events:none}
 .card.gone{z-index:5;pointer-events:none}
-.photo{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:var(--line)}
-.photo img{pointer-events:none}
-.photo .blur{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);max-width:none;object-fit:cover;filter:blur(22px) saturate(1.15);opacity:.6}
-.photo .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;filter:drop-shadow(0 10px 18px rgb(0 0 0 / .28))}
-.stamp{position:absolute;top:22px;z-index:3;font-family:var(--f-label);font-size:25px;line-height:1;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px 6px;border:4px solid currentColor;border-radius:9px;background:var(--surface);opacity:0;pointer-events:none}
-.stamp.keep{left:16px;color:var(--keep);transform:rotate(-14deg)}
-.stamp.toss{right:16px;color:var(--toss);transform:rotate(14deg)}
-.info{flex:none;padding:14px 18px 16px;display:flex;flex-direction:column;gap:7px;max-height:50%;overflow:hidden}
-.info h3{font-size:24px;font-weight:800;line-height:1.1;margin:0;text-wrap:balance}
-.sub{margin:-3px 0 0;color:var(--muted);font-size:14px;font-weight:600}
-.bio{margin:2px 0 0;font-size:15.5px;line-height:1.42;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card img{pointer-events:none;max-width:none}
+.card .bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(34px) saturate(1.5) brightness(.82)}
+.card .fg{position:absolute;left:0;top:0;width:100%;height:68%;object-fit:contain;padding:24px 24px 6px;filter:drop-shadow(0 14px 26px rgba(0,0,0,.38));transition:opacity .25s}
+.card .scrim{position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(to top, rgba(0,0,0,.86) 0%, rgba(0,0,0,.6) 42%, rgba(0,0,0,0) 100%);transition:height .25s}
+.card .info{position:absolute;left:0;right:0;bottom:0;padding:18px 20px 20px;color:#fff;display:flex;flex-direction:column;gap:6px}
+.card h3{margin:0;font:700 28px/1.1 var(--disp);letter-spacing:-.02em;text-wrap:balance}
+.card .sub{margin:0;font:500 15px/1.3 var(--sys);color:rgba(255,255,255,.76)}
+.card .bio{margin:2px 0 0;font:400 16px/1.38 var(--sys);color:rgba(255,255,255,.94);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card.open .bio{display:block}
-.card.open .info{max-height:72%}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
-.tags li{border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700;color:var(--muted)}
+.card.open .scrim{height:100%}
+.card.open .fg{opacity:.25}
+.where{display:inline-flex;align-items:center;gap:5px;font:600 13px var(--sys);color:rgba(255,255,255,.82)}
+.where svg{width:14px;height:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;padding:0;list-style:none}
+.chips li{background:rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:5px 10px;font:600 13px/1 var(--sys);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.stamp{position:absolute;top:30px;z-index:3;font:800 30px/1 var(--round);letter-spacing:.05em;text-transform:uppercase;padding:7px 14px 6px;border:4px solid currentColor;border-radius:12px;opacity:0;pointer-events:none;background:rgba(0,0,0,.18)}
+.stamp.keep{left:22px;color:#4ADE80;transform:rotate(-12deg)}
+.stamp.toss{right:22px;color:#FF6B6B;transform:rotate(12deg)}
+.actions{flex:none;display:flex;align-items:center;justify-content:center;gap:30px;padding-block:18px 6px}
+.abtn{appearance:none;border:0;border-radius:50%;background:var(--elev);box-shadow:var(--shadow-btn);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease}
+.abtn.big{width:68px;height:68px}
+.abtn.big svg{width:30px;height:30px}
+.abtn.small{width:50px;height:50px;color:var(--gray)}
+.abtn.small svg{width:22px;height:22px;stroke-width:2.4}
+.abtn.toss{color:var(--red)}
+.abtn.toss svg{stroke-width:3}
+.abtn.keep{color:var(--green)}
+.abtn:active{transform:scale(.9)}
 
-.actions{flex:none;display:flex;align-items:flex-end;justify-content:center;gap:26px}
-.act{appearance:none;border:none;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.act .ring{display:grid;place-items:center;border-radius:50%;background:var(--surface);box-shadow:var(--shadow);transition:transform .15s ease}
-.act:active .ring{transform:scale(.9)}
-.act.big .ring{width:72px;height:72px}
-.act.big svg{width:32px;height:32px}
-.act.small .ring{width:50px;height:50px}
-.act.small svg{width:22px;height:22px}
-.act.toss .ring{color:var(--toss)}
-.act.keep .ring{color:var(--keep)}
-.act:focus-visible{outline:none}
-.act:focus-visible .ring{outline:3px solid var(--accent);outline-offset:3px}
+/* Summary + results */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tiles.three{grid-template-columns:repeat(3, minmax(0, 1fr))}
+.tile{background:var(--card);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile b{font:700 32px/1.05 var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.tile span{font:600 13px/1.2 var(--sys);color:var(--label2);text-transform:uppercase;letter-spacing:.02em}
+.tile.keep b{color:var(--green)}
+.tile.toss b{color:var(--red)}
+.pgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px 10px}
+.ph{appearance:none;border:0;padding:0;background:none;cursor:pointer;display:flex;flex-direction:column;gap:6px;text-align:left;width:100%;color:var(--label)}
+.ph .im{aspect-ratio:1;max-width:100%;border-radius:12px;background:var(--card);overflow:hidden;display:block}
+.ph img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+.ph .t{font:500 13px/1.25 var(--sys);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ph:active .im{opacity:.7}
+.cbox{appearance:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--label3);background:none;display:grid;place-items:center;flex:none;cursor:pointer;color:transparent;padding:0}
+.cbox svg{width:17px;height:17px;stroke-width:3.2}
+.cbox[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.row.done .t{color:var(--label2);text-decoration:line-through}
+.result{display:none}
 
-/* Summary */
-.sum h1, .studio h1, .rounds h1, .empty-s h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px, 8.6vw, 42px);line-height:1.06;margin:0;text-wrap:balance}
-.hint{margin:-8px 0 0;color:var(--muted);font-size:15px}
-.group{display:flex;flex-direction:column;gap:10px}
-.group-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:0}
-.group-h .dot{width:10px;height:10px;border-radius:50%;background:currentColor}
-.group-h.keep{color:var(--keep)}
-.group-h.toss{color:var(--toss)}
-.group-h span:last-child{font-variant-numeric:tabular-nums}
-summary.group-h{cursor:pointer;color:var(--muted)}
-.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:10px}
-.thumb{appearance:none;border:none;padding:0;width:100%;background:var(--surface);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;text-align:left;display:flex;flex-direction:column}
-.thumb .im{aspect-ratio:3 / 4;max-width:100%;background:var(--line);overflow:hidden;display:block}
-.thumb img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
-.thumb .t{font-size:12.5px;font-weight:700;line-height:1.25;padding:6px 8px 0;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.empty{margin:0;color:var(--muted);font-size:15px}
-.send{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.send h2{margin:0;font-size:20px;font-weight:800}
-.synced{margin:0;display:flex;gap:10px;align-items:center;font-weight:700;color:var(--keep);font-size:16px}
-.synced .ok{width:26px;height:26px;border-radius:50%;background:var(--keep);color:var(--surface);display:grid;place-items:center;flex:none;font-size:15px}
-.result{margin:0;white-space:pre-wrap;font:500 13px/1.5 ui-monospace, "SF Mono", Menlo, monospace;background:var(--bg);border-radius:10px;padding:12px;max-height:190px;overflow:auto;user-select:text;-webkit-user-select:text}
-.fine{margin:0;font-size:13px;color:var(--muted)}
-.fine b{color:var(--ink);user-select:all;-webkit-user-select:all}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row .btn{font-size:15px;padding:14px 12px}
+/* Empty + sent */
+.bigic{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:var(--tint-soft);color:var(--tint)}
+.bigic svg{width:36px;height:36px}
+.bigic.ok{background:var(--green);color:#fff}
+.bigic.ok svg{stroke-width:3}
+.empty-card{background:var(--card);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.empty-card h2{margin:6px 0 0;font:700 22px/1.2 var(--disp);letter-spacing:-.015em}
+.empty-card p{margin:0;color:var(--label2);font-size:15px;line-height:1.4;max-width:34ch}
+.empty-card .btn{margin-top:10px;max-width:260px}
 
-/* Round lists */
-.rlist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.rbtn{appearance:none;width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left}
-.rbtn .rt{flex:1;min-width:0}
-.rbtn .rt b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rbtn .rt small{color:var(--muted);font-size:13px;font-weight:600}
-.rbar{display:block;height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:8px}
-.rbar i{display:block;height:100%;background:var(--keep)}
-.pill{flex:none;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
-.pill.new{background:var(--accent);color:var(--accent-ink)}
-.pill.mid{background:var(--line);color:var(--ink)}
-.pill.done{border:1.5px solid var(--keep);color:var(--keep)}
-.empty-s{justify-content:center;gap:12px}
-
-/* Studio */
-.sec{display:flex;flex-direction:column;gap:10px}
-.sec-h{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
-details.sec summary{cursor:pointer}
-.help{background:var(--surface);border:1.5px dashed var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
-.help p{margin:0;font-size:15px}
-.help b{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.hint2{margin:-6px 0 0;color:var(--muted);font-size:15px}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--line);padding:4px;border-radius:14px;flex:none}
-.seg button{appearance:none;border:none;background:transparent;border-radius:10px;padding:11px 8px;font-weight:800;font-size:14px;cursor:pointer;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgb(0 0 0 / .14)}
-.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed var(--muted);border-radius:18px;padding:26px 16px;background:var(--surface);cursor:pointer;text-align:center;font-weight:800;font-size:17px;flex:none}
-.drop svg{width:36px;height:36px}
-.drop small{font-weight:600;font-size:14px;color:var(--muted)}
-.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.drop:focus-within{outline:3px solid var(--accent);outline-offset:3px}
-.pgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:8px}
-.pthumb{position:relative;aspect-ratio:1;max-width:100%;border-radius:12px;overflow:hidden;background:var(--line)}
-.pthumb img{width:100%;height:100%;object-fit:cover;display:block}
-.px{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:none;background:rgb(0 0 0 / .62);color:#fff;font-size:17px;line-height:1;cursor:pointer;display:grid;place-items:center}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:13px;font-weight:800;color:var(--muted)}
-.field label span{font-weight:600}
-.in{font:500 16px/1.35 var(--f-body);color:var(--ink);background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;min-width:0;resize:vertical;-webkit-appearance:none;appearance:none}
-.in:focus{outline:none;border-color:var(--accent);background:var(--surface)}
-.in.title{font-weight:800}
-.status{margin:0;font-size:15px;font-weight:700;color:var(--muted);min-height:1.4em;display:flex;align-items:center;gap:10px}
-.status .spin{width:18px;height:18px;border-width:3px;flex:none}
-.chip{appearance:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-weight:800;font-size:13px;cursor:pointer;color:var(--ink);white-space:nowrap}
-.chip.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.chip.danger{color:var(--toss)}
-.chip.danger.armed{background:var(--toss);border-color:var(--toss);color:#fff}
-.footbar{position:sticky;bottom:-10px;z-index:4;display:grid;grid-template-columns:1fr 1.5fr;gap:10px;padding-block:14px 10px;margin-top:auto;background:linear-gradient(to top, var(--bg) 72%, transparent)}
-.footbar.one{grid-template-columns:1fr}
-.meta2{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px}
-.meta2 span{color:var(--muted);font-weight:600}
+/* New round */
+.picker{position:relative}
+.picker input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
+.picker:focus-within{outline:2px solid var(--tint);outline-offset:2px;border-radius:12px}
+.photos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:8px}
+.photos li{position:relative;aspect-ratio:1;max-width:100%;border-radius:10px;overflow:hidden;background:var(--fill)}
+.photos img{width:100%;height:100%;object-fit:cover;display:block}
+.px{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.px svg{width:12px;height:12px;stroke-width:3.4}
 
 /* Box editor */
 .edlist{display:flex;flex-direction:column;gap:18px}
-.ed-block{display:flex;flex-direction:column;gap:8px}
-.ed-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ed-bar .sp{flex:1}
-.ed-count{color:var(--muted);font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
-.ed-wrap{overflow:auto;border-radius:14px;background:var(--line);max-height:72vh;max-width:100%}
+.ed-card{background:var(--card);border-radius:14px;overflow:hidden}
+.ed-tools{display:flex;align-items:center;gap:8px;padding:10px 12px;flex-wrap:wrap}
+.ed-tools .cnt{flex:1;font:600 15px var(--sys);color:var(--label2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ed-wrap{overflow:auto;max-height:72vh;max-width:100%;background:var(--fill)}
 .ed{position:relative;width:100%;touch-action:pan-x pan-y pinch-zoom;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .ed-wrap.zoomed .ed{width:230%}
 .ed img{display:block;width:100%;height:100%;max-width:none;pointer-events:none}
 .ed.adding{touch-action:none;cursor:crosshair}
-.bx{position:absolute;border:2.5px solid var(--mark);border-radius:6px;background:rgb(255 45 170 / .08);touch-action:none;cursor:move}
-.bx.sel{border-color:var(--accent);background:rgb(255 179 0 / .16);z-index:2}
-.bx .no{position:absolute;left:-2px;top:-2px;background:var(--mark);color:#fff;font:800 12px/1 var(--f-body);padding:4px 6px;border-radius:5px 0 6px 0;pointer-events:none}
-.bx.sel .no{background:var(--accent);color:var(--accent-ink)}
-.h{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--accent);display:none;touch-action:none}
+.bx{position:absolute;border:2px solid var(--tint);border-radius:7px;background:rgba(88,86,214,.1);box-shadow:0 0 0 1px rgba(255,255,255,.75);touch-action:none;cursor:move}
+.bx.sel{border-width:3px;background:rgba(88,86,214,.2);z-index:2}
+.bx .no{position:absolute;left:4px;top:4px;min-width:20px;height:20px;border-radius:10px;background:var(--tint);color:#fff;font:700 12px/20px var(--round);text-align:center;padding:0 5px;pointer-events:none}
+.h{position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--tint);display:none;touch-action:none;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .bx.sel .h{display:block}
 .h::after{content:"";position:absolute;inset:-14px}
-.h.nw{left:-10px;top:-10px;cursor:nwse-resize}
-.h.ne{right:-10px;top:-10px;cursor:nesw-resize}
-.h.sw{left:-10px;bottom:-10px;cursor:nesw-resize}
-.h.se{right:-10px;bottom:-10px;cursor:nwse-resize}
-.bx-x{position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);width:38px;height:38px;border-radius:50%;border:3px solid #fff;background:var(--toss);color:#fff;font-size:20px;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgb(0 0 0 / .35)}
+.h.nw{left:-11px;top:-11px;cursor:nwse-resize}
+.h.ne{right:-11px;top:-11px;cursor:nesw-resize}
+.h.sw{left:-11px;bottom:-11px;cursor:nesw-resize}
+.h.se{right:-11px;bottom:-11px;cursor:nwse-resize}
+.bx-x{position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.62);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.bx-x svg{width:16px;height:16px;stroke-width:3.2}
 
-/* Item editor cards */
-.ilist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.ie{display:grid;grid-template-columns:104px minmax(0, 1fr);gap:12px;background:var(--surface);border-radius:16px;padding:12px;box-shadow:var(--shadow)}
-.ie-pic{position:relative;border-radius:10px;overflow:hidden;background:var(--line);aspect-ratio:3 / 4;max-width:100%;align-self:start}
-.ie-pic img{width:100%;height:100%;object-fit:contain;display:block}
-.ie-pic .no{position:absolute;left:6px;top:6px;background:var(--tape);color:var(--tape-ink);font:400 10px/1 var(--f-label);padding:4px 6px 3px;border-radius:3px}
-.ie-f{display:flex;flex-direction:column;gap:7px;min-width:0}
-.ie-b{display:flex;flex-wrap:wrap;gap:6px}
-.ie.naming .ie-pic::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .5) 50%, transparent 70%);background-size:220% 100%;animation:sheen 1.2s linear infinite}
+/* Item editor */
+.ilist{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ig{display:flex;flex-direction:column}
+.ig > * + *{border-top:.5px solid var(--sep)}
+.ig-top{display:flex;gap:14px;padding:12px 16px 12px 12px;align-items:center}
+.ig-pic{position:relative;width:76px;height:96px;border-radius:10px;overflow:hidden;background:var(--fill);flex:none}
+.ig-pic img{width:100%;height:100%;object-fit:contain;display:block}
+.ig-pic .num{position:absolute;left:5px;top:5px;min-width:20px;height:20px;border-radius:10px;background:rgba(0,0,0,.6);color:#fff;font:700 12px/20px var(--round);text-align:center;padding:0 5px}
+.ig-f{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ig-f .inp.name{font:600 19px/1.25 var(--sys);letter-spacing:-.015em}
+.ig-f .inp.det{font-size:15px;color:var(--label2)}
+.ig-acts{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px}
+.ig.naming .ig-pic::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);background-size:220% 100%;animation:sheen 1.2s linear infinite}
 @keyframes sheen{from{background-position:120% 0}to{background-position:-120% 0}}
 
-/* Results */
-.rrows{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.rrow{display:grid;grid-template-columns:52px minmax(0, 1fr) auto;gap:12px;align-items:center;background:var(--surface);border-radius:14px;padding:8px 10px 8px 8px;box-shadow:var(--shadow)}
-.rrow img{width:52px;height:52px;border-radius:9px;object-fit:cover;background:var(--line);display:block}
-.rn{min-width:0}
-.rn b{display:block;font-size:15px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rn small{color:var(--muted);font-size:13px;font-weight:600;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rrow.handled .rn{opacity:.5;text-decoration:line-through}
-.chk{appearance:none;border:1.5px solid var(--line);background:var(--bg);border-radius:999px;padding:7px 11px 7px 8px;display:flex;align-items:center;gap:6px;font-weight:800;font-size:13px;cursor:pointer;color:var(--muted)}
-.chk .box{width:18px;height:18px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center}
-.chk[aria-pressed="true"]{background:var(--keep);border-color:var(--keep);color:var(--surface)}
-.chk[aria-pressed="true"] .box::after{content:"";width:8px;height:4px;border-left:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:translateY(-1px) rotate(-45deg)}
-
-.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom, 0px));transform:translate(-50%, 16px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:20;max-width:calc(100% - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom, 0px));transform:translate(-50%, 14px);background:rgba(28,28,30,.9);color:#fff;padding:12px 18px;border-radius:14px;font:600 15px/1.3 var(--sys);opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:30;max-width:calc(100% - 32px);text-align:center;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
 .toast.show{opacity:1;transform:translate(-50%, 0)}
 
-@media (max-width:360px){ .pgrid{grid-template-columns:repeat(3, minmax(0, 1fr))} .ie{grid-template-columns:84px minmax(0, 1fr)} }
+@media (max-width:360px){ .photos{grid-template-columns:repeat(3, minmax(0, 1fr))} .tiles.three .tile b{font-size:26px} .lt{font-size:30px} }
+@media (min-width:700px){ .pgrid{grid-template-columns:repeat(4, minmax(0, 1fr))} }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important;animation:none !important} }
 </style>
 
 <div class="app">
-  <header class="top">
-    <h1 class="wordmark" id="wordmark">Keepers<i>.</i></h1>
-    <div class="topr">
-      <button class="pillbtn" id="roundsBtn" type="button" hidden>Rounds</button>
-      <button class="pillbtn dark" id="modeBtn" type="button" hidden>Her view</button>
-    </div>
-  </header>
-  <p class="pbar" id="previewBar" hidden>Preview of her side. Nothing you swipe here is saved.</p>
+  <nav class="nav" id="nav" aria-label="Navigation">
+    <div class="nav-l" id="navL"></div>
+    <div class="nav-t" id="navT"></div>
+    <div class="nav-r" id="navR"></div>
+  </nav>
+  <p class="pbar" id="previewBar" hidden>Preview. Swipes here aren't saved.</p>
 
-  <section class="screen center" id="loadScreen"><span class="spin" aria-label="Loading"></span></section>
+  <section class="screen center" id="loadScreen"><span class="spin lg" aria-label="Loading"></span></section>
 
   <!-- ===== Her side ===== -->
-  <section class="screen intro" id="introScreen" hidden>
-    <span class="tape accent" id="introKicker">New round</span>
-    <h1 id="introTitle"></h1>
-    <p class="lede" id="introLede"></p>
-    <p class="note" id="introNote" hidden><b></b><span></span></p>
-    <ul class="how">
-      <li><span class="ic" style="color:var(--keep)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.4-4.5-9.5-9.2C1 8.4 3.1 4.5 6.9 4.5c2.1 0 3.6 1.1 4.4 2.6.8-1.5 2.3-2.6 4.4-2.6 3.8 0 5.9 3.9 4.4 7.3C18.9 16.5 12 21 12 21z"/></svg></span><span id="howKeep">Swipe right to keep it</span></li>
-      <li><span class="ic" style="color:var(--toss)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span id="howToss">Swipe left to donate it</span></li>
-      <li><span class="ic" style="color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><span>Changed your mind? Tap undo, or fix it at the end.</span></li>
+  <section class="screen scroll" id="introScreen" hidden>
+    <div class="hero">
+      <p class="eyebrow" id="introKicker"></p>
+      <h1 class="lt" id="introTitle"></h1>
+      <p class="lede" id="introLede"></p>
+    </div>
+    <div class="msg" id="introNote" hidden><small id="introFrom">Dad</small><p class="bubble in" id="introNoteText"></p></div>
+    <ul class="group icons how">
+      <li><div class="row"><span class="isq green" data-ic="heart"></span><span class="tx"><span class="t" id="howKeep">Swipe right to keep it</span></span></div></li>
+      <li><div class="row"><span class="isq red" data-ic="x"></span><span class="tx"><span class="t" id="howToss">Swipe left to donate it</span></span></div></li>
+      <li><div class="row"><span class="isq gray" data-ic="undo"></span><span class="tx"><span class="t">Tap a card to read more. Undo anytime.</span></span></div></li>
     </ul>
-    <button class="btn primary" id="startBtn" type="button">Start swiping</button>
+    <div class="bottom"><button class="btn fill" id="startBtn" type="button">Start Swiping</button></div>
   </section>
 
   <section class="screen" id="deckScreen" hidden>
-    <div class="meta"><h2 id="deckTitle"></h2><span class="num" id="deckCount"></span></div>
-    <div class="bar"><i id="bar"></i></div>
+    <div class="prog"><div class="track"><i id="bar"></i></div><span id="deckCount"></span></div>
     <div class="deck" id="deck"></div>
     <div class="actions">
-      <button class="act big toss" id="tossBtn" type="button"><span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span id="tossLabel">Donate</span></button>
-      <button class="act small" id="undoBtn" type="button"><span class="ring" style="color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><span>Undo</span></button>
-      <button class="act big keep" id="keepBtn" type="button"><span class="ring"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.4-4.5-9.5-9.2C1 8.4 3.1 4.5 6.9 4.5c2.1 0 3.6 1.1 4.4 2.6.8-1.5 2.3-2.6 4.4-2.6 3.8 0 5.9 3.9 4.4 7.3C18.9 16.5 12 21 12 21z"/></svg></span><span id="keepLabel">Keep</span></button>
+      <button class="abtn big toss" id="tossBtn" type="button" aria-label="Donate" data-ic="x"></button>
+      <button class="abtn small" id="undoBtn" type="button" aria-label="Undo" data-ic="undo"></button>
+      <button class="abtn big keep" id="keepBtn" type="button" aria-label="Keep" data-ic="heart"></button>
     </div>
   </section>
 
-  <section class="screen scroll sum" id="sumScreen" hidden>
-    <span class="tape" id="sumKicker">Round done</span>
-    <h1 id="sumHead"></h1>
-    <p class="hint">Tap anything to switch it.</p>
-    <div class="group">
-      <h2 class="group-h keep"><span class="dot"></span><span id="keepHead">Keeping</span><span id="keepNum"></span></h2>
-      <ul class="grid" id="keepGrid"></ul>
-      <p class="empty" id="keepEmpty" hidden>Nothing. Bold move.</p>
+  <section class="screen scroll" id="sumScreen" hidden>
+    <div class="hero">
+      <p class="eyebrow" id="sumKicker"></p>
+      <h1 class="lt">All Done</h1>
+      <p class="lede" id="sumHead"></p>
     </div>
-    <div class="group">
-      <h2 class="group-h toss"><span class="dot"></span><span id="tossHead">Donating</span><span id="tossNum"></span></h2>
-      <ul class="grid" id="tossGrid"></ul>
-      <p class="empty" id="tossEmpty" hidden>Nothing. You love it all.</p>
+    <div class="tiles"><div class="tile keep"><b id="keepNum">0</b><span id="keepWordT">Keep</span></div><div class="tile toss"><b id="tossNum">0</b><span id="tossWordT">Donate</span></div></div>
+    <ul class="group icons" id="syncGroup"></ul>
+    <div class="sect">
+      <h2 class="sect-h big"><span id="keepHead">Keeping</span></h2>
+      <ul class="pgrid" id="keepGrid"></ul>
+      <p class="sect-f" id="keepEmpty" hidden>Nothing here. Bold move.</p>
     </div>
-    <div class="send">
-      <p class="synced" id="syncNote" hidden><span class="ok" aria-hidden="true">✓</span><span id="syncText"></span></p>
-      <h2 id="sendHead">Send it to Dad</h2>
-      <pre class="result" id="resultText"></pre>
-      <a class="btn primary" id="textBtn" href="#">Copy and text Dad</a>
-      <button class="btn plain" id="copyBtn" type="button">Copy the list</button>
-      <p class="fine" id="fineNum" hidden>If the text doesn't open, paste the list in a message to <b id="dadNum"></b>.</p>
+    <div class="sect">
+      <h2 class="sect-h big"><span id="tossHead">Donating</span></h2>
+      <ul class="pgrid" id="tossGrid"></ul>
+      <p class="sect-f" id="tossEmpty" hidden>Nothing here. You love it all.</p>
+      <p class="sect-f">Changed your mind? Tap any item to move it.</p>
     </div>
-    <div class="row">
-      <button class="btn plain" id="redoBtn" type="button">Start over</button>
-      <button class="btn plain" id="allBtn" type="button">All rounds</button>
-    </div>
+    <ul class="group icons" id="sumActions"></ul>
+    <pre class="result" id="resultText"></pre>
   </section>
 
-  <section class="screen scroll rounds" id="roundsScreen" hidden>
-    <h1>Rounds</h1>
-    <ul class="rlist" id="roundList"></ul>
+  <section class="screen scroll" id="roundsScreen" hidden>
+    <div class="hero"><h1 class="lt">Rounds</h1></div>
+    <ul class="group thumbs" id="roundList"></ul>
   </section>
 
-  <section class="screen empty-s" id="emptyScreen" hidden>
-    <span class="tape accent">Nothing yet</span>
-    <h1>No rounds yet.</h1>
-    <p class="lede">When a new round is ready, it shows up right here.</p>
+  <section class="screen center" id="emptyScreen" hidden>
+    <div class="bigic" data-ic="box"></div>
+    <h1 class="lt" style="font-size:28px;margin-top:14px">No Rounds Yet</h1>
+    <p class="lede">When a new round is ready, it shows up here.</p>
   </section>
 
-  <!-- ===== Dad's studio ===== -->
-  <section class="screen scroll studio" id="homeScreen" hidden>
-    <span class="tape accent">Dad's studio</span>
-    <h1>One box at a time.</h1>
-    <button class="btn primary" id="newBtn" type="button">Start a new round</button>
-    <p class="note" id="aiNote" hidden>Claude can't look at photos in this view, so you'll draw the boxes and type the names yourself.</p>
-    <div class="sec">
-      <h2 class="sec-h">Sent to <span class="kidname">her</span></h2>
-      <ul class="rlist" id="liveList"></ul>
-      <p class="empty" id="liveEmpty">Nothing sent yet. Start a round and her picks show up here as she swipes.</p>
+  <!-- ===== Studio ===== -->
+  <section class="screen scroll" id="homeScreen" hidden>
+    <div class="hero"><h1 class="lt">Rounds</h1></div>
+    <div class="empty-card" id="homeEmpty" hidden>
+      <div class="bigic" data-ic="camera"></div>
+      <h2>Start your first round</h2>
+      <p>Lay out a batch of stuff and take one photo. Claude finds each thing and writes it a profile.</p>
+      <button class="btn fill" id="newBtn2" type="button">New Round</button>
     </div>
-    <div class="sec" id="draftWrap" hidden>
-      <h2 class="sec-h">Not sent yet</h2>
-      <ul class="rlist" id="draftList"></ul>
+    <div class="sect" id="liveWrap" hidden>
+      <h2 class="sect-h">Sent</h2>
+      <ul class="group thumbs" id="liveList"></ul>
     </div>
-    <details class="sec" id="archWrap" hidden>
-      <summary class="sec-h">Archived</summary>
-      <ul class="rlist" id="archList"></ul>
+    <div class="sect" id="draftWrap" hidden>
+      <h2 class="sect-h">Drafts</h2>
+      <ul class="group thumbs" id="draftList"></ul>
+    </div>
+    <details class="sect" id="archWrap" hidden>
+      <summary class="sect-h"><span>Archived <span data-ic="chev"></span></span></summary>
+      <ul class="group thumbs" id="archList"></ul>
     </details>
-    <div class="help">
-      <b>Getting <span class="kidname">her</span> in</b>
-      <p>Tap Share on this page, invite her email, and set her to <strong>Editor</strong>. Keep the public link off. Editor is what lets her swipes land here on their own.</p>
-      <button class="chip" id="copyLink" type="button">Copy her link</button>
+    <div class="sect">
+      <h2 class="sect-h">Sharing</h2>
+      <ul class="group icons">
+        <li><button class="row" id="copyLink" type="button"><span class="isq tint" data-ic="link"></span><span class="tx"><span class="t">Copy Link for <span class="kidname">Her</span></span></span></button></li>
+      </ul>
+      <p class="sect-f">Share this page with <span class="kidname">her</span> by email and set her to Editor, with the public link off. That's what lets her swipes come back here on their own.</p>
     </div>
+    <p class="sect-f" id="aiNote" hidden>Claude can't look at photos in this view, so you'll draw the boxes and type the names yourself.</p>
   </section>
 
-  <section class="screen scroll studio" id="newScreen" hidden>
-    <span class="tape accent">New round · Step 1 of 3</span>
-    <h1>Snap the stuff.</h1>
-    <div class="seg" role="group" aria-label="What did you shoot?">
-      <button id="modeMany" type="button" aria-pressed="true">Lots in one photo</button>
-      <button id="modeOne" type="button" aria-pressed="false">One thing per photo</button>
+  <section class="screen scroll" id="newScreen" hidden>
+    <div class="hero"><h1 class="lt">New Round</h1></div>
+    <div class="sect">
+      <div class="segm" role="group" aria-label="What did you shoot?">
+        <button id="modeMany" type="button" aria-pressed="true">Many Items per Photo</button>
+        <button id="modeOne" type="button" aria-pressed="false">One Item per Photo</button>
+      </div>
+      <p class="sect-f" id="modeHint"></p>
     </div>
-    <p class="hint2" id="modeHint"></p>
-    <label class="drop" id="dropZone">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg>
-      <span id="pickLabel">Take or choose a photo</span>
-      <small id="pickSub">Camera or photo library</small>
-      <input id="photoIn" type="file" accept="image/*" multiple>
-    </label>
-    <ul class="pgrid" id="photoGrid" hidden></ul>
-    <div class="field"><label for="whereIn">Where was it stored? <span>(optional)</span></label><input class="in" id="whereIn" type="text" placeholder="Blue tote in the garage" maxlength="60" autocomplete="off"></div>
-    <div class="field"><label for="noteIn">Note for <span class="kidname">her</span> <span>(optional)</span></label><textarea class="in" id="noteIn" rows="2" placeholder="Found these under the workbench." maxlength="240"></textarea></div>
+    <div class="sect">
+      <ul class="group icons">
+        <li class="picker"><div class="row"><span class="isq tint" data-ic="camera"></span><span class="tx"><span class="t tint" id="pickLabel" style="color:var(--tint)">Take or Choose Photos</span><span class="s" id="pickSub">Camera or photo library</span></span><span data-ic="chev" class="chevw"></span></div><input id="photoIn" type="file" accept="image/*" multiple aria-label="Take or choose photos"></li>
+      </ul>
+      <ul class="photos" id="photoGrid" hidden></ul>
+    </div>
+    <div class="sect">
+      <h2 class="sect-h">Details</h2>
+      <ul class="group">
+        <li><div class="frow"><input class="inp" id="whereIn" type="text" placeholder="Where was it stored?" maxlength="60" autocomplete="off" aria-label="Where was it stored"></div></li>
+        <li><div class="frow"><textarea class="inp" id="noteIn" rows="2" placeholder="Note for her (optional)" maxlength="240" aria-label="Note"></textarea></div></li>
+      </ul>
+      <p class="sect-f"><span class="kidname">She</span> sees your note before she starts swiping.</p>
+    </div>
     <p class="status" id="findStatus" aria-live="polite"></p>
-    <button class="btn plain" id="manualBtn" type="button" hidden>Draw the boxes myself</button>
-    <div class="footbar"><button class="btn plain" id="cancelNew" type="button">Cancel</button><button class="btn primary" id="findBtn" type="button" disabled>Find the items</button></div>
+    <button class="btn gray" id="manualBtn" type="button" hidden>Draw the Boxes Myself</button>
+    <div class="bottom"><button class="btn fill" id="findBtn" type="button" disabled>Find Items</button></div>
   </section>
 
-  <section class="screen scroll studio" id="boxScreen" hidden>
-    <span class="tape accent">New round · Step 2 of 3</span>
-    <h1>Check the boxes.</h1>
-    <p class="hint2" id="boxNote"></p>
+  <section class="screen scroll" id="boxScreen" hidden>
+    <div class="hero"><h1 class="lt">Review Items</h1><p class="lede" id="boxNote"></p></div>
     <div class="edlist" id="edList"></div>
-    <div class="footbar"><button class="btn plain" id="boxBack" type="button">Back</button><button class="btn primary" id="nameBtn" type="button">Name them</button></div>
+    <div class="bottom"><button class="btn fill" id="nameBtn" type="button">Continue</button></div>
   </section>
 
-  <section class="screen scroll studio" id="nameScreen" hidden>
-    <span class="tape accent" id="nameKicker">New round · Step 3 of 3</span>
-    <h1>Name everything.</h1>
+  <section class="screen scroll" id="nameScreen" hidden>
+    <div class="hero"><h1 class="lt" id="nameTitle">Details</h1></div>
     <p class="status" id="nameStatus" aria-live="polite"></p>
-    <div class="field"><label for="titleIn">Round name</label><input class="in title" id="titleIn" type="text" placeholder="Books from the blue tote" maxlength="60" autocomplete="off"></div>
-    <div class="field"><label for="rnote">Note for <span class="kidname">her</span> <span>(optional)</span></label><textarea class="in" id="rnote" rows="2" maxlength="240" placeholder="Found these under the workbench."></textarea></div>
-    <div class="meta2"><b id="nameCount"></b><span id="saveState"></span></div>
-    <ul class="ilist" id="nameList"></ul>
-    <div class="footbar"><button class="btn plain" id="prevBtn" type="button">Preview</button><button class="btn primary" id="sendBtn" type="button">Send</button></div>
+    <div class="sect">
+      <h2 class="sect-h">Round</h2>
+      <ul class="group">
+        <li><div class="frow"><input class="inp" id="titleIn" type="text" placeholder="Round name" maxlength="60" autocomplete="off" aria-label="Round name" style="font-weight:600"></div></li>
+        <li><div class="frow"><textarea class="inp" id="rnote" rows="2" maxlength="240" placeholder="Note for her (optional)" aria-label="Note"></textarea></div></li>
+      </ul>
+    </div>
+    <div class="sect">
+      <h2 class="sect-h"><span id="nameCount">Items</span><span class="aux" id="saveState"></span></h2>
+      <ul class="ilist" id="nameList"></ul>
+    </div>
+    <div class="bottom two"><button class="btn gray" id="prevBtn" type="button">Preview</button><button class="btn fill" id="sendBtn" type="button">Send</button></div>
   </section>
 
-  <section class="screen scroll studio" id="sentScreen" hidden>
-    <span class="tape keep">Sent</span>
-    <h1 id="sentHead"></h1>
-    <p class="lede">Her picks show up in your studio as she swipes.</p>
-    <div class="send">
-      <h2>Text her the link</h2>
-      <pre class="result" id="shareText"></pre>
-      <button class="btn primary" id="copyShare" type="button">Copy the text</button>
+  <section class="screen scroll" id="sentScreen" hidden>
+    <div class="hero" style="align-items:center;text-align:center;padding-top:18px">
+      <div class="bigic ok" data-ic="check"></div>
+      <h1 class="lt" style="margin-top:14px">Sent</h1>
+      <p class="lede" id="sentHead"></p>
     </div>
-    <button class="btn plain" id="sentDone" type="button">Back to the studio</button>
+    <div class="sect">
+      <h2 class="sect-h"><span>Text <span class="kidname">her</span> the link</span></h2>
+      <p class="bubble out" id="shareText"></p>
+    </div>
+    <button class="btn fill" id="copyShare" type="button"><span data-ic="copy"></span>Copy Message</button>
+    <p class="sect-f" style="text-align:center">Her picks show up in Rounds as she swipes.</p>
   </section>
 
-  <section class="screen scroll studio" id="resScreen" hidden>
-    <button class="linkbtn" id="resBack" type="button">‹ All rounds</button>
-    <span class="tape" id="resKicker"></span>
-    <h1 id="resHead"></h1>
-    <div class="bar"><i id="resBar"></i></div>
-    <div class="group">
-      <h2 class="group-h keep"><span class="dot"></span><span>Keeping</span><span id="resKeepN"></span></h2>
-      <ul class="rrows" id="resKeep"></ul>
-      <p class="empty" id="resKeepE" hidden>Nothing yet.</p>
+  <section class="screen scroll" id="resScreen" hidden>
+    <div class="hero">
+      <p class="eyebrow" id="resKicker"></p>
+      <h1 class="lt" id="resTitle"></h1>
+      <p class="lede" id="resHead"></p>
     </div>
-    <div class="group">
-      <h2 class="group-h toss"><span class="dot"></span><span>Donating</span><span id="resTossN"></span></h2>
-      <ul class="rrows" id="resToss"></ul>
-      <p class="empty" id="resTossE" hidden>Nothing yet.</p>
+    <div class="tiles three">
+      <div class="tile keep"><b id="resKeepN">0</b><span>Keep</span></div>
+      <div class="tile toss"><b id="resTossN">0</b><span>Donate</span></div>
+      <div class="tile"><b id="resLeftN">0</b><span>Left</span></div>
     </div>
-    <details class="group" id="resWait" hidden>
-      <summary class="group-h">Not swiped yet <span id="resWaitN"></span></summary>
-      <ul class="rrows" id="resWaitList"></ul>
+    <div class="sect" id="resKeepS">
+      <h2 class="sect-h big">Keeping</h2>
+      <ul class="group thumbs" id="resKeep"></ul>
+      <p class="sect-f">Check things off as you pack them.</p>
+    </div>
+    <div class="sect" id="resTossS">
+      <h2 class="sect-h big">Donating</h2>
+      <ul class="group thumbs" id="resToss"></ul>
+      <p class="sect-f">Check things off as you drop them off.</p>
+    </div>
+    <details class="sect" id="resWait" hidden>
+      <summary class="sect-h"><span>Not Swiped Yet <span id="resWaitN"></span> <span data-ic="chev"></span></span></summary>
+      <ul class="group thumbs" id="resWaitList"></ul>
     </details>
-    <div class="row"><button class="btn plain" id="copyLists" type="button">Copy the lists</button><button class="btn plain" id="editRound" type="button">Edit names</button></div>
-    <div class="row"><button class="btn plain" id="copyKid" type="button">Copy text for her</button><button class="btn plain" id="archBtn" type="button">Archive round</button></div>
+    <ul class="group icons" id="resActions"></ul>
   </section>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -437,18 +487,53 @@ details.sec summary{cursor:pointer}
 (() => {
   "use strict";
   const LINK = "https://claude.ai/artifact/HJ9XSeBYKeMdY8UpvhPMWW";
-  const DEFAULTS = { appName: "Keepers", kidName: "", dadName: "Dad", dadPhone: "", keepWord: "Keep", tossWord: "Donate", keepStamp: "Keeper" };
+  const DEFAULTS = { appName: "Sift", kidName: "", dadName: "Dad", dadPhone: "", keepWord: "Keep", tossWord: "Donate", keepStamp: "Keep" };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s) => document.querySelector(s);
   const KID_SCREENS = ["introScreen", "deckScreen", "sumScreen", "roundsScreen", "emptyScreen"];
   const SCREENS = ["loadScreen", ...KID_SCREENS, "homeScreen", "newScreen", "boxScreen", "nameScreen", "sentScreen", "resScreen"];
 
-  let CFG = DEFAULTS, BAKED = [], ROUNDS = [], cur = null, busy = false, drag = null, toastTimer = 0, redoTimer = 0, onScreen = "";
+  let CFG = DEFAULTS, BAKED = [], ROUNDS = [], cur = null, busy = false, drag = null, toastTimer = 0, onScreen = "", NAVCFG = null;
   let MODE = "kid", PREVIEW = false, RETURN_TO = null;
   let DB = null, USER = null, SAMPLE = null, ASSETS = null, IS_OWNER = false, CAN_WRITE = null, IMG = null;
   const PICKS = {};
   const S = { rounds: new Map(), items: new Map(), resId: null, handled: {}, unsubH: null };
   let D = null;
+
+  /* ================= icons ================= */
+  const ICONS = {
+    back: '<path d="M15 4.5L7.5 12l7.5 7.5"/>',
+    chev: '<path d="M9 5l7 7-7 7"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    x: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+    heart: '<path d="M12 21s-7.4-4.5-9.5-9.2C1 8.4 3.1 4.5 6.9 4.5c2.1 0 3.6 1.1 4.4 2.6.8-1.5 2.3-2.6 4.4-2.6 3.8 0 5.9 3.9 4.4 7.3C18.9 16.5 12 21 12 21z"/>',
+    undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/>',
+    camera: '<path d="M3.5 8.5A1.5 1.5 0 015 7h2.5l1.6-2.2h5.8L16.5 7H19a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0119 19H5a1.5 1.5 0 01-1.5-1.5z"/><circle cx="12" cy="12.8" r="3.6"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    box: '<path d="M3.5 7.5L12 3.2l8.5 4.3v9L12 20.8l-8.5-4.3z"/><path d="M3.5 7.5L12 11.8l8.5-4.3M12 11.8v9"/>',
+    rotate: '<path d="M19.5 12a7.5 7.5 0 11-2.2-5.3"/><path d="M19.5 4.5v4.8h-4.8"/>',
+    sparkle: '<path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+    trash: '<path d="M4.5 7h15M10 11v6M14 11v6M6.5 7l.9 12.2a1 1 0 001 .8h7.2a1 1 0 001-.8L17.5 7M9.5 7V4.5h5V7"/>',
+    copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V5.5a1 1 0 00-1-1h-9a1 1 0 00-1 1v9a1 1 0 001 1h3"/>',
+    msg: '<path d="M12 4.5c4.7 0 8.5 3 8.5 6.8s-3.8 6.8-8.5 6.8c-.9 0-1.8-.1-2.6-.3L5 19.5l1.2-3.4C4.6 14.9 3.5 13.2 3.5 11.3 3.5 7.5 7.3 4.5 12 4.5z"/>',
+    archive: '<rect x="3.5" y="4.5" width="17" height="4.5" rx="1"/><path d="M5 9v9.5a1 1 0 001 1h12a1 1 0 001-1V9M10 13h4"/>',
+    pencil: '<path d="M4.5 19.5h4l10-10-4-4-10 10z"/><path d="M13 7l4 4"/>',
+    link: '<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
+    list: '<path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r=".6"/><circle cx="4.8" cy="12" r=".6"/><circle cx="4.8" cy="17.5" r=".6"/>',
+    restart: '<path d="M4.5 12a7.5 7.5 0 107.5-7.5H9"/><path d="M11 2L8.5 4.5 11 7"/>',
+    eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  };
+  const FILLED = new Set(["heart"]);
+  function ic(name, cls) {
+    const t = document.createElement("template");
+    const paint = FILLED.has(name) ? 'fill="currentColor" stroke="none"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+    t.innerHTML = `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" ${paint} aria-hidden="true">${ICONS[name] || ""}</svg>`;
+    return t.content.firstChild;
+  }
+  document.querySelectorAll("[data-ic]").forEach((n) => {
+    const s = ic(n.dataset.ic, n.dataset.ic === "chev" ? "chev" : "");
+    if (n.dataset.ic === "chev" && n.tagName === "SPAN" && !n.childNodes.length) n.replaceWith(s); else n.prepend(s);
+  });
 
   /* ================= helpers ================= */
   function el(tag, props, ...kids) {
@@ -468,20 +553,80 @@ details.sec summary{cursor:pointer}
   const clean = (s) => String(s == null ? "" : s).replace(/\s*[—–]\s*/g, ", ").replace(/\s+-\s+/g, ", ").trim();
   const kid = () => CFG.kidName || "her";
   const shortDate = () => new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  function row(o) {
+    const tag = o.href ? "a" : o.onclick ? "button" : "div";
+    const n = el(tag, { class: "row" + (o.cls ? " " + o.cls : ""), type: tag === "button" ? "button" : null, href: o.href || null, "aria-label": o.aria || null, onclick: o.onclick || null });
+    if (o.icon) n.append(el("span", { class: "isq " + (o.icon[1] || "tint") }, ic(o.icon[0])));
+    if (o.img !== undefined) {
+      if (o.img) { const im = el("img", { class: "thumb", src: o.img, alt: "" }); n.append(im); }
+      else n.append(el("span", { class: "thumb" }, ic("box")));
+    }
+    n.append(el("span", { class: "tx" }, el("span", { class: "t", text: o.title }), o.sub ? el("span", { class: "s", text: o.sub }) : null));
+    if (o.right) n.append(typeof o.right === "string" ? el("span", { class: "val", text: o.right }) : o.right);
+    if (o.chev) n.append(ic("chev", "chev"));
+    return el("li", null, n);
+  }
+  function ringEl(frac) {
+    const C = 2 * Math.PI * 14, t = document.createElement("template");
+    t.innerHTML = `<svg class="ring" viewBox="0 0 34 34" aria-hidden="true"><circle class="trk" cx="17" cy="17" r="14"/><circle class="val" cx="17" cy="17" r="14" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - frac)).toFixed(2)}"/></svg>`;
+    return t.content.firstChild;
+  }
+
+  /* ---------- nav bar ---------- */
+  function backToStudio() {
+    MODE = "dad"; PREVIEW = false; cur = null;
+    const t = RETURN_TO; RETURN_TO = null;
+    if (t) show(t); else renderHome();
+  }
+  function navFor(id) {
+    const ownerKid = IS_OWNER && MODE === "kid";
+    const kidBack = ownerKid ? { label: RETURN_TO ? "Edit" : "Studio", fn: backToStudio } : null;
+    const roundsBtn = !cur || cur.source === "draft" || ROUNDS.length < 2 ? [] : [{ label: "Rounds", fn: renderRounds }];
+    switch (id) {
+      case "introScreen": case "sumScreen": return { back: kidBack, right: roundsBtn };
+      case "deckScreen": return { back: kidBack, right: roundsBtn, title: cur ? cur.title : "" };
+      case "roundsScreen": return { back: { label: "Back", fn: () => (cur ? openRound(cur) : enterKid(PREVIEW)) } };
+      case "emptyScreen": return { back: kidBack };
+      case "homeScreen": return { right: [{ label: "Preview", fn: () => { RETURN_TO = null; enterKid(true); } }, { icon: "plus", aria: "New round", fn: newRound }] };
+      case "newScreen": return { back: { label: "Cancel", plain: true, fn: () => { D = null; renderHome(); } } };
+      case "boxScreen": return { back: { label: "Photos", fn: () => { renderNew(); show("newScreen"); } } };
+      case "nameScreen": return { back: { label: "Rounds", fn: renderHome } };
+      case "sentScreen": return { right: [{ label: "Done", strong: true, fn: renderHome }] };
+      case "resScreen": return { back: { label: "Rounds", fn: renderHome }, right: [{ label: "Edit", fn: () => resumeRound(S.resId) }] };
+      default: return {};
+    }
+  }
+  function paintNav(id) {
+    NAVCFG = navFor(id);
+    const L = $("#navL"), R = $("#navR");
+    L.replaceChildren(); R.replaceChildren();
+    const b = NAVCFG.back;
+    if (b) L.append(el("button", { class: "navbtn" + (b.plain ? "" : " back"), type: "button", "data-nav": b.label, onclick: b.fn }, b.plain ? null : ic("back"), el("span", { text: b.label })));
+    (NAVCFG.right || []).forEach((r) => R.append(r.icon
+      ? el("button", { class: "navbtn circle", type: "button", "aria-label": r.aria, "data-nav": r.aria, onclick: r.fn }, ic(r.icon))
+      : el("button", { class: "navbtn" + (r.strong ? " strong" : ""), type: "button", "data-nav": r.label, onclick: r.fn, text: r.label })));
+    const sc = $("#" + id), lt = sc && sc.querySelector(".lt");
+    $("#navT").textContent = NAVCFG.title || (lt ? lt.textContent : "");
+    updateNav();
+  }
+  function updateNav() {
+    const sc = $("#" + onScreen), nav = $("#nav");
+    if (!sc) return;
+    const lt = sc.querySelector(".lt");
+    const past = lt && sc.scrollTop > lt.offsetTop + lt.offsetHeight - 6;
+    nav.classList.toggle("show-t", !!(NAVCFG && NAVCFG.title) || !!past);
+    nav.classList.toggle("edge", sc.classList.contains("scroll") && sc.scrollTop > 2);
+  }
+  document.querySelectorAll(".screen.scroll").forEach((s) => s.addEventListener("scroll", () => { if (s.id === onScreen) updateNav(); }, { passive: true }));
+
   function show(id) {
     const changed = id !== onScreen;
     onScreen = id;
     SCREENS.forEach((s) => { const n = $("#" + s); if (n) n.hidden = s !== id; });
-    const isKid = KID_SCREENS.includes(id);
-    const rb = $("#roundsBtn");
-    rb.hidden = !isKid || id === "emptyScreen" || cur?.source === "draft";
-    rb.textContent = id === "roundsScreen" ? "Back" : "Rounds";
-    const mb = $("#modeBtn");
-    mb.hidden = !IS_OWNER || id === "loadScreen";
-    mb.textContent = MODE === "dad" ? "Her view" : RETURN_TO ? "Back to studio" : "Studio";
-    $("#previewBar").hidden = !(PREVIEW && isKid);
+    $("#previewBar").hidden = !(PREVIEW && KID_SCREENS.includes(id));
     const sc = $("#" + id);
     if (changed && sc && sc.classList.contains("scroll")) sc.scrollTop = 0;
+    paintNav(id);
   }
   function toast(msg) {
     const t = $("#toast");
@@ -512,16 +657,18 @@ details.sec summary{cursor:pointer}
   function selectNode(node) {
     if (!node) return false;
     try {
+      node.style.display = "block";
       const range = document.createRange(); range.selectNodeContents(node);
       const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
       return document.execCommand("copy");
     } catch (e) { return false; }
   }
   function armButton(btn, label, armedLabel, fn) {
+    const lab = () => btn.querySelector(".t") || btn.querySelector("span:last-child") || btn;
     btn.addEventListener("click", () => {
-      if (btn.dataset.armed) { btn.dataset.armed = ""; btn.textContent = label; btn.classList.remove("armed"); fn(); return; }
-      btn.dataset.armed = "1"; btn.textContent = armedLabel; btn.classList.add("armed");
-      setTimeout(() => { if (btn.dataset.armed) { btn.dataset.armed = ""; btn.textContent = label; btn.classList.remove("armed"); } }, 3500);
+      if (btn.dataset.armed) { btn.dataset.armed = ""; lab().textContent = label; btn.classList.remove("armed"); fn(); return; }
+      btn.dataset.armed = "1"; lab().textContent = armedLabel; btn.classList.add("armed");
+      setTimeout(() => { if (btn.dataset.armed) { btn.dataset.armed = ""; lab().textContent = label; btn.classList.remove("armed"); } }, 3500);
     });
   }
   async function pool(list, n, fn) {
@@ -543,7 +690,7 @@ details.sec summary{cursor:pointer}
     return c;
   }
   const toBlob = (c, q) => new Promise((res, rej) => c.toBlob((b) => (b ? res(b) : rej(new Error("blob"))), "image/jpeg", q || 0.86));
-  const thumbOf = (c) => scaled(c, 420).toDataURL("image/jpeg", 0.68);
+  const thumbOf = (c) => scaled(c, 420).toDataURL("image/jpeg", 0.7);
 
   /* ================= capabilities + sync ================= */
   function getCaps() {
@@ -595,7 +742,7 @@ details.sec summary{cursor:pointer}
 
   /* ================= her side: swipe deck ================= */
   const mem = {};
-  const lkey = (r) => "keepers:v2:" + (PREVIEW ? "preview:" : "") + r.id;
+  const lkey = (r) => "sift:v1:" + (PREVIEW ? "preview:" : "") + r.id;
   function st(r) {
     const k = lkey(r);
     if (!mem[k]) {
@@ -631,35 +778,33 @@ details.sec summary{cursor:pointer}
 
   function renderIntro() {
     const r = cur, n = r.items.length;
-    $("#introKicker").textContent = r.kicker || "New round";
-    $("#introTitle").textContent = r.title;
-    $("#introLede").textContent = `${CFG.kidName ? "Hey " + CFG.kidName + "." : "Hey you."} ${n} ${n === 1 ? "thing is" : "things are"} waiting on you.`;
-    const note = $("#introNote");
-    note.hidden = !r.note;
-    if (r.note) { note.querySelector("b").textContent = "From " + CFG.dadName; note.querySelector("span").textContent = r.note; }
+    $("#introKicker").textContent = r.title;
+    $("#introTitle").textContent = CFG.kidName ? `Hey ${CFG.kidName}` : "Hey there";
+    $("#introLede").textContent = `${n} ${n === 1 ? "thing is" : "things are"} waiting on you. Keep what you love and let the rest go.`;
+    $("#introNote").hidden = !r.note;
+    if (r.note) { $("#introFrom").textContent = CFG.dadName; $("#introNoteText").textContent = r.note; }
     show("introScreen");
   }
   function startDeck() {
     const s = st(cur); s.started = true; save(cur);
-    $("#deckTitle").textContent = cur.title;
     $("#deck").replaceChildren();
     show("deckScreen");
     fillDeck();
   }
   function cardEl(it) {
     const fg = el("img", { class: "fg", src: it.img, alt: it.name || "", draggable: "false" });
-    const blur = el("img", { class: "blur", src: it.img, alt: "", "aria-hidden": "true", draggable: "false" });
-    fg.onerror = () => { if (it.thumb && fg.getAttribute("src") !== it.thumb) { fg.src = it.thumb; blur.src = it.thumb; } };
+    const bg = el("img", { class: "bg", src: it.img, alt: "", "aria-hidden": "true", draggable: "false" });
+    fg.onerror = () => { if (it.thumb && fg.getAttribute("src") !== it.thumb) { fg.src = it.thumb; bg.src = it.thumb; } };
     const c = el("article", { class: "card", "data-id": it.id, "aria-label": it.name || "Item" },
-      el("div", { class: "photo" }, blur, fg,
-        el("span", { class: "stamp keep", text: CFG.keepStamp }),
-        el("span", { class: "stamp toss", text: CFG.tossWord })),
+      bg, fg, el("div", { class: "scrim" }),
+      el("span", { class: "stamp keep", text: CFG.keepStamp }),
+      el("span", { class: "stamp toss", text: CFG.tossWord }),
       el("div", { class: "info" },
+        it.where ? el("span", { class: "where" }, ic("box"), el("span", { text: it.where })) : null,
         el("h3", { text: it.name || "Mystery item" }),
         it.sub ? el("p", { class: "sub", text: it.sub }) : null,
-        it.where ? el("span", { class: "tape", text: it.where }) : null,
         it.bio ? el("p", { class: "bio", text: it.bio }) : null,
-        it.tags && it.tags.length ? el("ul", { class: "tags" }, it.tags.map((t) => el("li", { text: t }))) : null));
+        it.tags && it.tags.length ? el("ul", { class: "chips" }, it.tags.map((t) => el("li", { text: t }))) : null));
     c.addEventListener("pointerdown", down);
     return c;
   }
@@ -687,10 +832,10 @@ details.sec summary{cursor:pointer}
     const a = Math.max(-1, Math.min(1, dx / 110));
     c.querySelector(".stamp.keep").style.opacity = Math.max(0, a);
     c.querySelector(".stamp.toss").style.opacity = Math.max(0, -a);
-    $("#keepBtn .ring").style.transform = a > 0 ? `scale(${1 + a * 0.14})` : "";
-    $("#tossBtn .ring").style.transform = a < 0 ? `scale(${1 - a * 0.14})` : "";
+    $("#keepBtn").style.transform = a > 0 ? `scale(${1 + a * 0.12})` : "";
+    $("#tossBtn").style.transform = a < 0 ? `scale(${1 - a * 0.12})` : "";
   }
-  function resetButtons() { $("#keepBtn .ring").style.transform = ""; $("#tossBtn .ring").style.transform = ""; }
+  function resetButtons() { $("#keepBtn").style.transform = ""; $("#tossBtn").style.transform = ""; }
   function down(e) {
     const c = e.currentTarget;
     if (busy || c !== topCard() || (e.pointerType === "mouse" && e.button !== 0)) return;
@@ -705,7 +850,7 @@ details.sec summary{cursor:pointer}
     if (!drag || e.pointerId !== drag.id) return;
     drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
     if (Math.abs(drag.dx) + Math.abs(drag.dy) > 8) drag.moved = true;
-    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${drag.dx / 16}deg)`;
+    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${drag.dx / 18}deg)`;
     lean(drag.c, drag.dx);
   }
   function up(e) {
@@ -721,7 +866,7 @@ details.sec summary{cursor:pointer}
       if (dx < -th || (v < -0.55 && dx < -36)) return decide("toss");
     }
     drag = null;
-    c.style.transition = reduce ? "none" : "transform .4s cubic-bezier(.3,1.5,.5,1)";
+    c.style.transition = reduce ? "none" : "transform .4s cubic-bezier(.3,1.4,.5,1)";
     c.style.transform = "";
     lean(c, 0); resetButtons();
     if (!moved) c.classList.toggle("open");
@@ -740,7 +885,7 @@ details.sec summary{cursor:pointer}
     const under = cards().find((x) => x.classList.contains("under"));
     if (under) under.classList.remove("under");
     c.style.transition = reduce ? "none" : "transform .34s cubic-bezier(.25,.6,.3,1)";
-    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 28}deg)`;
+    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 26}deg)`;
     progress();
     setTimeout(() => { c.remove(); busy = false; fillDeck(); }, reduce ? 0 : 320);
   }
@@ -752,13 +897,13 @@ details.sec summary{cursor:pointer}
     const prev = s.d[id];
     delete s.d[id]; save(cur);
     const it = cur.items.find((i) => i.id === id);
-    if (!it || $("#deckScreen").hidden) { startDeck(); return; }
+    if (!it || onScreen !== "deckScreen") { startDeck(); return; }
     busy = true;
     cards().forEach((x) => { if (x.classList.contains("under")) x.remove(); else x.classList.add("under"); });
     const c = cardEl(it), dir = prev === "keep" ? 1 : -1;
     c.classList.add("gone");
     c.style.transition = "none";
-    c.style.transform = `translate(${dir * (innerWidth + 300)}px, 40px) rotate(${dir * 28}deg)`;
+    c.style.transform = `translate(${dir * (innerWidth + 300)}px, 40px) rotate(${dir * 26}deg)`;
     $("#deck").append(c);
     c.getBoundingClientRect();
     c.style.transition = reduce ? "none" : "transform .36s cubic-bezier(.2,.8,.25,1)";
@@ -783,13 +928,13 @@ details.sec summary{cursor:pointer}
     ].join("\n");
   }
   function headline(k, t) {
-    if (!t) return `Keeping all ${k}. Every single one.`;
+    if (!t) return `You kept all ${k}. Every single one.`;
     if (!k) return `All ${t} are off to a new home.`;
-    return `Keeping ${k}. ${t} ${t === 1 ? "is" : "are"} off to a new home.`;
+    return `You kept ${k} and sent ${t} off to a new home.`;
   }
   function grid(listId, emptyId, items, flipTo) {
     $(listId).replaceChildren(...items.map((it) => el("li", null,
-      el("button", { class: "thumb", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
+      el("button", { class: "ph", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
         el("span", { class: "im" }, el("img", { src: it.thumb || it.img, alt: "", loading: "lazy" })),
         el("span", { class: "t", text: it.name || "Mystery item" })))));
     $(emptyId).hidden = items.length > 0;
@@ -797,12 +942,23 @@ details.sec summary{cursor:pointer}
   function paintSync() {
     const r = cur;
     const synced = canSync(r) && r.synced !== false;
-    const note = $("#syncNote");
-    note.hidden = !(synced || (PREVIEW && r.source !== "baked"));
-    $("#syncText").textContent = PREVIEW ? `In her view, picks go to your studio on their own.` : `${CFG.dadName} already has your picks. Nothing else to do.`;
-    $("#sendHead").textContent = synced ? `Want to text ${CFG.dadName} too?` : `Send it to ${CFG.dadName}`;
-    $("#textBtn").className = synced ? "btn plain" : "btn primary";
+    const g = $("#syncGroup");
+    g.replaceChildren();
+    if (PREVIEW && r.source !== "baked") g.append(row({ icon: ["eye", "tint"], title: "Preview", sub: `In her view, picks go to your studio on their own.` }));
+    else if (synced) g.append(row({ icon: ["check", "green"], title: `Sent to ${CFG.dadName}`, sub: `${CFG.dadName} can already see your picks.` }));
+    else if (CFG.dadPhone) g.append(row({ icon: ["msg", "green"], title: `Text ${CFG.dadName} Your Picks`, sub: "Opens Messages with your list", href: smsHref(r), chev: true, cls: "tint" }));
+    g.hidden = !g.children.length;
+    const a = $("#sumActions");
+    a.replaceChildren();
+    if (synced && CFG.dadPhone) a.append(row({ icon: ["msg", "green"], title: `Text ${CFG.dadName} the List Too`, href: smsHref(r), cls: "tint" }));
+    a.append(row({ icon: ["copy", "gray"], title: "Copy the List", cls: "tint", onclick: () => copyText(resultText(cur), $("#resultText")).then((ok) => toast(ok ? "Copied" : "Select the list and copy it")) }));
+    if (ROUNDS.length > 1) a.append(row({ icon: ["list", "tint"], title: "All Rounds", cls: "tint", onclick: renderRounds, chev: true }));
+    const redo = row({ icon: ["restart", "red"], title: "Start Over", cls: "danger", onclick: () => {} });
+    armButton(redo.firstChild, "Start Over", "Tap Again to Reset", () => { mem[lkey(cur)] = { d: {}, order: [], started: false }; save(cur); renderIntro(); });
+    a.append(redo);
+    a.querySelectorAll("a.row").forEach((n) => n.addEventListener("click", () => { copyText(resultText(cur), $("#resultText")); toast("List copied too, just in case"); }));
   }
+  const smsHref = (r) => `sms:${CFG.dadPhone.replace(/[^\d+]/g, "")}&body=${encodeURIComponent(resultText(r))}`;
   function renderSummary() {
     const r = cur, s = st(r);
     const keep = r.items.filter((i) => s.d[i.id] === "keep"), toss = r.items.filter((i) => s.d[i.id] === "toss");
@@ -811,18 +967,8 @@ details.sec summary{cursor:pointer}
     $("#keepNum").textContent = keep.length; $("#tossNum").textContent = toss.length;
     grid("#keepGrid", "#keepEmpty", keep, "toss");
     grid("#tossGrid", "#tossEmpty", toss, "keep");
-    const txt = resultText(r);
-    $("#resultText").textContent = txt;
-    const a = $("#textBtn");
-    if (CFG.dadPhone) {
-      a.hidden = false;
-      a.textContent = `Copy and text ${CFG.dadName}`;
-      a.href = `sms:${CFG.dadPhone.replace(/[^\d+]/g, "")}&body=${encodeURIComponent(txt)}`;
-      $("#dadNum").textContent = prettyPhone(CFG.dadPhone);
-      $("#fineNum").hidden = false;
-    } else { a.hidden = true; $("#fineNum").hidden = true; }
+    $("#resultText").textContent = resultText(r);
     paintSync();
-    resetRedo();
     if (canSync(r)) save(r, true);
     show("sumScreen");
   }
@@ -833,18 +979,16 @@ details.sec summary{cursor:pointer}
     save(cur);
     renderSummary();
     $("#sumScreen").scrollTop = keepY;
-    toast(`Moved to ${to === "keep" ? "keeping" : "donating"}`);
+    toast(`Moved to ${to === "keep" ? "Keeping" : "Donating"}`);
   }
-  function resetRedo() { clearTimeout(redoTimer); const b = $("#redoBtn"); b.textContent = "Start over"; b.className = "btn plain"; b.dataset.armed = ""; }
 
   function renderRounds() {
     $("#roundList").replaceChildren(...[...ROUNDS].reverse().map((r) => {
       const tot = r.items.length, l = left(r).length, s = st(r);
       const kept = r.items.filter((i) => s.d[i.id] === "keep").length;
-      const [pill, cls] = !l ? [`${kept} kept`, "done"] : l === tot ? ["New", "new"] : [`${l} left`, "mid"];
-      return el("li", null, el("button", { class: "rbtn", type: "button", onclick: () => openRound(r) },
-        el("span", { class: "rt" }, el("b", { text: r.title }), el("small", { text: `${plural(tot, "thing")}${r.date ? " · " + r.date : ""}` })),
-        el("span", { class: "pill " + cls, text: pill })));
+      const right = !l ? el("span", { class: "stat done" }, ic("check"), el("span", { text: `${kept} kept` }))
+        : l === tot ? el("span", { class: "badge", text: "New" }) : el("span", { class: "stat", text: `${l} left` });
+      return row({ img: r.items[0] ? r.items[0].thumb || r.items[0].img : "", title: r.title, sub: `${plural(tot, "thing")}${r.date ? " · " + r.date : ""}`, right, chev: true, onclick: () => openRound(r) });
     }));
     show("roundsScreen");
   }
@@ -868,7 +1012,7 @@ details.sec summary{cursor:pointer}
     return live.map((r) => {
       let k = kidCache.get(r.id);
       if (!k) { k = { id: r.id, source: "db" }; kidCache.set(r.id, k); }
-      Object.assign(k, { title: r.title || "New round", note: r.note || "", kicker: "New round", date: r.date || "", items: (S.items.get(r.id) || []).map(kidItem) });
+      Object.assign(k, { title: r.title || "New round", note: r.note || "", date: r.date || "", items: (S.items.get(r.id) || []).map(kidItem) });
       return k;
     }).filter((r) => r.items.length);
   }
@@ -890,7 +1034,7 @@ details.sec summary{cursor:pointer}
     else openRound(fresh[fresh.length - 1]);
   }
 
-  /* ================= Dad's studio ================= */
+  /* ================= studio ================= */
   function refreshStudio() {
     if (onScreen === "homeScreen") renderHome();
     else if (onScreen === "resScreen") renderResults();
@@ -901,23 +1045,13 @@ details.sec summary{cursor:pointer}
     for (const v of Object.values(p.d || {})) { if (v === "keep") k++; else if (v === "toss") t++; }
     return { k, t, n: k + t, total: total || p.total || 0 };
   }
-  function roundCard(r) {
+  function roundRow(r) {
     const s = pickStats(r.id, r.count);
-    let pill, cls;
-    if (r.status === "archived") { pill = "Archived"; cls = "mid"; }
-    else if (!s.n) { pill = "Waiting"; cls = "new"; }
-    else if (s.n < s.total) { pill = `${s.n} of ${s.total}`; cls = "mid"; }
-    else { pill = "Done"; cls = "done"; }
-    const line = s.n ? `${s.k} keep · ${s.t} go${s.n < s.total ? " so far" : ""}` : `${plural(r.count || 0, "thing")}${r.date ? " · sent " + r.date : ""}`;
-    const bar = el("span", { class: "rbar" }, el("i", { style: `width:${s.total ? Math.round((s.n / s.total) * 100) : 0}%` }));
-    return el("li", null, el("button", { class: "rbtn", type: "button", onclick: () => openResults(r.id) },
-      el("span", { class: "rt" }, el("b", { text: r.title || "Untitled round" }), el("small", { text: line }), bar),
-      el("span", { class: "pill " + cls, text: pill })));
-  }
-  function draftCard(r) {
-    return el("li", null, el("button", { class: "rbtn", type: "button", onclick: () => resumeRound(r.id) },
-      el("span", { class: "rt" }, el("b", { text: r.title || "Untitled round" }), el("small", { text: `${plural(r.count || 0, "thing")} · not sent yet` })),
-      el("span", { class: "pill mid", text: "Draft" })));
+    let right, sub;
+    if (!s.n) { sub = `${plural(r.count || 0, "thing")} · Waiting on ${kid()}`; right = el("span", { class: "stat", text: r.date || "" }); }
+    else if (s.n < s.total) { sub = `${s.k} keep · ${s.t} donate so far`; right = el("span", { class: "stat" }, ringEl(s.n / s.total), el("span", { text: `${s.n}/${s.total}` })); }
+    else { sub = `${s.k} keep · ${s.t} donate`; right = el("span", { class: "stat done" }, ic("check"), el("span", { text: "Done" })); }
+    return row({ img: r.cover || "", title: r.title || "Untitled Round", sub, right, chev: true, onclick: () => openResults(r.id) });
   }
   function renderHome() {
     MODE = "dad"; PREVIEW = false;
@@ -925,12 +1059,13 @@ details.sec summary{cursor:pointer}
     const all = [...S.rounds.values()];
     const by = (s) => all.filter((r) => r.status === s).sort((a, b) => (b.sentAt || b.createdAt || 0) - (a.sentAt || a.createdAt || 0));
     const live = by("live"), drafts = by("draft"), arch = by("archived");
-    $("#liveList").replaceChildren(...live.map(roundCard));
-    $("#liveEmpty").hidden = live.length > 0;
+    $("#homeEmpty").hidden = !!(live.length || drafts.length || arch.length);
+    $("#liveWrap").hidden = !live.length;
+    $("#liveList").replaceChildren(...live.map(roundRow));
     $("#draftWrap").hidden = !drafts.length;
-    $("#draftList").replaceChildren(...drafts.map(draftCard));
+    $("#draftList").replaceChildren(...drafts.map((r) => row({ img: r.cover || "", title: r.title || "Untitled Round", sub: `Draft · ${plural(r.count || 0, "thing")}`, chev: true, onclick: () => resumeRound(r.id) })));
     $("#archWrap").hidden = !arch.length;
-    $("#archList").replaceChildren(...arch.map(roundCard));
+    $("#archList").replaceChildren(...arch.map(roundRow));
     $("#aiNote").hidden = !!(SAMPLE && IMG);
     show("homeScreen");
   }
@@ -939,7 +1074,6 @@ details.sec summary{cursor:pointer}
   async function openResults(rid) {
     S.resId = rid; S.handled = {};
     if (S.unsubH) { try { S.unsubH(); } catch (e) {} S.unsubH = null; }
-    $("#archBtn").dataset.armed = "";
     show("resScreen");
     renderResults();
     await ensureItems(rid, true);
@@ -953,10 +1087,12 @@ details.sec summary{cursor:pointer}
   }
   function resRow(i, label) {
     const done = !!S.handled[i.id];
-    return el("li", { class: "rrow" + (done && label ? " handled" : "") },
-      el("img", { src: i.thumb || "", alt: "" }),
-      el("span", { class: "rn" }, el("b", { text: i.name || "Mystery item" }), i.sub ? el("small", { text: i.sub }) : null),
-      label ? el("button", { class: "chk", type: "button", "aria-pressed": String(done), onclick: () => toggleHandled(i.id) }, el("span", { class: "box" }), el("span", { text: label })) : el("span"));
+    const n = row({ img: i.thumb || "", title: i.name || "Mystery item", sub: i.sub || "" });
+    if (label) {
+      n.firstChild.classList.toggle("done", done);
+      n.firstChild.append(el("button", { class: "cbox", type: "button", "aria-pressed": String(done), "aria-label": `${label}: ${i.name}`, onclick: () => toggleHandled(i.id) }, ic("check")));
+    }
+    return n;
   }
   function resSplit() {
     const r = S.rounds.get(S.resId);
@@ -964,22 +1100,34 @@ details.sec summary{cursor:pointer}
     const p = (PICKS[S.resId] && PICKS[S.resId].d) || {};
     return { r, items, keep: items.filter((i) => p[i.id] === "keep"), toss: items.filter((i) => p[i.id] === "toss"), wait: items.filter((i) => !p[i.id]) };
   }
+  let archArmed = false;
   function renderResults() {
     if (onScreen !== "resScreen") return;
     const { r, items, keep, toss, wait } = resSplit();
     if (!r) { renderHome(); return; }
     const total = items.length || r.count || 0, n = keep.length + toss.length;
-    $("#resKicker").textContent = r.title || "Round";
-    $("#resHead").textContent = !n ? `Waiting on ${kid()}.` : wait.length ? `${n} of ${total} swiped so far.` : `${keep.length} keep. ${toss.length} go.`;
-    $("#resBar").style.width = total ? (n / total) * 100 + "%" : "0";
-    $("#resKeepN").textContent = keep.length; $("#resTossN").textContent = toss.length;
+    $("#resKicker").textContent = [r.date ? "Sent " + r.date : "", r.where].filter(Boolean).join(" · ");
+    $("#resTitle").textContent = r.title || "Round";
+    $("#navT").textContent = r.title || "Round";
+    $("#resHead").textContent = !n ? `Waiting on ${kid()} to start.` : wait.length ? `${kid()[0].toUpperCase() + kid().slice(1)} has swiped ${n} of ${total}.` : `All ${total} swiped. Time to pack.`;
+    $("#resKeepN").textContent = keep.length; $("#resTossN").textContent = toss.length; $("#resLeftN").textContent = items.length ? wait.length : total;
+    $("#resKeepS").hidden = !keep.length; $("#resTossS").hidden = !toss.length;
     $("#resKeep").replaceChildren(...keep.map((i) => resRow(i, "Packed")));
-    $("#resToss").replaceChildren(...toss.map((i) => resRow(i, "Gone")));
-    $("#resKeepE").hidden = keep.length > 0; $("#resTossE").hidden = toss.length > 0;
-    $("#resWait").hidden = !wait.length || !items.length;
+    $("#resToss").replaceChildren(...toss.map((i) => resRow(i, "Dropped off")));
+    $("#resWait").hidden = !wait.length || !items.length || !n;
     $("#resWaitN").textContent = `(${wait.length})`;
     $("#resWaitList").replaceChildren(...wait.map((i) => resRow(i, null)));
-    if (!$("#archBtn").dataset.armed) $("#archBtn").textContent = r.status === "archived" ? "Bring it back" : "Archive round";
+    const a = $("#resActions");
+    a.replaceChildren(
+      row({ icon: ["copy", "tint"], title: "Copy Both Lists", cls: "tint", onclick: () => copyText(listsText()).then((ok) => toast(ok ? "Both lists copied" : "Couldn't copy here")) }),
+      row({ icon: ["msg", "green"], title: `Copy Message for ${kid()[0].toUpperCase() + kid().slice(1)}`, cls: "tint", onclick: () => copyText(shareText(r.title || "New round", r.count || 0)).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Couldn't copy here")) }),
+      row({ icon: ["pencil", "orange"], title: "Edit Items", cls: "tint", chev: true, onclick: () => resumeRound(r.id) }));
+    if (r.status === "archived") a.append(row({ icon: ["archive", "gray"], title: "Restore Round", cls: "tint", onclick: () => writeDoc("rounds/" + r.id, { status: "live" }, true).then(() => toast("It's back in her list")).catch(saveErr) }));
+    else {
+      const arch = row({ icon: ["archive", "red"], title: "Archive Round", cls: "danger", onclick: () => {} });
+      armButton(arch.firstChild, "Archive Round", "Tap Again to Archive", () => writeDoc("rounds/" + r.id, { status: "archived" }, true).then(() => { toast("Archived. It's off her list."); renderHome(); }).catch(saveErr));
+      a.append(arch);
+    }
   }
   function toggleHandled(iid) {
     if (S.handled[iid]) delete S.handled[iid]; else S.handled[iid] = true;
@@ -991,7 +1139,7 @@ details.sec summary{cursor:pointer}
     const line = (i) => `• ${i.name || "Mystery item"} (#${items.indexOf(i) + 1})`;
     return [r.title || "Round", "", `KEEP (${keep.length})`, ...(keep.length ? keep.map(line) : ["• none"]), "", `DONATE (${toss.length})`, ...(toss.length ? toss.map(line) : ["• none"])].join("\n");
   }
-  const shareText = (title, n) => `New Keepers round: ${title}. ${plural(n, "thing")} to swipe. Right to keep, left to donate.\n${LINK}`;
+  const shareText = (title, n) => `New ${CFG.appName} round: ${title}. ${plural(n, "thing")} to swipe. Right to keep, left to donate.\n${LINK}`;
 
   /* ---------- new round: photos ---------- */
   function newRound() {
@@ -1006,16 +1154,17 @@ details.sec summary{cursor:pointer}
     $("#modeMany").setAttribute("aria-pressed", String(D.mode === "many"));
     $("#modeOne").setAttribute("aria-pressed", String(D.mode === "one"));
     $("#modeHint").textContent = D.mode === "many"
-      ? "Lay things out with a little space between them and shoot from above. Claude finds each one. Add more photos for more piles."
-      : "Each photo is one item. Good for big stuff or a quick string of snaps.";
-    $("#photoGrid").replaceChildren(...D.photos.map((ph, i) => el("li", { class: "pthumb" },
+      ? "Lay things out with a little space between them and shoot from above. Claude finds each item. Add more photos for more piles."
+      : "Each photo is one item. Good for big things or a quick string of snaps.";
+    $("#photoGrid").replaceChildren(...D.photos.map((ph, i) => el("li", null,
       el("img", { src: ph.url, alt: `Photo ${i + 1}` }),
-      el("button", { class: "px", type: "button", "aria-label": "Remove this photo", text: "×", onclick: () => { URL.revokeObjectURL(ph.url); D.photos.splice(i, 1); renderNew(); } }))));
+      el("button", { class: "px", type: "button", "aria-label": "Remove this photo", onclick: () => { URL.revokeObjectURL(ph.url); D.photos.splice(i, 1); renderNew(); } }, ic("x")))));
     $("#photoGrid").hidden = !D.photos.length;
-    $("#pickLabel").textContent = D.photos.length ? "Add more photos" : D.mode === "many" ? "Take or choose a photo" : "Take or choose photos";
+    $("#pickLabel").textContent = D.photos.length ? "Add More Photos" : "Take or Choose Photos";
+    $("#pickSub").textContent = D.photos.length ? `${plural(D.photos.length, "photo")} added` : "Camera or photo library";
     const f = $("#findBtn");
     f.disabled = !D.photos.length || !!D.busy;
-    f.textContent = D.mode === "many" ? "Find the items" : D.photos.length ? `Name ${plural(D.photos.length, "thing")}` : "Name them";
+    f.textContent = D.mode === "many" ? "Find Items" : D.photos.length ? `Continue with ${plural(D.photos.length, "Item")}` : "Continue";
   }
   async function prepPhoto(file) {
     const u = URL.createObjectURL(file);
@@ -1089,12 +1238,12 @@ Reply with only JSON in this shape:
     const hs = boxes.map((b) => b.h).sort((a, b) => a - b), tol = hs[hs.length >> 1] * 0.5;
     const sorted = boxes.slice().sort((a, b) => a.y + a.h / 2 - (b.y + b.h / 2));
     const rows = [];
-    let row = [sorted[0]];
+    let rw = [sorted[0]];
     for (const b of sorted.slice(1)) {
-      const last = row[row.length - 1];
-      if (Math.abs(b.y + b.h / 2 - (last.y + last.h / 2)) <= tol) row.push(b); else { rows.push(row); row = [b]; }
+      const last = rw[rw.length - 1];
+      if (Math.abs(b.y + b.h / 2 - (last.y + last.h / 2)) <= tol) rw.push(b); else { rows.push(rw); rw = [b]; }
     }
-    rows.push(row);
+    rows.push(rw);
     return rows.flatMap((r) => r.sort((a, b) => a.x - b.x));
   }
   /* Tighten a box to the item when the floor around it is plain. Leaves it alone on busy floors. */
@@ -1120,12 +1269,11 @@ Reply with only JSON in this shape:
     }
     const area = rw * rh;
     if (tot < 0.08 * area || tot > 0.9 * area) return b;
-    /* the item is the solid run of busy columns (and rows) around the box center; floor lines and specks don't form one */
     const run = (counts, len, center) => {
       let mx = 0;
       for (const v of counts) mx = Math.max(mx, v / len);
-      const thr = Math.max(0.12, mx * 0.35), gap = Math.max(2, Math.round(counts.length * 0.03));
-      const on = Array.from(counts, (v) => v / len > thr);
+      const thr2 = Math.max(0.12, mx * 0.35), gap = Math.max(2, Math.round(counts.length * 0.03));
+      const on = Array.from(counts, (v) => v / len > thr2);
       for (let i = 0, last = -1; i < on.length; i++) {
         if (!on[i]) continue;
         if (last >= 0 && i - last > 1 && i - last - 1 <= gap) for (let j = last + 1; j < i; j++) on[j] = true;
@@ -1168,10 +1316,10 @@ Reply with only JSON in this shape:
   async function findItems() {
     D.where = clean($("#whereIn").value); D.note = $("#noteIn").value.trim();
     if (D.mode === "one") { D.photos.forEach((p) => { p.boxes = [{ x: 0, y: 0, w: 1, h: 1, label: "" }]; }); return cropAndName(); }
-    if (!(SAMPLE && IMG)) { renderBoxes("Claude can't look at photos in this view. Tap Add a box and drag around each item."); return; }
+    if (!(SAMPLE && IMG)) { renderBoxes("Claude can't look at photos in this view. Tap Add Box and drag around each item."); return; }
     D.busy = true; renderNew();
     $("#manualBtn").hidden = true;
-    const stop = ticker("#findStatus", `Claude is finding the items in ${plural(D.photos.length, "photo")}`);
+    const stop = ticker("#findStatus", `Finding items in ${plural(D.photos.length, "photo")}`);
     try {
       const per = Math.max(1, Math.min(IMG.maxCount || 1, 4));
       for (let i = 0; i < D.photos.length; i += per) {
@@ -1188,7 +1336,7 @@ Reply with only JSON in this shape:
       await Promise.all(D.photos.map(refinePhoto));
       stop(); D.busy = false; setStatus("#findStatus", ""); renderNew();
       const n = D.photos.reduce((a, p) => a + p.boxes.length, 0);
-      renderBoxes(n ? `Claude found ${plural(n, "item")}. Drag a box to move it, drag a corner to resize, or tap a box and hit × to drop it. Missed one? Tap Add a box and drag around it.` : "Claude didn't spot anything. Tap Add a box and drag around each item.");
+      renderBoxes(n ? `Found ${plural(n, "item")}. Drag a box to move it or a corner to resize. Tap a box to remove it. Missed one? Tap Add Box.` : "Nothing found. Tap Add Box and drag around each item.");
     } catch (e) {
       stop(); D.busy = false; renderNew();
       setStatus("#findStatus", sampleMsg(e) + " You can also draw the boxes yourself.");
@@ -1207,18 +1355,17 @@ Reply with only JSON in this shape:
     const n = D.photos.reduce((a, p) => a + p.boxes.length, 0);
     const b = $("#nameBtn");
     b.disabled = !n;
-    b.textContent = n ? `Name ${plural(n, "thing")}` : "Add a box first";
+    b.textContent = n ? `Continue with ${plural(n, "Item")}` : "Add a Box First";
   }
   function editorBlock(ph, pi) {
     const ed = el("div", { class: "ed" });
     ed.style.aspectRatio = `${ph.w} / ${ph.h}`;
     ed.append(el("img", { src: ph.url, alt: `Photo ${pi + 1}`, draggable: "false" }));
     const wrap = el("div", { class: "ed-wrap" }, ed);
-    const count = el("span", { class: "ed-count" });
-    const addB = el("button", { class: "chip", type: "button" });
-    const zoomB = el("button", { class: "chip", type: "button" });
-    const block = el("div", { class: "ed-block" },
-      el("div", { class: "ed-bar" }, D.photos.length > 1 ? el("b", { text: `Photo ${pi + 1}` }) : null, count, el("span", { class: "sp" }), addB, zoomB), wrap);
+    const count = el("span", { class: "cnt" });
+    const addB = el("button", { class: "mini", type: "button" });
+    const zoomB = el("button", { class: "mini", type: "button" });
+    const block = el("div", { class: "ed-card" }, wrap, el("div", { class: "ed-tools" }, count, addB, zoomB));
     const place = (n, b) => { n.style.left = b.x * 100 + "%"; n.style.top = b.y * 100 + "%"; n.style.width = b.w * 100 + "%"; n.style.height = b.h * 100 + "%"; };
     function draw() {
       ed.querySelectorAll(".bx").forEach((n) => n.remove());
@@ -1226,19 +1373,19 @@ Reply with only JSON in this shape:
         const n = el("div", { class: "bx" + (ph.sel === i ? " sel" : ""), "data-i": String(i) },
           el("span", { class: "no", text: String(i + 1) }),
           ...["nw", "ne", "sw", "se"].map((c) => el("i", { class: "h " + c, "data-h": c })),
-          ph.sel === i ? el("button", { class: "bx-x", type: "button", "aria-label": `Remove box ${i + 1}`, text: "×" }) : null);
+          ph.sel === i ? el("button", { class: "bx-x", type: "button", "aria-label": `Remove item ${i + 1}` }, ic("x")) : null);
         place(n, b);
         ed.append(n);
       });
-      count.textContent = plural(ph.boxes.length, "item");
+      count.textContent = (D.photos.length > 1 ? `Photo ${pi + 1} · ` : "") + plural(ph.boxes.length, "item");
       ed.classList.toggle("adding", !!ph.adding);
-      addB.textContent = ph.adding ? "Drag on the photo" : "Add a box";
+      addB.replaceChildren(ic(ph.adding ? "x" : "plus"), el("span", { text: ph.adding ? "Cancel" : "Add Box" }));
       addB.classList.toggle("on", !!ph.adding);
       wrap.classList.toggle("zoomed", !!ph.zoom);
-      zoomB.textContent = ph.zoom ? "Zoom out" : "Zoom in";
+      zoomB.replaceChildren(el("span", { text: ph.zoom ? "Zoom Out" : "Zoom In" }));
       updateBoxTotal();
     }
-    addB.onclick = () => { ph.adding = !ph.adding; ph.sel = -1; draw(); };
+    addB.onclick = () => { ph.adding = !ph.adding; ph.sel = -1; draw(); if (ph.adding) toast("Drag on the photo to draw a box"); };
     zoomB.onclick = () => { ph.zoom = !ph.zoom; draw(); };
     const pt = (e) => {
       const r = ed.getBoundingClientRect();
@@ -1302,7 +1449,6 @@ Reply with only JSON in this shape:
     const total = D.photos.reduce((a, p) => a + p.boxes.length, 0);
     if (!total) { toast("Add at least one box."); return; }
     D.items = []; D.date = D.date || shortDate();
-    $("#titleIn").value = D.title; $("#rnote").value = D.note;
     renderNames();
     setStatus("#nameStatus", `Cutting out ${plural(total, "item")}`, true);
     let n = 0;
@@ -1324,7 +1470,7 @@ Reply with only JSON in this shape:
         it.url = URL.createObjectURL(it.blob);
         D.items.push(it);
         $("#nameList").append(itemCard(it));
-        $("#nameCount").textContent = plural(D.items.length, "thing");
+        $("#nameCount").textContent = plural(D.items.length, "Item");
       }
     }
     D.photos.forEach((p) => URL.revokeObjectURL(p.url));
@@ -1379,7 +1525,7 @@ Reply with only JSON in this shape:
     }
     D.naming++;
     let done = 0;
-    const stop = ticker("#nameStatus", () => `Claude is naming ${plural(list.length, "thing")}, ${done} done`);
+    const stop = ticker("#nameStatus", () => `Naming ${plural(list.length, "item")}, ${done} done`);
     try {
       const per = Math.max(1, Math.min(IMG.maxCount || 1, 10));
       for (let i = 0; i < list.length; i += per) {
@@ -1405,7 +1551,7 @@ Reply with only JSON in this shape:
       }
     } finally {
       stop(); D.naming--;
-      if (!D.naming) setStatus("#nameStatus", "Check the names, fix anything that's off, then send it.");
+      if (!D.naming) setStatus("#nameStatus", "Check the names and fix anything that's off, then send it.");
     }
   }
 
@@ -1413,21 +1559,25 @@ Reply with only JSON in this shape:
   function itemCard(it) {
     const img = el("img", { src: itemSrc(it), alt: "" });
     img.onerror = () => { if (it.thumb && img.getAttribute("src") !== it.thumb) img.src = it.thumb; };
-    const name = el("input", { class: "in title", type: "text", placeholder: "What is it?", "aria-label": "Name", maxlength: "80", autocomplete: "off" });
-    const sub = el("input", { class: "in", type: "text", placeholder: "Details", "aria-label": "Details", maxlength: "120", autocomplete: "off" });
-    const bio = el("textarea", { class: "in", rows: "4", placeholder: "Its dating profile", "aria-label": "Profile", maxlength: "400" });
-    const tags = el("input", { class: "in", type: "text", placeholder: "Tags, with commas", "aria-label": "Tags", maxlength: "80", autocomplete: "off" });
+    const name = el("input", { class: "inp name", type: "text", placeholder: "What is it?", "aria-label": "Name", maxlength: "80", autocomplete: "off" });
+    const sub = el("input", { class: "inp det", type: "text", placeholder: "Details", "aria-label": "Details", maxlength: "120", autocomplete: "off" });
+    const bio = el("textarea", { class: "inp", rows: "3", placeholder: "Its dating profile", "aria-label": "Profile", maxlength: "400" });
+    const tags = el("input", { class: "inp", type: "text", placeholder: "Tags, separated by commas", "aria-label": "Tags", maxlength: "80", autocomplete: "off" });
     name.addEventListener("input", () => { it.name = name.value; saveItem(it); });
     sub.addEventListener("input", () => { it.sub = sub.value; saveItem(it); });
     bio.addEventListener("input", () => { it.bio = bio.value; saveItem(it); });
     tags.addEventListener("input", () => { it.tags = tags.value.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 4); saveItem(it); });
-    const rot = el("button", { class: "chip", type: "button", text: "Rotate", onclick: () => rotateItem(it) });
-    const again = el("button", { class: "chip", type: "button", text: "Ask Claude again", onclick: () => identify([it]) });
+    const rot = el("button", { class: "mini", type: "button", onclick: () => rotateItem(it) }, ic("rotate"), el("span", { text: "Rotate" }));
+    const again = el("button", { class: "mini", type: "button", onclick: () => identify([it]) }, ic("sparkle"), el("span", { text: "Rename" }));
     again.hidden = !(SAMPLE && IMG);
-    const rm = el("button", { class: "chip danger", type: "button", text: "Remove" });
-    armButton(rm, "Remove", "Tap to remove", () => removeItem(it));
-    const no = el("span", { class: "no" });
-    const card = el("li", { class: "ie" }, el("div", { class: "ie-pic" }, img, no), el("div", { class: "ie-f" }, name, sub, bio, tags, el("div", { class: "ie-b" }, rot, again, rm)));
+    const rm = el("button", { class: "mini danger", type: "button" }, ic("trash"), el("span", { text: "Remove" }));
+    armButton(rm, "Remove", "Tap to Remove", () => removeItem(it));
+    const no = el("span", { class: "num" });
+    const card = el("li", { class: "group ig" },
+      el("div", { class: "ig-top" }, el("div", { class: "ig-pic" }, img, no), el("div", { class: "ig-f" }, name, sub)),
+      el("div", { class: "frow" }, bio),
+      el("div", { class: "frow" }, tags),
+      el("div", { class: "ig-acts" }, rot, again, rm));
     it.el = { card, img, name, sub, bio, tags, no };
     paint(it, true);
     return card;
@@ -1450,10 +1600,11 @@ Reply with only JSON in this shape:
     $("#titleIn").value = D.title || "";
     $("#rnote").value = D.note || "";
     $("#nameList").replaceChildren(...D.items.map(itemCard));
-    $("#nameCount").textContent = plural(D.items.length, "thing");
-    $("#nameKicker").textContent = D.status === "live" ? "Editing a sent round" : "New round · Step 3 of 3";
-    $("#sendBtn").textContent = D.status === "live" ? "Save changes" : `Send to ${kid()}`;
+    $("#nameCount").textContent = plural(D.items.length, "Item");
+    $("#nameTitle").textContent = D.status === "live" ? "Edit Round" : "Details";
+    $("#sendBtn").textContent = D.status === "live" ? "Save Changes" : `Send to ${kid()[0].toUpperCase() + kid().slice(1)}`;
     $("#saveState").textContent = DB ? "" : "Saving isn't available here";
+    setStatus("#nameStatus", "");
     show("nameScreen");
   }
   function removeItem(it) {
@@ -1465,7 +1616,7 @@ Reply with only JSON in this shape:
     if (it.url) URL.revokeObjectURL(it.url);
     if (DB) DB.doc(`rounds/${D.rid}/items/${it.iid}`).delete().catch(() => {});
     D.items.forEach((x) => paint(x));
-    $("#nameCount").textContent = plural(D.items.length, "thing");
+    $("#nameCount").textContent = plural(D.items.length, "Item");
     saveRound();
   }
   async function rotateItem(it) {
@@ -1488,7 +1639,7 @@ Reply with only JSON in this shape:
   let saving = 0, roundTimer = 0;
   function setSaving(d) {
     saving = Math.max(0, saving + d);
-    $("#saveState").textContent = saving ? "Saving…" : "All changes saved";
+    $("#saveState").textContent = saving ? "Saving…" : "Saved";
   }
   function saveErr(e) {
     const code = e && e.code;
@@ -1496,7 +1647,7 @@ Reply with only JSON in this shape:
     else if (code === "invalid_argument") toast("That couldn't be saved. A photo may be too big.");
     else toast("Couldn't save. Check your connection.");
   }
-  const roundBody = () => ({ title: clean(D.title), where: D.where || "", note: D.note || "", status: D.status, createdAt: D.createdAt, sentAt: D.sentAt || 0, date: D.date || "", count: D.items.length });
+  const roundBody = () => ({ title: clean(D.title), where: D.where || "", note: D.note || "", status: D.status, createdAt: D.createdAt, sentAt: D.sentAt || 0, date: D.date || "", count: D.items.length, cover: (D.items[0] && D.items[0].thumb) || "" });
   function saveRound() {
     if (!DB || !D) return;
     clearTimeout(roundTimer);
@@ -1555,7 +1706,7 @@ Reply with only JSON in this shape:
   function previewDraft() {
     if (!D.items.length) { toast("Nothing to preview yet."); return; }
     D.title = clean($("#titleIn").value) || D.title; D.note = $("#rnote").value.trim();
-    const r = { id: "draft-" + D.rid, source: "draft", title: D.title || "New round", note: D.note, kicker: "Preview", date: "",
+    const r = { id: "draft-" + D.rid, source: "draft", title: D.title || "New round", note: D.note, date: "",
       items: D.items.map((it) => ({ id: it.iid, img: itemSrc(it), thumb: it.thumb, name: clean(it.name) || "Mystery item", sub: clean(it.sub), where: D.where, bio: clean(it.bio), tags: it.tags })) };
     MODE = "kid"; PREVIEW = true; RETURN_TO = "nameScreen";
     mem[lkey(r)] = { d: {}, order: [], started: false };
@@ -1568,62 +1719,25 @@ Reply with only JSON in this shape:
   $("#keepBtn").addEventListener("click", () => decide("keep"));
   $("#tossBtn").addEventListener("click", () => decide("toss"));
   $("#undoBtn").addEventListener("click", undo);
-  $("#roundsBtn").addEventListener("click", () => { if (onScreen === "roundsScreen" && cur) openRound(cur); else renderRounds(); });
-  $("#allBtn").addEventListener("click", renderRounds);
-  $("#copyBtn").addEventListener("click", () => copyText(resultText(cur), $("#resultText")).then((ok) => toast(ok ? "Copied. Paste it in a text." : "Select the list above and copy it.")));
-  $("#textBtn").addEventListener("click", () => { copyText(resultText(cur), $("#resultText")); toast("List copied too, just in case"); });
-  $("#redoBtn").addEventListener("click", (e) => {
-    const b = e.currentTarget;
-    if (b.dataset.armed) {
-      resetRedo();
-      mem[lkey(cur)] = { d: {}, order: [], started: false }; save(cur);
-      renderIntro();
-      return;
-    }
-    b.dataset.armed = "1"; b.textContent = "Tap again to reset"; b.className = "btn warn";
-    redoTimer = setTimeout(resetRedo, 3500);
-  });
   addEventListener("keydown", (e) => {
     if (onScreen !== "deckScreen" || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "ArrowRight") { e.preventDefault(); decide("keep"); }
     else if (e.key === "ArrowLeft") { e.preventDefault(); decide("toss"); }
     else if (e.key === "Backspace" || e.key.toLowerCase() === "z") { e.preventDefault(); undo(); }
   });
-  $("#modeBtn").addEventListener("click", () => {
-    if (MODE === "dad") { RETURN_TO = null; enterKid(true); return; }
-    MODE = "dad"; PREVIEW = false;
-    const t = RETURN_TO; RETURN_TO = null; cur = null;
-    if (t) show(t); else renderHome();
-  });
-
-  $("#newBtn").addEventListener("click", newRound);
-  $("#cancelNew").addEventListener("click", () => { D = null; renderHome(); });
+  $("#newBtn2").addEventListener("click", newRound);
   $("#modeMany").addEventListener("click", () => { D.mode = "many"; renderNew(); });
   $("#modeOne").addEventListener("click", () => { D.mode = "one"; renderNew(); });
   $("#photoIn").addEventListener("change", onPhotos);
   $("#findBtn").addEventListener("click", findItems);
-  $("#manualBtn").addEventListener("click", () => renderBoxes("Tap Add a box and drag around each item. Drag a corner to resize."));
-  $("#boxBack").addEventListener("click", () => { renderNew(); show("newScreen"); });
+  $("#manualBtn").addEventListener("click", () => renderBoxes("Tap Add Box and drag around each item. Drag a corner to resize."));
   $("#nameBtn").addEventListener("click", cropAndName);
   $("#titleIn").addEventListener("input", () => { D.title = $("#titleIn").value; saveRound(); });
   $("#rnote").addEventListener("input", () => { D.note = $("#rnote").value; saveRound(); });
   $("#prevBtn").addEventListener("click", previewDraft);
   $("#sendBtn").addEventListener("click", sendRound);
-  $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Select the text above and copy it.")));
-  $("#sentDone").addEventListener("click", renderHome);
+  $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Select the message and copy it.")));
   $("#copyLink").addEventListener("click", () => copyText(LINK).then((ok) => toast(ok ? "Link copied" : LINK)));
-  $("#resBack").addEventListener("click", renderHome);
-  $("#copyLists").addEventListener("click", () => copyText(listsText()).then((ok) => toast(ok ? "Both lists copied" : "Couldn't copy here")));
-  $("#copyKid").addEventListener("click", () => { const r = S.rounds.get(S.resId); copyText(shareText(r.title || "New round", r.count || 0)).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Couldn't copy here")); });
-  $("#editRound").addEventListener("click", () => resumeRound(S.resId));
-  $("#archBtn").addEventListener("click", (e) => {
-    const b = e.currentTarget, r = S.rounds.get(S.resId);
-    if (!r) return;
-    if (r.status === "archived") { writeDoc("rounds/" + r.id, { status: "live" }, true).then(() => toast("It's back in her list")).catch(saveErr); return; }
-    if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to archive"; setTimeout(() => { b.dataset.armed = ""; renderResults(); }, 3500); return; }
-    b.dataset.armed = "";
-    writeDoc("rounds/" + r.id, { status: "archived" }, true).then(() => { toast("Archived. It's off her list."); renderHome(); }).catch(saveErr);
-  });
 
   /* ================= boot ================= */
   async function loadData() {
@@ -1637,12 +1751,14 @@ Reply with only JSON in this shape:
     const data = await loadData();
     CFG = { ...DEFAULTS, ...(data.config || {}) };
     BAKED = (data.rounds || []).filter((r) => r && r.id && Array.isArray(r.items) && r.items.length).map((r) => ({ ...r, source: "baked" }));
-    $("#wordmark").firstChild.textContent = CFG.appName;
-    $("#keepLabel").textContent = CFG.keepWord; $("#tossLabel").textContent = CFG.tossWord;
     $("#keepBtn").setAttribute("aria-label", CFG.keepWord); $("#tossBtn").setAttribute("aria-label", CFG.tossWord);
+    $("#keepWordT").textContent = CFG.keepWord; $("#tossWordT").textContent = CFG.tossWord;
     $("#howKeep").textContent = `Swipe right to ${CFG.keepWord.toLowerCase()} it`;
     $("#howToss").textContent = `Swipe left to ${CFG.tossWord.toLowerCase()} it`;
-    document.querySelectorAll(".kidname").forEach((n) => { n.textContent = kid(); });
+    const K = kid(), Kc = K[0].toUpperCase() + K.slice(1);
+    document.querySelectorAll(".kidname").forEach((n) => { n.textContent = /^[A-Z]/.test(n.textContent) ? Kc : K; });
+    $("#noteIn").placeholder = $("#rnote").placeholder = `Note for ${Kc} (optional)`;
+    $("#previewBar").textContent = `Preview of ${CFG.kidName ? CFG.kidName + "'s" : "her"} view. Swipes here aren't saved.`;
 
     [DB, USER, SAMPLE, ASSETS] = await getCaps();
     if (USER) {

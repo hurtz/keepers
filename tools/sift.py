@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Keepers round tool. Turns one photo of stuff laid out on the floor into swipe cards.
+"""Sift round tool. Turns one photo of stuff laid out on the floor into swipe cards.
 
 Commands
   grid   PHOTO                     Draw a labeled percent grid on the photo, so item boxes are easy to read off.
