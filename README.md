@@ -8,25 +8,47 @@ Keepers turns a pile of your kid's old stuff into a deck of dating profiles. The
 
 My daughter has a lot of her stuff in boxes in my garage. Books, clothes, school projects, things from every age. Going through it together one item at a time is slow. Texting "do you still want this?" a hundred times is miserable for both of us.
 
-So I made it a game. I lay a batch of things on the floor and take one picture. Claude cuts that picture into one card per item and writes each thing a short, goofy dating profile. She swipes through the round on her iPhone whenever she feels like it. When she's done, she texts me the list. I box up the keepers, drop the rest at the donation center, and send the next round.
+So I made it a game. I lay a batch of things on the floor and take one picture with my phone. Claude finds every item in the photo, cuts each one out, and writes it a short, goofy dating profile. I fix anything it got wrong and hit send. She swipes through the round on her iPhone whenever she feels like it, and her picks show up on my side as she goes. I box up the keepers, drop the rest at the donation center, and send the next round.
 
-No more "I'll look at it next time I'm over." A whole box becomes a two minute game.
+No more "I'll look at i## How it works
 
-## How it works
+There are two sides: **Dad's studio** and **her swipe deck**. Same page, same link.
 
-1. **Lay it out.** Put a batch of stuff on the floor with a little space between things. Take one photo from above.
-2. **Make a round.** Claude (or the included tool) cuts the photo into a card per item and gives each one a name and a profile.
-3. **Send the link.** The newest round opens on its own. Swipe right to keep, left to donate. Undo is always one tap away.
-4. **Get the list.** The last screen shows everything kept and donated. Tap any item to switch it. One button copies the list and opens a text to you.
-5. **Do the thing.** Keep pile, donate pile, done. Next round.
+**Studio (you)**
+1. **Snap the stuff.** Lay a batch out with a little space between things and take one photo from above. Or switch to "one thing per photo" and snap items one by one.
+2. **Check the boxes.** Claude draws a box around every item it finds, then each box snaps tight to the item. Drag to move, drag a corner to resize, tap × to drop one, or draw one it missed.
+3. **Name everything.** Each item is cut out and Claude names it (reading book titles off covers), adds details, tags and a dating profile. Edit anything. Rotate a crop. Ask Claude again on one item.
+4. **Preview and send.** See exactly what she'll see, then send. Copy a ready text with the link for her.
+
+**Swipe deck (her)**
+5. **Swipe.** Right to keep, left to donate. Undo is one tap. Tap a card to read the full profile.
+6. **Fix it at the end.** The summary shows both piles. Tap anything to switch it.
+
+**Back to you**
+7. **Watch it land.** Her picks show up in the studio live: who's waiting, how far she got, and the final keep and donate lists. Tick items off as you pack or drop them off. Archive the round when it's done.
+
+Everything saves as you go, so a half finished round is still there if your phone locks.
 
 ## Features
 
 * Feels like a dating app: drag, tilt, stamp, fly away.
-* Undo, plus a summary screen where any choice can be switched.
-* Rounds. Each batch is its own round, and progress is saved on the phone.
-* Works in the phone's browser. Nothing to install, no account.
-* One HTML file. No build step, no framework, no tracking.
+* AI item finding with a hand editor for anything it misses.
+* AI names and profiles, every field editable.
+* Live two way sync: send rounds, get picks back, no copy and paste.
+* Packing checklist for the keep pile and donate pile.
+* Preview her side before you send. Preview swipes are never saved.
+* Light and dark mode. Big touch targets. Keyboard arrows on a laptop.
+* One HTML file. No framework, no tracking.
+
+## Where it runs
+
+Keepers runs as a Claude artifact, which gives the page three things it can't do on its own: a shared database (rounds and picks), image storage, and Claude's eyes (finding and naming items in photos).
+
+To let her swipes sync back, share the page with her by email and set her to **Editor**, with the public link off. If she opens it some other way, the deck still works and the summary offers a "text Dad the list" button instead.
+
+The page also runs as a plain static site with no Claude features. It then shows rounds baked into `rounds.json`, which you can build with the photo tool below.
+
+ing.
 * Light and dark mode. Keyboard arrows work on a laptop.
 
 ## Try it
@@ -37,7 +59,7 @@ python3 -m http.server
 
 Then open http://localhost:8000. The practice round uses made up books.
 
-## Make your own rounds
+## Make rounds without Claude (static version)
 
 You need Python 3 with Pillow and OpenCV:
 
@@ -129,4 +151,4 @@ Made by Jason O'Connell ([hurtz](https://github.com/hurtz), hurtz2k on Reddit) w
 
 MIT. Use it, change it, share it. See [LICENSE](LICENSE).
 
-Want it without any setup? A hosted version, where you upload a photo and get a finished round back, is in the works.
+Want it without any setup? A hosted version for families is in the works.
