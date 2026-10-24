@@ -402,6 +402,42 @@ textarea.inp{min-height:3.9em}
 .ig.just{animation:justfill 1.3s ease-out}
 @keyframes justfill{0%{box-shadow:0 0 0 3px var(--tint)}100%{box-shadow:0 0 0 0 rgba(88,86,214,0)}}
 
+
+/* ===== Item detail sheet ===== */
+.sheet-wrap{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet-bd{position:absolute;inset:0;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.sheet{position:relative;width:100%;max-width:620px;height:calc(100% - env(safe-area-inset-top, 0px) - 12px);background:var(--card);border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.sh-photo{position:relative;flex:0 0 52%;overflow:hidden;background:#2C2C2E;touch-action:none;cursor:zoom-in;user-select:none;-webkit-user-select:none}
+.sh-photo img{pointer-events:none}
+.sh-photo .bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);max-width:none;object-fit:cover;filter:blur(34px) saturate(1.5) brightness(.8)}
+.sh-photo .fg{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:contain;padding:30px 20px 18px;filter:drop-shadow(0 14px 26px rgba(0,0,0,.38));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.sh-photo.zoom{cursor:zoom-out}
+.sh-photo.zoom .fg{transform:scale(1.9)}
+.grab{position:absolute;top:8px;left:50%;width:38px;height:5px;margin-left:-19px;border-radius:3px;background:rgba(255,255,255,.65);z-index:2}
+.sh-x{position:absolute;top:14px;right:14px;z-index:2;width:34px;height:34px;min-width:34px;padding:0}
+.sh-x svg{width:16px;height:16px;stroke-width:3}
+.sh-emo{position:absolute;left:16px;bottom:14px;z-index:2;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:27px;line-height:1;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sh-zoomhint{position:absolute;right:14px;bottom:14px;z-index:2;font:600 12px var(--sys);color:#fff;background:rgba(0,0,0,.4);padding:6px 10px;border-radius:999px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sh-body{flex:1;min-height:0;overflow-y:auto;padding:18px 20px 10px;display:flex;flex-direction:column;gap:8px}
+.sh-body > *{flex-shrink:0}
+.sh-where{margin:0;font:600 13px var(--sys);color:var(--tint);display:flex;align-items:center;gap:5px}
+.sh-where svg{width:14px;height:14px}
+.sh-body h2{margin:0;font:800 28px/1.12 var(--round);letter-spacing:-.02em;text-wrap:balance}
+.sh-sub{margin:0;font:500 15px/1.35 var(--sys);color:var(--label2)}
+.sh-bio{margin:4px 0 0;font:400 17px/1.45 var(--sys);text-wrap:pretty}
+.sh-tags{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.sh-tags li{background:var(--fill);border-radius:999px;padding:6px 12px;font:600 14px var(--sys)}
+.sh-pos{margin:6px 0 0;font:500 13px var(--sys);color:var(--label2)}
+.sh-acts{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom, 0px));border-top:.5px solid var(--sep)}
+.shbtn{appearance:none;border:0;border-radius:16px;min-height:56px;font:800 18px/1 var(--round);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s}
+.shbtn svg{width:22px;height:22px}
+.shbtn.toss{background:rgba(255,59,48,.13);color:var(--red)}
+.shbtn.toss svg{stroke-width:3}
+.shbtn.keep{background:var(--green);color:#fff}
+.shbtn:active{transform:scale(.96)}
+.card .more{position:absolute;top:14px;right:14px;z-index:3;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);pointer-events:none}
+.card .more svg{width:18px;height:18px}
+
 @media (max-width:360px){ .photos{grid-template-columns:repeat(3, minmax(0, 1fr))} .tiles.three .tile b{font-size:26px} .lt{font-size:30px} }
 @media (min-width:700px){ .pgrid{grid-template-columns:repeat(4, minmax(0, 1fr))} }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important;animation:none !important} }
@@ -436,7 +472,7 @@ textarea.inp{min-height:3.9em}
         <div class="dadnote" id="introNote" hidden><b id="introFrom">Dad</b><span id="introNoteText"></span></div>
       </div>
       <button class="play" id="startBtn" type="button">Let's Go</button>
-      <div class="hintchips"><span>👈 Swipe to donate</span><span>Swipe to keep 👉</span></div>
+      <div class="hintchips"><span>👈 Swipe to donate</span><span>Swipe to keep 👉</span><span>Tap a card for details</span></div>
       <p class="ts-pv" id="tsPreview" hidden>Preview mode. Swipes aren't saved.</p>
     </div>
   </section>
@@ -625,6 +661,31 @@ textarea.inp{min-height:3.9em}
     <ul class="group icons" id="resActions"></ul>
   </section>
 </div>
+<div class="sheet-wrap" id="sheet" hidden>
+  <div class="sheet-bd" id="sheetBd"></div>
+  <section class="sheet" id="sheetPanel" role="dialog" aria-modal="true" aria-labelledby="shName">
+    <div class="sh-photo" id="shPhoto">
+      <img class="bg" id="shBg" alt="">
+      <img class="fg" id="shImg" alt="">
+      <span class="grab" aria-hidden="true"></span>
+      <button class="glassbtn sh-x" id="shClose" type="button" aria-label="Close" data-ic="x"></button>
+      <span class="sh-emo" id="shEmo" aria-hidden="true"></span>
+      <span class="sh-zoomhint" aria-hidden="true">Tap to zoom</span>
+    </div>
+    <div class="sh-body" id="shBody">
+      <p class="sh-where" id="shWhere"></p>
+      <h2 id="shName"></h2>
+      <p class="sh-sub" id="shSub"></p>
+      <p class="sh-bio" id="shBio"></p>
+      <ul class="sh-tags" id="shTags"></ul>
+      <p class="sh-pos" id="shPos"></p>
+    </div>
+    <div class="sh-acts">
+      <button class="shbtn toss" id="shToss" type="button" data-ic="x"><span>Donate</span></button>
+      <button class="shbtn keep" id="shKeep" type="button" data-ic="heart"><span>Keep</span></button>
+    </div>
+  </section>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script id="keepers-data" type="application/json">{}</script>
@@ -668,6 +729,7 @@ textarea.inp{min-height:3.9em}
     restart: '<path d="M4.5 12a7.5 7.5 0 107.5-7.5H9"/><path d="M11 2L8.5 4.5 11 7"/>',
     sound: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
     mute: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/>',
     eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   };
   const FILLED = new Set(["heart"]);
@@ -1117,7 +1179,7 @@ textarea.inp{min-height:3.9em}
     const bg = el("img", { class: "bg", src: it.img, alt: "", "aria-hidden": "true", draggable: "false" });
     fg.onerror = () => { if (it.thumb && fg.getAttribute("src") !== it.thumb) { fg.src = it.thumb; bg.src = it.thumb; } };
     const c = el("article", { class: "card", "data-id": it.id, "aria-label": it.name || "Item" },
-      bg, fg, el("div", { class: "scrim" }), el("div", { class: "tint k" }), el("div", { class: "tint t" }),
+      bg, fg, el("div", { class: "scrim" }), el("div", { class: "tint k" }), el("div", { class: "tint t" }), el("span", { class: "more", "aria-hidden": "true" }, ic("info")),
       el("span", { class: "stamp keep", text: CFG.keepStamp }),
       el("span", { class: "stamp toss", text: CFG.tossWord }),
       el("div", { class: "info" },
@@ -1196,7 +1258,7 @@ textarea.inp{min-height:3.9em}
     c.style.transition = reduce ? "none" : "transform .4s cubic-bezier(.3,1.4,.5,1)";
     c.style.transform = "";
     lean(c, 0); resetButtons();
-    if (!moved) c.classList.toggle("open");
+    if (!moved) openDetail(cur.items.find((i) => i.id === c.dataset.id));
   }
   function decide(choice) {
     const c = topCard();
@@ -2087,6 +2149,79 @@ Reply with only JSON in this shape:
     renderIntro();
   }
 
+
+  /* ---------- item detail sheet ---------- */
+  let SH = null, shBdAnim = null;
+  function openDetail(it) {
+    if (!it || !cur) return;
+    SH = it;
+    const img = $("#shImg"), bg = $("#shBg");
+    img.onerror = () => { if (it.thumb && img.getAttribute("src") !== it.thumb) { img.src = it.thumb; bg.src = it.thumb; } };
+    img.src = it.img; bg.src = it.img; img.alt = it.name || "";
+    $("#shEmo").hidden = !it.emoji; $("#shEmo").textContent = it.emoji || "";
+    $("#shWhere").replaceChildren(...(it.where ? [ic("box"), el("span", { text: it.where })] : [])); $("#shWhere").hidden = !it.where;
+    $("#shName").textContent = it.name || "Mystery item";
+    $("#shSub").textContent = it.sub || ""; $("#shSub").hidden = !it.sub;
+    $("#shBio").textContent = it.bio || ""; $("#shBio").hidden = !it.bio;
+    $("#shTags").replaceChildren(...(it.tags || []).map((t) => el("li", { text: t })));
+    $("#shPos").textContent = `Item ${cur.items.indexOf(it) + 1} of ${cur.items.length}`;
+    $("#shPhoto").classList.remove("zoom");
+    $("#shBody").scrollTop = 0;
+    const w = $("#sheet"), panel = $("#sheetPanel");
+    if (shBdAnim) { shBdAnim.cancel(); shBdAnim = null; }
+    panel.style.transform = "";
+    w.hidden = false;
+    if (!reduce && panel.animate) {
+      panel.animate([{ transform: "translateY(100%)" }, { transform: "none" }], { duration: 380, easing: "cubic-bezier(.2,.9,.25,1)" });
+      $("#sheetBd").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+    }
+    sfx("tick"); buzz(8);
+    try { $("#shClose").focus({ preventScroll: true }); } catch (e) {}
+  }
+  function closeDetail(then) {
+    const w = $("#sheet"), panel = $("#sheetPanel");
+    if (w.hidden) { if (then) then(); return; }
+    const done = () => { w.hidden = true; panel.style.transform = ""; if (shBdAnim) { shBdAnim.cancel(); shBdAnim = null; } SH = null; if (then) then(); };
+    if (reduce || !panel.animate) { done(); return; }
+    const from = getComputedStyle(panel).transform;
+    panel.animate([{ transform: from === "none" ? "none" : from }, { transform: "translateY(100%)" }], { duration: 260, easing: "cubic-bezier(.4,0,.8,.4)" }).onfinish = done;
+    shBdAnim = $("#sheetBd").animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, fill: "forwards" });
+  }
+  function sheetDecide(choice) {
+    const id = SH && SH.id, top = topCard();
+    closeDetail(() => { if (top && top.dataset.id === id) decide(choice); });
+  }
+  (() => {
+    const ph = $("#shPhoto"), panel = $("#sheetPanel");
+    let g = null;
+    ph.addEventListener("pointerdown", (e) => {
+      if (e.target.closest("button")) return;
+      g = { y0: e.clientY, t0: performance.now(), dy: 0, id: e.pointerId, moved: false };
+      try { ph.setPointerCapture(e.pointerId); } catch (er) {}
+    });
+    ph.addEventListener("pointermove", (e) => {
+      if (!g || e.pointerId !== g.id) return;
+      g.dy = Math.max(0, e.clientY - g.y0);
+      if (g.dy > 6) g.moved = true;
+      if (g.moved) panel.style.transform = `translateY(${g.dy}px)`;
+    });
+    const end = (e) => {
+      if (!g || e.pointerId !== g.id) return;
+      const { dy, moved, t0 } = g, v = dy / Math.max(1, performance.now() - t0);
+      g = null;
+      if (moved && (dy > 120 || (v > 0.6 && dy > 30))) { closeDetail(); return; }
+      if (!moved) { ph.classList.toggle("zoom"); return; }
+      panel.style.transform = "";
+      if (!reduce && panel.animate) panel.animate([{ transform: `translateY(${dy}px)` }, { transform: "none" }], { duration: 260, easing: "cubic-bezier(.2,.9,.25,1)" });
+    };
+    ph.addEventListener("pointerup", end);
+    ph.addEventListener("pointercancel", end);
+    $("#shClose").addEventListener("click", () => closeDetail());
+    $("#sheetBd").addEventListener("click", () => closeDetail());
+    $("#shKeep").addEventListener("click", () => sheetDecide("keep"));
+    $("#shToss").addEventListener("click", () => sheetDecide("toss"));
+  })();
+
   /* ================= wiring ================= */
   $("#startBtn").addEventListener("click", () => { actx(); sfx("start"); buzz(16); startDeck(); });
   document.querySelectorAll(".sndtoggle").forEach((b) => b.addEventListener("click", () => { actx(); toggleSnd(); }));
@@ -2095,6 +2230,7 @@ Reply with only JSON in this shape:
   $("#tossBtn").addEventListener("click", () => decide("toss"));
   $("#undoBtn").addEventListener("click", undo);
   addEventListener("keydown", (e) => {
+    if (!$("#sheet").hidden) { if (e.key === "Escape") { e.preventDefault(); closeDetail(); } return; }
     if (onScreen !== "deckScreen" || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "ArrowRight") { e.preventDefault(); decide("keep"); }
     else if (e.key === "ArrowLeft") { e.preventDefault(); decide("toss"); }

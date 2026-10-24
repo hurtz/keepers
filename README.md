@@ -23,7 +23,7 @@ There are two sides: **Dad's studio** and **her swipe deck**. Same page, same li
 4. **Preview and send.** See exactly what she'll see, then send. Copy a ready text with the link for her.
 
 **Swipe deck (her)**
-5. **Swipe.** Right to keep, left to donate. Undo is one tap. Tap a card to read the full profile.
+5. **Swipe.** Right to keep, left to donate. Undo is one tap. Tap a card to open it full screen, zoom the photo, read the whole profile, and decide from there.
 6. **Fix it at the end.** The summary shows both piles. Tap anything to switch it.
 
 **Back to you**
