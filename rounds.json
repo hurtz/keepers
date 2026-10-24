@@ -27,7 +27,8 @@
             "Space",
             "Funny",
             "Folded corners"
-          ]
+          ],
+          "emoji": "📚"
         },
         {
           "id": "demo-02",
@@ -40,7 +41,8 @@
             "Picture book",
             "Mystery",
             "Pickles"
-          ]
+          ],
+          "emoji": "🥒"
         },
         {
           "id": "demo-03",
@@ -53,7 +55,8 @@
             "Nature",
             "Science",
             "A bit creepy"
-          ]
+          ],
+          "emoji": "🐞"
         },
         {
           "id": "demo-04",
@@ -66,7 +69,8 @@
             "Homework",
             "Heavy",
             "Former rival"
-          ]
+          ],
+          "emoji": "🧮"
         },
         {
           "id": "demo-05",
@@ -79,7 +83,8 @@
             "Friendship",
             "Summer",
             "Sad but good"
-          ]
+          ],
+          "emoji": "🏕️"
         },
         {
           "id": "demo-06",
@@ -92,7 +97,8 @@
             "Crafts",
             "Camp",
             "Useful, maybe"
-          ]
+          ],
+          "emoji": "🪢"
         }
       ]
     }

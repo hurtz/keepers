@@ -35,6 +35,7 @@ Everything saves as you go, so a half finished round is still there if your phon
 
 * Looks and feels like a native iPhone app, in the browser. System font, iOS colors, light and dark mode.
 * Feels like a dating app: drag, tilt, stamp, fly away.
+* Game feel on her side: an animated title screen, heart bursts, sound effects, streaks, milestones, and a confetti finale that reveals her sorting style.
 * AI item finding with a hand editor for anything it misses.
 * AI names and profiles, every field editable.
 * Live two way sync: send rounds, get picks back, no copy and paste.
