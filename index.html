@@ -279,7 +279,7 @@ textarea.inp{min-height:3.9em}
 .ig.naming .ig-pic::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);background-size:220% 100%;animation:sheen 1.2s linear infinite}
 @keyframes sheen{from{background-position:120% 0}to{background-position:-120% 0}}
 
-.toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom, 0px));transform:translate(-50%, 14px);background:rgba(28,28,30,.9);color:#fff;padding:12px 18px;border-radius:14px;font:600 15px/1.3 var(--sys);opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:30;max-width:calc(100% - 32px);text-align:center;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.toast{position:fixed;left:50%;bottom:calc(104px + env(safe-area-inset-bottom, 0px));transform:translate(-50%, 14px);background:rgba(28,28,30,.9);color:#fff;padding:12px 18px;border-radius:14px;font:600 15px/1.3 var(--sys);opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:30;max-width:calc(100% - 32px);text-align:center;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
 .toast.show{opacity:1;transform:translate(-50%, 0)}
 
 
@@ -368,6 +368,39 @@ textarea.inp{min-height:3.9em}
 .bc-k{margin:6px 0 0;font:700 12px var(--sys);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.88)}
 .bc-name{margin:0;font:800 28px/1.1 var(--round);letter-spacing:-.02em}
 .bc-desc{margin:2px 0 0;font:500 16px/1.35 var(--sys);color:rgba(255,255,255,.93);max-width:30ch}
+
+
+/* ===== Polish pass ===== */
+.btn{transition:opacity .15s, transform .15s}
+.btn:active{transform:scale(.97)}
+.mini{transition:transform .15s, opacity .15s}
+.mini:active{transform:scale(.94)}
+.dash{display:flex;align-items:center;gap:18px;padding:18px;border-radius:22px;color:#fff;background:linear-gradient(140deg,#FF5FA2 0%,#9B5CFF 55%,#4F7BFF 100%);box-shadow:0 16px 36px rgba(91,33,214,.28);position:relative;overflow:hidden}
+.dash::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 100% 0%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%);pointer-events:none}
+.rings{width:104px;height:104px;flex:none}
+.rings svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.rings circle{fill:none;stroke-linecap:round}
+.rings .trk{stroke:rgba(255,255,255,.22)}
+.rings .v1{stroke:#FFFFFF}
+.rings .v2{stroke:#B6FFD8}
+.rings .val{transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1)}
+.dash-stats{min-width:0;position:relative;z-index:1}
+.dash-k{margin:0;font:700 12px/1.2 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.88)}
+.dash-row{display:flex;align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap}
+.dash-row b{font:800 40px/1 var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.dash-row span{font:600 15px var(--sys);color:rgba(255,255,255,.9)}
+.dash-mini{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:10px;font:500 14px var(--sys);color:rgba(255,255,255,.95)}
+.dash-mini b{font-weight:800}
+.dash-mini i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px}
+.ed-card.scanning .ed::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.22) 1px,rgba(255,255,255,0) 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,rgba(255,255,255,0) 1px);background-size:10% 10%;animation:gridpulse 1.8s ease-in-out infinite}
+.ed-card.scanning .ed::after{content:"";position:absolute;left:0;right:0;height:26%;top:-26%;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(155,92,255,0),rgba(155,92,255,.38) 72%,rgba(255,255,255,.9) 100%);animation:scan 1.7s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes scan{to{top:100%}}
+@keyframes gridpulse{50%{opacity:.35}}
+.ed-card.scanning .ed-tools{opacity:.4;pointer-events:none}
+.bx.pop{animation:boxpop .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes boxpop{from{transform:scale(.55);opacity:0}}
+.ig.just{animation:justfill 1.3s ease-out}
+@keyframes justfill{0%{box-shadow:0 0 0 3px var(--tint)}100%{box-shadow:0 0 0 0 rgba(88,86,214,0)}}
 
 @media (max-width:360px){ .photos{grid-template-columns:repeat(3, minmax(0, 1fr))} .tiles.three .tile b{font-size:26px} .lt{font-size:30px} }
 @media (min-width:700px){ .pgrid{grid-template-columns:repeat(4, minmax(0, 1fr))} }
@@ -462,6 +495,14 @@ textarea.inp{min-height:3.9em}
   <!-- ===== Studio ===== -->
   <section class="screen scroll" id="homeScreen" hidden>
     <div class="hero"><div class="brand"><span class="app-ic sm" data-ic="heart"></span><span class="brand-name">Sift</span><span class="brand-sub">Studio</span></div><h1 class="lt">Rounds</h1></div>
+    <div class="dash" id="dash" hidden>
+      <div class="rings"><svg viewBox="0 0 104 104" aria-hidden="true"><circle class="trk" cx="52" cy="52" r="44" stroke-width="11"/><circle class="val v1" id="ring1" cx="52" cy="52" r="44" stroke-width="11" stroke-dasharray="276.46" stroke-dashoffset="276.46"/><circle class="trk" cx="52" cy="52" r="29" stroke-width="11"/><circle class="val v2" id="ring2" cx="52" cy="52" r="29" stroke-width="11" stroke-dasharray="182.21" stroke-dashoffset="182.21"/></svg></div>
+      <div class="dash-stats">
+        <p class="dash-k">Garage progress</p>
+        <div class="dash-row"><b id="dSorted">0</b><span>of <span id="dTotal">0</span> sorted</span></div>
+        <div class="dash-mini"><span><i style="background:#fff"></i><b id="dKeep">0</b> keep · <b id="dToss">0</b> donate</span><span><i style="background:#B6FFD8"></i><b id="dDone">0</b> packed or gone</span></div>
+      </div>
+    </div>
     <div class="empty-card" id="homeEmpty" hidden>
       <div class="bigic" data-ic="camera"></div>
       <h2>Start your first round</h2>
@@ -520,6 +561,7 @@ textarea.inp{min-height:3.9em}
 
   <section class="screen scroll" id="boxScreen" hidden>
     <div class="hero"><h1 class="lt">Review Items</h1><p class="lede" id="boxNote"></p></div>
+    <p class="status" id="boxStatus" aria-live="polite"></p>
     <div class="edlist" id="edList"></div>
     <div class="bottom"><button class="btn fill" id="nameBtn" type="button">Continue</button></div>
   </section>
@@ -599,7 +641,7 @@ textarea.inp{min-height:3.9em}
   let CFG = DEFAULTS, BAKED = [], ROUNDS = [], cur = null, busy = false, drag = null, toastTimer = 0, onScreen = "", NAVCFG = null;
   let MODE = "kid", PREVIEW = false, RETURN_TO = null;
   let DB = null, USER = null, SAMPLE = null, ASSETS = null, IS_OWNER = false, CAN_WRITE = null, IMG = null;
-  const PICKS = {};
+  const PICKS = {}, HANDLED = {};
   const S = { rounds: new Map(), items: new Map(), resId: null, handled: {}, unsubH: null };
   let D = null;
 
@@ -709,6 +751,8 @@ textarea.inp{min-height:3.9em}
     toss() { whoosh(); tone(330, 0, 0.12, "sine", 0.06); },
     undo() { tone(523, 0, 0.08, "triangle", 0.1); tone(392, 0.07, 0.12, "triangle", 0.09); },
     start() { [392, 523, 659, 784].forEach((f, i) => tone(f, i * 0.07, 0.22, "triangle", 0.13)); },
+    tick() { tone(1480, 0, 0.05, "sine", 0.05); },
+    found() { tone(880, 0, 0.12, "triangle", 0.1); tone(1175, 0.08, 0.2, "triangle", 0.1); },
     streak() { [784, 988, 1175].forEach((f, i) => tone(f, i * 0.05, 0.14, "square", 0.05)); },
     win() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.12, 0.34, "triangle", 0.15)); tone(1568, 0.5, 0.7, "sine", 0.09); tone(1319, 0.5, 0.7, "sine", 0.07); },
   };
@@ -855,14 +899,23 @@ textarea.inp{min-height:3.9em}
   }
   document.querySelectorAll(".screen.scroll").forEach((s) => s.addEventListener("scroll", () => { if (s.id === onScreen) updateNav(); }, { passive: true }));
 
+  const DEPTH = { loadScreen: 0, homeScreen: 0, resScreen: 1, newScreen: 1, boxScreen: 2, nameScreen: 3, sentScreen: 4, introScreen: 0, deckScreen: 1, sumScreen: 2, roundsScreen: 3, emptyScreen: 0 };
   function show(id) {
-    const changed = id !== onScreen;
+    const prev = onScreen, changed = id !== onScreen;
     onScreen = id;
     SCREENS.forEach((s) => { const n = $("#" + s); if (n) n.hidden = s !== id; });
     $("#previewBar").hidden = !(PREVIEW && KID_SCREENS.includes(id));
     const sc = $("#" + id);
     if (changed && sc && sc.classList.contains("scroll")) sc.scrollTop = 0;
     paintNav(id);
+    if (changed && prev && prev !== "loadScreen" && !reduce && sc && sc.animate) {
+      const d = (DEPTH[id] || 0) - (DEPTH[prev] || 0);
+      const cross = KID_SCREENS.includes(prev) !== KID_SCREENS.includes(id);
+      const frames = id === "introScreen" || id === "sentScreen" || cross || d === 0
+        ? [{ opacity: 0, transform: "scale(.985)" }, { opacity: 1, transform: "none" }]
+        : [{ opacity: 0, transform: `translateX(${d > 0 ? 24 : -24}%)` }, { opacity: 1, transform: "none" }];
+      sc.animate(frames, { duration: 320, easing: "cubic-bezier(.2,.8,.2,1)" });
+    }
   }
   function toast(msg) {
     const t = $("#toast");
@@ -954,6 +1007,10 @@ textarea.inp{min-height:3.9em}
           snap.docs.forEach((d) => S.rounds.set(d.id, { id: d.id, ...d.data() }));
           if (!gotR) { gotR = true; ready(); } else roundsChanged();
         }, () => { gotR = true; ready(); });
+        if (IS_OWNER) DB.collection("handled").onSnapshot((snap) => {
+          snap.docs.forEach((d) => { HANDLED[d.id] = (d.data() || {}).h || {}; });
+          if (MODE === "dad" && onScreen === "homeScreen") renderHome();
+        }, () => {});
         DB.collection("picks").onSnapshot((snap) => {
           snap.docs.forEach((d) => { PICKS[d.id] = d.data(); });
           if (!gotP) { gotP = true; ready(); } else picksChanged();
@@ -1106,7 +1163,8 @@ textarea.inp{min-height:3.9em}
     const c = e.currentTarget;
     if (busy || c !== topCard() || (e.pointerType === "mouse" && e.button !== 0)) return;
     if (c.getAnimations) c.getAnimations().forEach((an) => an.cancel());
-    drag = { c, x0: e.clientX, y0: e.clientY, t0: performance.now(), dx: 0, dy: 0, moved: false, id: e.pointerId };
+    const cr = c.getBoundingClientRect();
+    drag = { c, x0: e.clientX, y0: e.clientY, t0: performance.now(), dx: 0, dy: 0, moved: false, id: e.pointerId, tilt: e.clientY - cr.top > cr.height * 0.6 ? -1 : 1, fg: c.querySelector(".fg") };
     try { c.setPointerCapture(e.pointerId); } catch (err) {}
     c.style.transition = "none";
     c.addEventListener("pointermove", move);
@@ -1117,12 +1175,14 @@ textarea.inp{min-height:3.9em}
     if (!drag || e.pointerId !== drag.id) return;
     drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
     if (Math.abs(drag.dx) + Math.abs(drag.dy) > 8) drag.moved = true;
-    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${drag.dx / 18}deg)`;
+    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${(drag.dx / 18) * drag.tilt}deg)`;
+    if (drag.fg) drag.fg.style.transform = `translateX(${-drag.dx * 0.06}px) scale(1.03)`;
     lean(drag.c, drag.dx);
   }
   function up(e) {
     if (!drag || e.pointerId !== drag.id) return;
     const { c, dx, moved, t0 } = drag;
+    if (drag.fg) drag.fg.style.transform = "";
     c.removeEventListener("pointermove", move);
     c.removeEventListener("pointerup", up);
     c.removeEventListener("pointercancel", up);
@@ -1142,7 +1202,7 @@ textarea.inp{min-height:3.9em}
     const c = topCard();
     if (!c || busy) return;
     busy = true;
-    const dy = drag ? drag.dy * 0.3 : 0;
+    const dy = drag ? drag.dy * 0.3 : 0, tilt = drag ? drag.tilt : 1;
     drag = null;
     const dir = choice === "keep" ? 1 : -1;
     const s = st(cur);
@@ -1158,7 +1218,7 @@ textarea.inp{min-height:3.9em}
     const under = cards().find((x) => x.classList.contains("under"));
     if (under) { under.classList.remove("under"); under.classList.add("fresh"); }
     c.style.transition = reduce ? "none" : "transform .34s cubic-bezier(.25,.6,.3,1)";
-    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 26}deg)`;
+    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 26 * tilt}deg)`;
     progress();
     setTimeout(() => { c.remove(); busy = false; fillDeck(); }, reduce ? 0 : 320);
   }
@@ -1340,6 +1400,7 @@ textarea.inp{min-height:3.9em}
     const by = (s) => all.filter((r) => r.status === s).sort((a, b) => (b.sentAt || b.createdAt || 0) - (a.sentAt || a.createdAt || 0));
     const live = by("live"), drafts = by("draft"), arch = by("archived");
     $("#homeEmpty").hidden = !!(live.length || drafts.length || arch.length);
+    renderDash([...live, ...arch]);
     $("#liveWrap").hidden = !live.length;
     $("#liveList").replaceChildren(...live.map(roundRow));
     $("#draftWrap").hidden = !drafts.length;
@@ -1348,6 +1409,20 @@ textarea.inp{min-height:3.9em}
     $("#archList").replaceChildren(...arch.map(roundRow));
     $("#aiNote").hidden = !!(SAMPLE && IMG);
     show("homeScreen");
+  }
+
+  function renderDash(sent) {
+    let total = 0, n = 0, k = 0, t = 0, hd = 0;
+    sent.forEach((r) => { const s = pickStats(r.id, r.count); total += r.count || s.total || 0; n += s.n; k += s.k; t += s.t; hd += Object.keys(HANDLED[r.id] || {}).length; });
+    $("#dash").hidden = !sent.length;
+    if (!sent.length) return;
+    $("#dSorted").textContent = n; $("#dTotal").textContent = total;
+    $("#dKeep").textContent = k; $("#dToss").textContent = t; $("#dDone").textContent = hd;
+    const f1 = total ? Math.min(1, n / total) : 0, f2 = n ? Math.min(1, hd / n) : 0;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      $("#ring1").style.strokeDashoffset = (276.46 * (1 - f1)).toFixed(2);
+      $("#ring2").style.strokeDashoffset = (182.21 * (1 - f2)).toFixed(2);
+    }));
   }
 
   /* ---------- results ---------- */
@@ -1410,7 +1485,8 @@ textarea.inp{min-height:3.9em}
     }
   }
   function toggleHandled(iid) {
-    if (S.handled[iid]) delete S.handled[iid]; else S.handled[iid] = true;
+    if (S.handled[iid]) delete S.handled[iid]; else { S.handled[iid] = true; sfx("tick"); buzz(8); }
+    HANDLED[S.resId] = { ...S.handled };
     renderResults();
     writeDoc("handled/" + S.resId, { h: S.handled }).catch(saveErr);
   }
@@ -1595,11 +1671,16 @@ Reply with only JSON in this shape:
   const fatal = (e) => ["not_granted", "sampling_disabled", "capability_disabled", "not_declared", "images_unavailable", "rate_limited", "session_expired"].includes(e && e.code);
   async function findItems() {
     D.where = clean($("#whereIn").value); D.note = $("#noteIn").value.trim();
+    actx();
     if (D.mode === "one") { D.photos.forEach((p) => { p.boxes = [{ x: 0, y: 0, w: 1, h: 1, label: "" }]; }); return cropAndName(); }
     if (!(SAMPLE && IMG)) { renderBoxes("Claude can't look at photos in this view. Tap Add Box and drag around each item."); return; }
     D.busy = true; renderNew();
     $("#manualBtn").hidden = true;
-    const stop = ticker("#findStatus", `Finding items in ${plural(D.photos.length, "photo")}`);
+    setStatus("#findStatus", "");
+    D.photos.forEach((p) => { p.boxes = []; p.sel = -1; p.adding = false; });
+    D.scanning = true;
+    renderBoxes("Claude is studying your photo and finding every item.");
+    const stop = ticker("#boxStatus", `Finding items in ${plural(D.photos.length, "photo")}`);
     try {
       const per = Math.max(1, Math.min(IMG.maxCount || 1, 4));
       for (let i = 0; i < D.photos.length; i += per) {
@@ -1614,11 +1695,15 @@ Reply with only JSON in this shape:
         });
       }
       await Promise.all(D.photos.map(refinePhoto));
-      stop(); D.busy = false; setStatus("#findStatus", ""); renderNew();
+      stop(); D.busy = false; D.scanning = false; setStatus("#boxStatus", ""); renderNew();
       const n = D.photos.reduce((a, p) => a + p.boxes.length, 0);
-      renderBoxes(n ? `Found ${plural(n, "item")}. Drag a box to move it or a corner to resize. Tap a box to remove it. Missed one? Tap Add Box.` : "Nothing found. Tap Add Box and drag around each item.");
+      D.photos.forEach((p) => { p.reveal = true; });
+      if (n) { sfx("found"); buzz(14); for (let i = 0; i < Math.min(n, 24); i++) setTimeout(() => sfx("tick"), 160 + i * 70); }
+      if (onScreen === "boxScreen") renderBoxes(n ? `Found ${plural(n, "item")}. Drag a box to move it or a corner to resize. Tap a box to remove it. Missed one? Tap Add Box.` : "Nothing found. Tap Add Box and drag around each item.");
     } catch (e) {
-      stop(); D.busy = false; renderNew();
+      stop(); D.busy = false; D.scanning = false; setStatus("#boxStatus", "");
+      renderNew();
+      show("newScreen");
       setStatus("#findStatus", sampleMsg(e) + " You can also draw the boxes yourself.");
       $("#manualBtn").hidden = false;
     }
@@ -1634,6 +1719,7 @@ Reply with only JSON in this shape:
   function updateBoxTotal() {
     const n = D.photos.reduce((a, p) => a + p.boxes.length, 0);
     const b = $("#nameBtn");
+    if (D.scanning) { b.disabled = true; b.textContent = "Finding Items…"; return; }
     b.disabled = !n;
     b.textContent = n ? `Continue with ${plural(n, "Item")}` : "Add a Box First";
   }
@@ -1645,7 +1731,7 @@ Reply with only JSON in this shape:
     const count = el("span", { class: "cnt" });
     const addB = el("button", { class: "mini", type: "button" });
     const zoomB = el("button", { class: "mini", type: "button" });
-    const block = el("div", { class: "ed-card" }, wrap, el("div", { class: "ed-tools" }, count, addB, zoomB));
+    const block = el("div", { class: "ed-card" + (D.scanning ? " scanning" : "") }, wrap, el("div", { class: "ed-tools" }, count, addB, zoomB));
     const place = (n, b) => { n.style.left = b.x * 100 + "%"; n.style.top = b.y * 100 + "%"; n.style.width = b.w * 100 + "%"; n.style.height = b.h * 100 + "%"; };
     function draw() {
       ed.querySelectorAll(".bx").forEach((n) => n.remove());
@@ -1655,9 +1741,11 @@ Reply with only JSON in this shape:
           ...["nw", "ne", "sw", "se"].map((c) => el("i", { class: "h " + c, "data-h": c })),
           ph.sel === i ? el("button", { class: "bx-x", type: "button", "aria-label": `Remove item ${i + 1}` }, ic("x")) : null);
         place(n, b);
+        if (ph.reveal) { n.classList.add("pop"); n.style.animationDelay = 120 + i * 70 + "ms"; }
         ed.append(n);
       });
-      count.textContent = (D.photos.length > 1 ? `Photo ${pi + 1} · ` : "") + plural(ph.boxes.length, "item");
+      ph.reveal = false;
+      count.textContent = D.scanning ? "Scanning…" : (D.photos.length > 1 ? `Photo ${pi + 1} · ` : "") + plural(ph.boxes.length, "item");
       ed.classList.toggle("adding", !!ph.adding);
       addB.replaceChildren(ic(ph.adding ? "x" : "plus"), el("span", { text: ph.adding ? "Cancel" : "Add Box" }));
       addB.classList.toggle("on", !!ph.adding);
@@ -1823,7 +1911,9 @@ Reply with only JSON in this shape:
             const r = arr.find((x) => Number(x && x.n) === k + 1) || arr[k];
             if (r) applyName(it, r);
             it.state = "ready"; paint(it, true); saveItem(it, true);
+            if (it.el) { it.el.card.classList.remove("just"); void it.el.card.offsetWidth; it.el.card.classList.add("just"); }
           });
+          sfx("found");
         } catch (e) {
           batch.forEach((it) => { it.state = "ready"; paint(it); });
           toast(sampleMsg(e));
@@ -1970,6 +2060,7 @@ Reply with only JSON in this shape:
       $("#sentHead").textContent = `${plural(D.items.length, "thing is", "things are")} waiting on ${kid()}.`;
       $("#shareText").textContent = shareText(D.title, D.items.length);
       show("sentScreen");
+      setTimeout(() => { confetti(); sfx("win"); buzz(24); }, 180);
     } catch (e) { saveErr(e); }
     finally { b.disabled = false; b.textContent = label; }
   }
@@ -2019,7 +2110,7 @@ Reply with only JSON in this shape:
   $("#titleIn").addEventListener("input", () => { D.title = $("#titleIn").value; saveRound(); });
   $("#rnote").addEventListener("input", () => { D.note = $("#rnote").value; saveRound(); });
   $("#prevBtn").addEventListener("click", previewDraft);
-  $("#sendBtn").addEventListener("click", sendRound);
+  $("#sendBtn").addEventListener("click", () => { actx(); sendRound(); });
   $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Select the message and copy it.")));
   $("#copyLink").addEventListener("click", () => copyText(LINK).then((ok) => toast(ok ? "Link copied" : LINK)));
 
