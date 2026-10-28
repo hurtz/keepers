@@ -34,7 +34,7 @@ Everything saves as you go, so a half finished round is still there if your phon
 
 ## Features
 
-* Rosso Corsa design: racing red, graphite and gold on warm white, wide Archivo headings, a livery title screen, carbon fiber dashboard, and a little engine rev when you hit Let's Go.
+* Grand Prix design: sunset skies with speed streaks, bold italic Saira type, slanted race buttons, a starting grid title screen, item stat bars with a keeper rating, 3D category icons and trophy badges, and a little engine rev when you hit Let's Go.
 * Feels like a dating app: drag, tilt, stamp, fly away.
 * Native feeling transitions, a live AI scanning moment when Claude studies your photo, and a Garage Progress dashboard with rings for your side.
 * Game feel on her side: an animated title screen, heart bursts, sound effects, streaks, milestones, and a confetti finale that reveals her sorting style.

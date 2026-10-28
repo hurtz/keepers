@@ -1,106 +1,148 @@
 {
-  "config": {
-    "appName": "Sift",
-    "kidName": "",
-    "dadName": "Dad",
-    "dadPhone": "",
-    "keepWord": "Keep",
-    "tossWord": "Donate",
-    "keepStamp": "Keep"
-  },
-  "rounds": [
+ "config": {
+  "appName": "Sift",
+  "kidName": "",
+  "dadName": "Dad",
+  "dadPhone": "",
+  "keepWord": "Keep",
+  "tossWord": "Donate",
+  "keepStamp": "Keep"
+ },
+ "rounds": [
+  {
+   "id": "demo",
+   "title": "Practice round",
+   "kicker": "Practice round",
+   "date": "",
+   "note": "These are made up. Swipe around to get the feel of it. Nothing here counts.",
+   "items": [
     {
-      "id": "demo",
-      "title": "Practice round",
-      "kicker": "Practice round",
-      "date": "",
-      "note": "These books are made up. Swipe around to get the feel of it. Nothing here counts.",
-      "items": [
-        {
-          "id": "demo-01",
-          "img": "rounds/demo/01.svg",
-          "name": "The Moon Owes Me Twelve Dollars",
-          "sub": "Wren Abernathy · Paperback · 214 pages",
-          "where": "Practice box · made up",
-          "bio": "We met in fifth grade. You laughed at page 40 and never told me why. Still not mad about the twelve dollars.",
-          "tags": [
-            "Space",
-            "Funny",
-            "Folded corners"
-          ],
-          "emoji": "📚"
-        },
-        {
-          "id": "demo-02",
-          "img": "rounds/demo/02.svg",
-          "name": "Captain Pickle and the Sock Thieves",
-          "sub": "M. T. Drawer · Hardcover · 48 pages",
-          "where": "Practice box · made up",
-          "bio": "Short, funny, a little crunchy. Looking for someone who still believes socks go missing on purpose.",
-          "tags": [
-            "Picture book",
-            "Mystery",
-            "Pickles"
-          ],
-          "emoji": "🥒"
-        },
-        {
-          "id": "demo-03",
-          "img": "rounds/demo/03.svg",
-          "name": "Field Guide to Suspicious Garden Bugs",
-          "sub": "Dr. Ines Holloway · Paperback · 96 pages",
-          "where": "Practice box · made up",
-          "bio": "I know 41 beetles by name. Not all of them are friends. Swipe right if you still check under rocks.",
-          "tags": [
-            "Nature",
-            "Science",
-            "A bit creepy"
-          ],
-          "emoji": "🐞"
-        },
-        {
-          "id": "demo-04",
-          "img": "rounds/demo/04.svg",
-          "name": "Algebra 2: Now With More Letters",
-          "sub": "Textbook · Hardcover · weighs about 6 pounds",
-          "where": "Practice box · made up",
-          "bio": "I was there for every late night. You never once enjoyed me. I respect the honesty.",
-          "tags": [
-            "Homework",
-            "Heavy",
-            "Former rival"
-          ],
-          "emoji": "🧮"
-        },
-        {
-          "id": "demo-05",
-          "img": "rounds/demo/05.svg",
-          "name": "Twelve Summers at Juniper Lake",
-          "sub": "Clara Vance · Paperback · 388 pages",
-          "where": "Practice box · made up",
-          "bio": "We both cried on page 301. Comes with a sand stain and a bookmark from a pizza place.",
-          "tags": [
-            "Friendship",
-            "Summer",
-            "Sad but good"
-          ],
-          "emoji": "🏕️"
-        },
-        {
-          "id": "demo-06",
-          "img": "rounds/demo/06.svg",
-          "name": "Knots, Loops and Lanyards",
-          "sub": "Camp Willow · Spiral bound · 30 pages",
-          "where": "Practice box · made up",
-          "bio": "Taught you the box stitch. Somewhere out there is a keychain that proves it.",
-          "tags": [
-            "Crafts",
-            "Camp",
-            "Useful, maybe"
-          ],
-          "emoji": "🪢"
-        }
-      ]
+     "id": "demo-01",
+     "img": "rounds/demo/bear.webp",
+     "cut": true,
+     "name": "Mr. Buttons",
+     "sub": "Teddy bear · Well loved · Red ribbon",
+     "where": "Practice box · made up",
+     "bio": "I guarded your pillow through every thunderstorm. My ribbon is faded but my hugs still work.",
+     "tags": [
+      "Cuddly",
+      "Since forever",
+      "Ribbon"
+     ],
+     "emoji": "🧸",
+     "cat": "toys",
+     "stats": {
+      "n": 9,
+      "c": 6,
+      "s": "M"
+     }
+    },
+    {
+     "id": "demo-02",
+     "img": "rounds/demo/skates.webp",
+     "cut": true,
+     "name": "Pink Roller Skates",
+     "sub": "Quad skates · Size 6 · Light scuffs",
+     "where": "Practice box · made up",
+     "bio": "We owned the driveway every summer. My wheels still spin if you're still brave.",
+     "tags": [
+      "Retro",
+      "Summer",
+      "Needs a rink"
+     ],
+     "emoji": "🛼",
+     "cat": "sports",
+     "stats": {
+      "n": 7,
+      "c": 7,
+      "s": "M"
+     }
+    },
+    {
+     "id": "demo-03",
+     "img": "rounds/demo/books.webp",
+     "cut": true,
+     "name": "Four Cloth Hardcovers",
+     "sub": "Blue, green, yellow and red · Good shape",
+     "where": "Practice box · made up",
+     "bio": "We look great on a shelf and even better in a hammock. One of us still has your bookmark inside.",
+     "tags": [
+      "Shelf candy",
+      "Cozy",
+      "Classic"
+     ],
+     "emoji": "📚",
+     "cat": "books",
+     "stats": {
+      "n": 6,
+      "c": 9,
+      "s": "S"
+     }
+    },
+    {
+     "id": "demo-04",
+     "img": "rounds/demo/camera.webp",
+     "cut": true,
+     "name": "Instant Camera",
+     "sub": "Mint and cream · Takes film packs",
+     "where": "Practice box · made up",
+     "bio": "I took the blurry birthday photo that's still on the fridge. Give me film and I'll make more.",
+     "tags": [
+      "Vintage vibes",
+      "Works",
+      "Needs film"
+     ],
+     "emoji": "📸",
+     "cat": "electronics",
+     "stats": {
+      "n": 8,
+      "c": 8,
+      "s": "S"
+     }
+    },
+    {
+     "id": "demo-05",
+     "img": "rounds/demo/musicbox.webp",
+     "cut": true,
+     "name": "Ballerina Music Box",
+     "sub": "Velvet lined · Still plays its song",
+     "where": "Practice box · made up",
+     "bio": "Wind me up and I'll dance for you like I did at bedtime. I keep earrings safe too.",
+     "tags": [
+      "Sweet",
+      "Plays music",
+      "Keepsake"
+     ],
+     "emoji": "🩰",
+     "cat": "keepsakes",
+     "stats": {
+      "n": 10,
+      "c": 8,
+      "s": "S"
+     }
+    },
+    {
+     "id": "demo-06",
+     "img": "rounds/demo/jacket.webp",
+     "cut": true,
+     "name": "Denim Jacket with Pins",
+     "sub": "Light wash · Daisy, rainbow and heart pins",
+     "where": "Practice box · made up",
+     "bio": "I went to every concert and road trip with you. The pins tell the rest of the story.",
+     "tags": [
+      "Style",
+      "Pins",
+      "Layers"
+     ],
+     "emoji": "🧥",
+     "cat": "clothes",
+     "stats": {
+      "n": 8,
+      "c": 7,
+      "s": "M"
+     }
     }
-  ]
+   ]
+  }
+ ]
 }
