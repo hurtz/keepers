@@ -2,42 +2,28 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Sift">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&display=swap">
 <style>
 /* Layout: one column app shell. Nav bar on top (small title fades in on scroll), screens scroll under it,
-   primary actions pinned at the bottom. Look: native iOS. System font, grouped inset lists, system colors, indigo tint. */
+   primary actions pinned at the bottom. Look: Rosso Corsa. Racing red, graphite and gold on warm white,
+   wide Archivo display type, chrome and carbon details. One deliberate light look in every theme. */
 :root{
-  --bg:#F2F2F7; --card:#FFFFFF; --elev:#FFFFFF; --seg-on:#FFFFFF;
-  --label:#000000; --label2:rgba(60,60,67,.62); --label3:rgba(60,60,67,.3);
-  --sep:rgba(60,60,67,.2); --fill:rgba(118,118,128,.12); --fill2:rgba(118,118,128,.2);
-  --tint:#5856D6; --on-tint:#FFFFFF; --tint-soft:rgba(88,86,214,.12);
-  --green:#34C759; --red:#FF3B30; --orange:#FF9500; --gray:#8E8E93;
-  --shadow:0 1px 2px rgba(0,0,0,.05), 0 14px 34px rgba(0,0,0,.14);
-  --shadow-btn:0 1px 2px rgba(0,0,0,.06), 0 8px 22px rgba(0,0,0,.12);
+  --bg:#F6F4F1; --card:#FFFFFF; --elev:#FFFFFF; --seg-on:#FFFFFF;
+  --label:#141416; --label2:rgba(28,28,32,.62); --label3:rgba(28,28,32,.3);
+  --sep:rgba(28,28,32,.14); --fill:rgba(28,28,32,.06); --fill2:rgba(28,28,32,.12);
+  --tint:#D40000; --on-tint:#FFFFFF; --tint-soft:rgba(212,0,0,.09);
+  --green:#1F9D55; --red:#D40000; --orange:#E08A00; --gray:#8E8E93;
+  --keep:#D40000; --toss:#2B2D31; --graphite:#1E1F23; --ink:#141416;
+  --gold:#C9A227; --gold-hi:#F3DA8B; --gold-lo:#9A7614; --red-hi:#F0261B; --red-lo:#9E0000;
+  --chrome:linear-gradient(180deg,#FFFFFF 0%,#F2F0EC 55%,#DEDAD3 100%);
+  --shadow:0 1px 2px rgba(40,20,10,.06), 0 16px 36px rgba(40,20,10,.14);
+  --shadow-btn:0 1px 2px rgba(40,20,10,.08), 0 10px 24px rgba(40,20,10,.14);
   --sys:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --disp:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --round:ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#000000; --card:#1C1C1E; --elev:#2C2C2E; --seg-on:#636366;
-    --label:#FFFFFF; --label2:rgba(235,235,245,.62); --label3:rgba(235,235,245,.3);
-    --sep:rgba(84,84,88,.62); --fill:rgba(118,118,128,.24); --fill2:rgba(118,118,128,.36);
-    --tint:#6E6CF0; --on-tint:#FFFFFF; --tint-soft:rgba(110,108,240,.24);
-    --green:#30D158; --red:#FF453A; --orange:#FF9F0A; --gray:#8E8E93;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.6);
-    --shadow-btn:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.5);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#000000; --card:#1C1C1E; --elev:#2C2C2E; --seg-on:#636366;
-  --label:#FFFFFF; --label2:rgba(235,235,245,.62); --label3:rgba(235,235,245,.3);
-  --sep:rgba(84,84,88,.62); --fill:rgba(118,118,128,.24); --fill2:rgba(118,118,128,.36);
-  --tint:#6E6CF0; --on-tint:#FFFFFF; --tint-soft:rgba(110,108,240,.24);
-  --green:#30D158; --red:#FF453A; --orange:#FF9F0A; --gray:#8E8E93;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.6);
-  --shadow-btn:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.5);
-  color-scheme:dark;
+  --disp:"Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --round:"Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none !important}
@@ -483,6 +469,115 @@ textarea.inp{min-height:3.9em}
 .rm-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 #setScreen .frow .lbl{width:70px}
 
+
+/* ======================= Rosso Corsa ======================= */
+.lt,.wordmark,.ts-hey,.card h3,.tile b,.dash-row b,.bc-name,.sh-body h2,.stamp,.quip,.play,.empty-card h2,.sect-h.big,.brand-name,.rmb span,.bx .no,.ig-pic .num,.streak,.badge,.cg-h{font-family:var(--disp);font-stretch:125%}
+.btn.fill,.btn.gray,.shbtn,.as-btn,.as-cancel,.cb-all,.mini,.navbtn.strong{font-family:var(--disp);font-stretch:108%}
+.lt{font-size:30px;font-weight:800;letter-spacing:-.015em;line-height:1.1}
+.sect-h.big{font-weight:800;font-size:20px}
+.card h3{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.tile b{font-weight:800}
+
+/* buttons */
+.btn.fill{background:linear-gradient(165deg,#F0261B 0%,#D40000 52%,#AE0000 100%);box-shadow:0 8px 20px rgba(212,0,0,.26), inset 0 1px 0 rgba(255,255,255,.28);letter-spacing:.01em}
+.btn.gray{background:var(--chrome);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(20,20,22,.08), 0 2px 6px rgba(40,20,10,.06)}
+.mini{background:var(--fill)}
+
+/* app icon: red with a white heart; chrome version on the livery */
+.app-ic{background:linear-gradient(150deg,#F0261B 0%,#D40000 50%,#9E0000 100%);box-shadow:0 12px 28px rgba(170,0,0,.32), inset 0 1px 0 rgba(255,255,255,.45), inset 0 -6px 14px rgba(80,0,0,.25)}
+.brand-name{background:linear-gradient(90deg,#E10600,#9E0000);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;font-style:italic;font-weight:900;letter-spacing:.02em}
+
+/* title screen */
+.ts{background:var(--bg);color:var(--ink)}
+.ts-bg{inset:0;animation:none;background:radial-gradient(120% 70% at 50% 0%,#FFFFFF 0%,#F6F4F1 55%,#EDE8E1 100%)}
+.ts-float span{filter:drop-shadow(0 6px 10px rgba(80,30,10,.18))}
+.ts-inner{gap:22px}
+.logo{position:relative;flex-direction:row;justify-content:center;align-items:center;gap:14px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:30px 20px 28px;background:linear-gradient(100deg,#8E0000 0%,#C80000 26%,#EE1D12 52%,#C40000 78%,#8A0000 100%);transform:skewY(-6deg);box-shadow:0 22px 44px rgba(150,0,0,.28);animation:livery .95s cubic-bezier(.2,.9,.2,1) both}
+.logo > *{transform:skewY(6deg)}
+.logo::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.2) 47%,rgba(255,255,255,0) 60%);background-size:260% 100%;animation:shine 5s 1.4s ease-in-out infinite}
+.logo::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:5px;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi) 50%,var(--gold-lo));box-shadow:0 2px 6px rgba(154,118,20,.35)}
+@keyframes livery{from{transform:skewY(-6deg) translateX(-104%)}}
+.logo .app-ic,.logo .app-ic.big{width:62px;height:62px;animation:none;background:var(--chrome);color:var(--keep);box-shadow:0 10px 22px rgba(70,0,0,.4), inset 0 1px 0 #fff}
+.logo .app-ic::after{background:linear-gradient(160deg,rgba(255,255,255,.7),rgba(255,255,255,0) 50%)}
+.wordmark{margin:0;font-size:58px;line-height:1;font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:.02em;background:linear-gradient(105deg,#FFFFFF 0%,#FFFFFF 40%,#FFE7A8 50%,#FFFFFF 60%,#FFFFFF 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4.5s 1.2s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(60,0,0,.35))}
+.tagline{color:var(--label2);font-weight:600;margin-top:8px}
+.glass{position:relative;background:#FFFFFF;border:1px solid rgba(20,20,22,.07);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 20px 46px rgba(60,30,10,.12);overflow:hidden}
+.glass::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#9E0000,#E10600 50%,#9E0000)}
+.ts-eyebrow{color:var(--keep)}
+.ts-hey{color:var(--ink);font-weight:800}
+.ts-lede{color:var(--label2)}
+.dadnote b{color:var(--label2)}
+.dadnote span{background:#F1EEEA;color:var(--ink);box-shadow:none}
+.fan img{border-color:#fff;box-shadow:0 12px 26px rgba(60,30,10,.28)}
+.play{color:#fff;background:linear-gradient(165deg,#F0261B 0%,#D40000 52%,#A80000 100%);font-style:italic;text-transform:uppercase;letter-spacing:.04em;font-weight:900;font-size:20px;box-shadow:0 14px 30px rgba(190,0,0,.38), inset 0 1px 0 rgba(255,255,255,.3);animation:fadeup .7s .55s both, glowr 2.2s 1.4s ease-out infinite}
+@keyframes glowr{0%{box-shadow:0 14px 30px rgba(190,0,0,.38),0 0 0 0 rgba(212,0,0,.45)}70%{box-shadow:0 14px 30px rgba(190,0,0,.38),0 0 0 20px rgba(212,0,0,0)}100%{box-shadow:0 14px 30px rgba(190,0,0,.38),0 0 0 0 rgba(212,0,0,0)}}
+.hintchips span{background:#FFFFFF;border:1px solid rgba(20,20,22,.1);color:var(--ink)}
+.ts-pv{background:var(--fill);color:var(--label2)}
+.glassbtn{background:rgba(255,255,255,.86);border:1px solid rgba(20,20,22,.1);color:var(--ink);box-shadow:0 2px 8px rgba(40,20,10,.08)}
+
+/* deck */
+.deck::before{background:radial-gradient(55% 50% at 50% 55%,rgba(212,0,0,.16),rgba(201,162,39,.10) 55%,rgba(201,162,39,0) 75%)}
+.card{background:#2B2D31;box-shadow:0 2px 4px rgba(40,20,10,.08), 0 22px 44px rgba(40,20,10,.24);outline:1px solid rgba(255,255,255,.55);outline-offset:-1px}
+.card .scrim{height:34%;background:linear-gradient(to top,rgba(0,0,0,.38),rgba(0,0,0,0))}
+.card .info{left:10px;right:10px;bottom:10px;border-radius:16px;padding:16px 16px 15px;background:rgba(26,27,31,.74);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);border:1px solid rgba(255,255,255,.14)}
+.card .info::before{content:"";position:absolute;left:18px;right:18px;top:-1px;height:2px;border-radius:0 0 2px 2px;background:linear-gradient(90deg,rgba(212,0,0,0),#E10600 18%,#E10600 82%,rgba(212,0,0,0))}
+.card .bio{-webkit-line-clamp:2}
+.stamp{font-style:italic;font-weight:900;background:rgba(255,255,255,.92);border-width:3px;padding:8px 14px 7px;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.stamp.keep{color:var(--keep)}
+.stamp.toss{color:var(--graphite)}
+.card .tint.k{background:linear-gradient(100deg,rgba(212,0,0,0) 35%,rgba(212,0,0,.5))}
+.card .tint.t{background:linear-gradient(260deg,rgba(30,31,35,0) 35%,rgba(30,31,35,.62))}
+.abtn{background:var(--chrome);border:1px solid rgba(20,20,22,.07);box-shadow:0 1px 1px rgba(40,20,10,.06), 0 10px 24px rgba(40,20,10,.16), inset 0 1px 0 #fff}
+.abtn.toss{color:var(--graphite)}
+.abtn.keep{background:linear-gradient(160deg,#F0261B 0%,#D40000 55%,#A00000 100%);color:#fff;border-color:rgba(120,0,0,.35);box-shadow:0 12px 26px rgba(212,0,0,.36), inset 0 1px 0 rgba(255,255,255,.35)}
+.track i{background:linear-gradient(90deg,#9E0000,#E10600)}
+.streak{background:linear-gradient(135deg,var(--gold-hi),var(--gold) 60%,var(--gold-lo));color:#241B00}
+.quip{font-style:italic;font-weight:900;text-transform:uppercase;letter-spacing:.02em;font-size:22px}
+.quip.keep{background:linear-gradient(135deg,#F0261B,#B00000)}
+.quip.toss{background:linear-gradient(135deg,#3B3D43,#1E1F23)}
+.quip.big{background:linear-gradient(135deg,var(--gold-hi),var(--gold) 55%,var(--gold-lo));color:#241B00;font-size:22px}
+.catbar{border:1px solid rgba(20,20,22,.06);box-shadow:0 4px 14px rgba(40,20,10,.06)}
+
+/* summary + finale */
+.tile{border:1px solid rgba(20,20,22,.05);box-shadow:0 2px 10px rgba(40,20,10,.05)}
+.tile.keep b{color:var(--keep)}
+.tile.toss b{color:var(--graphite)}
+.badgecard{background:linear-gradient(140deg,#FCEFC2 0%,#E6C76C 28%,#C9A227 60%,#9A7614 100%);color:#231A00;box-shadow:0 18px 40px rgba(154,118,20,.32), inset 0 1px 0 rgba(255,255,255,.6)}
+.bc-k{color:rgba(35,26,0,.7)}
+.bc-desc{color:rgba(35,26,0,.86)}
+.bc-name{font-weight:900;font-style:italic;text-transform:uppercase;font-size:24px;letter-spacing:.01em}
+
+/* studio */
+.dash{background-color:#1C1D21;background-image:linear-gradient(135deg,rgba(255,255,255,.055) 25%,rgba(255,255,255,0) 25%,rgba(255,255,255,0) 50%,rgba(255,255,255,.055) 50%,rgba(255,255,255,.055) 75%,rgba(255,255,255,0) 75%),linear-gradient(45deg,rgba(0,0,0,.4) 25%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 50%,rgba(0,0,0,.4) 50%,rgba(0,0,0,.4) 75%,rgba(0,0,0,0) 75%);background-size:8px 8px,8px 8px;box-shadow:0 18px 38px rgba(20,20,22,.28), inset 0 1px 0 rgba(255,255,255,.12)}
+.dash::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#9E0000,#E10600 50%,#9E0000);z-index:1}
+.dash::after{background:radial-gradient(60% 90% at 100% 0%,rgba(212,0,0,.32),rgba(212,0,0,0) 60%)}
+.dash-k{color:var(--gold-hi)}
+.rings .trk{stroke:rgba(255,255,255,.12)}
+.rings .v1{stroke:#FF2A1A}
+.rings .v2{stroke:var(--gold-hi)}
+.stat.done{color:var(--gold-lo)}
+.cbox[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold-hi),var(--gold));border-color:var(--gold);color:#241B00}
+.tape.keep{background:var(--keep)}
+.fan{height:142px;margin:16px 0 6px}
+.swipehint{top:132px}
+.bigic.ok{background:linear-gradient(150deg,#F0261B,#D40000 55%,#9E0000);box-shadow:0 14px 30px rgba(212,0,0,.3)}
+.empty-card{border:1px solid rgba(20,20,22,.05);box-shadow:0 8px 24px rgba(40,20,10,.06)}
+.group{box-shadow:0 1px 2px rgba(40,20,10,.04)}
+.bx{border-color:var(--keep);background:rgba(212,0,0,.08)}
+.bx.sel{background:rgba(212,0,0,.16)}
+.h{border-color:var(--keep)}
+.ed-card.scanning .ed::after{background:linear-gradient(to bottom,rgba(212,0,0,0),rgba(212,0,0,.3) 72%,rgba(255,255,255,.95) 100%)}
+.rmb.keep{border-color:#D40000;background:rgba(212,0,0,.2)}
+.rmb.keep span{background:#D40000}
+.rmb.toss{border-color:#2B2D31;background:rgba(30,31,35,.3)}
+.rmb.toss span{background:#2B2D31}
+.as-btn.keep{color:var(--keep)}
+.as-btn.toss{color:var(--graphite)}
+.shbtn.keep{background:linear-gradient(165deg,#F0261B,#D40000 55%,#A80000);color:#fff;box-shadow:0 8px 20px rgba(212,0,0,.26)}
+.shbtn.toss{background:var(--chrome);color:var(--graphite);box-shadow:inset 0 0 0 1px rgba(20,20,22,.1)}
+.isq.green{background:var(--keep)}
+.pbar{background:var(--tint-soft);color:var(--keep)}
+
 @media (max-width:360px){ .photos{grid-template-columns:repeat(3, minmax(0, 1fr))} .tiles.three .tile b{font-size:26px} .lt{font-size:30px} }
 @media (min-width:700px){ .pgrid{grid-template-columns:repeat(4, minmax(0, 1fr))} }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important;animation:none !important} }
@@ -507,8 +602,8 @@ textarea.inp{min-height:3.9em}
       <div class="logo">
         <div class="app-ic big" data-ic="heart"></div>
         <h1 class="wordmark" id="tsWordmark">Sift</h1>
-        <p class="tagline">Swipe your stuff. Keep what you love.</p>
       </div>
+      <p class="tagline">Swipe your stuff. Keep what you love.</p>
       <div class="glass">
         <p class="ts-eyebrow" id="introKicker"></p>
         <div class="fan" id="tsFan"></div>
@@ -582,7 +677,7 @@ textarea.inp{min-height:3.9em}
       <div class="dash-stats">
         <p class="dash-k">Garage progress</p>
         <div class="dash-row"><b id="dSorted">0</b><span>of <span id="dTotal">0</span> sorted</span></div>
-        <div class="dash-mini"><span><i style="background:#fff"></i><b id="dKeep">0</b> keep · <b id="dToss">0</b> donate</span><span><i style="background:#B6FFD8"></i><b id="dDone">0</b> packed or gone</span></div>
+        <div class="dash-mini"><span><i style="background:#FF2A1A"></i><b id="dKeep">0</b> keep · <b id="dToss">0</b> donate</span><span><i style="background:#F3DA8B"></i><b id="dDone">0</b> packed or gone</span></div>
       </div>
     </div>
     <div class="empty-card" id="homeEmpty" hidden>
@@ -715,7 +810,7 @@ textarea.inp{min-height:3.9em}
     </div>
     <div class="sect" id="resRoomS" hidden>
       <div class="edlist" id="resRoom"></div>
-      <p class="rm-legend"><span><i style="background:#34C759"></i>Keep</span><span><i style="background:#FF3B30"></i>Donate</span><span><i style="background:#8E8E93"></i>Not decided</span><span>Faded means packed or gone</span></p>
+      <p class="rm-legend"><span><i style="background:#D40000"></i>Keep</span><span><i style="background:#2B2D31"></i>Donate</span><span><i style="background:#8E8E93"></i>Not decided</span><span>Faded means packed or gone</span></p>
     </div>
     <div class="sect" id="resKeepS">
       <h2 class="sect-h big">Keeping</h2>
@@ -926,6 +1021,20 @@ textarea.inp{min-height:3.9em}
     undo() { tone(523, 0, 0.08, "triangle", 0.1); tone(392, 0.07, 0.12, "triangle", 0.09); },
     start() { [392, 523, 659, 784].forEach((f, i) => tone(f, i * 0.07, 0.22, "triangle", 0.13)); },
     tick() { tone(1480, 0, 0.05, "sine", 0.05); },
+    rev() {
+      const c = actx(); if (!c) return;
+      const t = c.currentTime, g = c.createGain(), f = c.createBiquadFilter();
+      f.type = "lowpass"; f.Q.value = 2;
+      f.frequency.setValueAtTime(600, t); f.frequency.exponentialRampToValueAtTime(2400, t + 0.36); f.frequency.exponentialRampToValueAtTime(500, t + 0.95);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.13, t + 0.06); g.gain.setValueAtTime(0.13, t + 0.42); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.0);
+      f.connect(g); g.connect(c.destination);
+      [0, 7, -6].forEach((det) => {
+        const o = c.createOscillator();
+        o.type = "sawtooth"; o.detune.value = det * 9;
+        o.frequency.setValueAtTime(68, t); o.frequency.exponentialRampToValueAtTime(250, t + 0.38); o.frequency.exponentialRampToValueAtTime(140, t + 0.95);
+        o.connect(f); o.start(t); o.stop(t + 1.05);
+      });
+    },
     found() { tone(880, 0, 0.12, "triangle", 0.1); tone(1175, 0.08, 0.2, "triangle", 0.1); },
     streak() { [784, 988, 1175].forEach((f, i) => tone(f, i * 0.05, 0.14, "square", 0.05)); },
     win() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.12, 0.34, "triangle", 0.15)); tone(1568, 0.5, 0.7, "sine", 0.09); tone(1319, 0.5, 0.7, "sine", 0.07); },
@@ -960,10 +1069,10 @@ textarea.inp{min-height:3.9em}
   }
   function confetti() {
     if (reduce || !FX.animate) return;
-    const W = innerWidth, H = innerHeight, cols = ["#FF5FA2", "#9B5CFF", "#4F7BFF", "#34C759", "#FFCC00", "#FF9A44"];
+    const W = innerWidth, H = innerHeight, cols = ["#D40000", "#F0261B", "#C9A227", "#F3DA8B", "#2B2D31", "#C9CCD1"];
     for (let i = 0; i < 70; i++) {
       const emoji = i % 3 === 0;
-      const s = emoji ? el("span", { text: pick(["🎉", "💖", "✨", "🥳", "⭐", "💚"]) }) : el("span", { class: "bit" });
+      const s = emoji ? el("span", { text: pick(["🏆", "❤️", "✨", "🏁", "⭐", "🥳"]) }) : el("span", { class: "bit" });
       if (emoji) s.style.fontSize = 18 + Math.random() * 16 + "px"; else s.style.background = pick(cols);
       FX.append(s);
       const x = Math.random() * W, sway = (Math.random() - 0.5) * 160, r = (Math.random() - 0.5) * 900;
@@ -986,7 +1095,7 @@ textarea.inp{min-height:3.9em}
       { transform: `translate(${x}px, ${y - 70}px) translate(-50%, -50%) scale(.95)`, opacity: 0 },
     ], { duration: 1050, easing: "ease-out" }).onfinish = () => q.remove();
   }
-  const KEEP_Q = ["Keeper! 💚", "Love it 💖", "Mine! ✨", "Staying put 🏠", "Good pick 💕", "Forever yours 🫶"];
+  const KEEP_Q = ["Keeper! ❤️", "Love it 💖", "Mine! ✨", "Staying put 🏠", "Good pick 💕", "Forever yours 🫶"];
   const TOSS_Q = ["Bye bye 👋", "New home 🏡", "Set free 🕊️", "See ya ✌️", "Gifted 🎁", "Next! 💨"];
   function countUp(node, to) {
     if (reduce || !to) { node.textContent = to; return; }
@@ -1244,7 +1353,7 @@ textarea.inp{min-height:3.9em}
   const left = (r) => r.items.filter((it) => !st(r).d[it.id]);
   const isDone = (r) => r.items.length > 0 && left(r).length === 0;
 
-  const FLOATERS = ["💖", "📚", "🧸", "👗", "🎸", "💌", "🏆", "🎀", "✨", "🛼", "📸", "🧩", "💚", "🎨"];
+  const FLOATERS = ["❤️", "📚", "🧸", "👗", "🎸", "💌", "🏆", "🎀", "✨", "🛼", "📸", "🧩", "🏁", "🎨"];
   function renderIntro() {
     const r = cur, n = r.items.length;
     $("#introKicker").textContent = r.source === "baked" ? "Practice round" : r.title;
@@ -1350,7 +1459,7 @@ textarea.inp{min-height:3.9em}
     s.order.push("bulk:" + ids.join(","));
     save(cur);
     const r = $("#deck").getBoundingClientRect(), dir = choice === "keep" ? 1 : -1, c = CAT[cat];
-    burst(r.left + r.width / 2, r.top + r.height * 0.45, choice === "keep" ? ["💚", "💖", "✨", "💕", c.e] : ["👋", "🎁", "✨", "💨", c.e], 26, { from: -175, to: -5, dist: 230 });
+    burst(r.left + r.width / 2, r.top + r.height * 0.45, choice === "keep" ? ["❤️", "💖", "✨", "❤️", c.e] : ["👋", "🎁", "✨", "💨", c.e], 26, { from: -175, to: -5, dist: 230 });
     quip(choice === "keep" ? `Kept all ${ids.length} ${c.e}` : `${CFG.tossWord} all ${ids.length} ${c.e}`, choice);
     sfx(choice); buzz(22);
     $("#swipeHint").hidden = true;
@@ -1435,7 +1544,7 @@ textarea.inp{min-height:3.9em}
     const s = st(cur);
     s.d[c.dataset.id] = choice; s.order.push(c.dataset.id); save(cur);
     const rect = c.getBoundingClientRect();
-    if (choice === "keep") { burst(rect.left + rect.width * 0.62, rect.top + rect.height * 0.42, ["💚", "💖", "❤️", "✨", "💕", "💗"], 16, { from: -165, to: -15 }); quip(pick(KEEP_Q), "keep"); sfx("keep"); }
+    if (choice === "keep") { burst(rect.left + rect.width * 0.62, rect.top + rect.height * 0.42, ["❤️", "💖", "❤️", "✨", "💗", "❤️"], 16, { from: -165, to: -15 }); quip(pick(KEEP_Q), "keep"); sfx("keep"); }
     else { burst(rect.left + rect.width * 0.38, rect.top + rect.height * 0.42, ["👋", "✨", "💨", "🎁", "🕊️"], 10, { from: -200, to: -100, size: 20, dist: 140 }); quip(pick(TOSS_Q), "toss"); sfx("toss"); }
     buzz(choice === "keep" ? 14 : 10);
     $("#swipeHint").hidden = true;
@@ -2456,7 +2565,8 @@ Reply with only JSON in this shape:
       $("#sentHead").textContent = `${plural(D.items.length, "thing is", "things are")} waiting on ${kid()}.`;
       $("#shareText").textContent = shareText(D.title, D.items.length);
       show("sentScreen");
-      setTimeout(() => { confetti(); sfx("win"); buzz(24); }, 180);
+      sfx("rev");
+      setTimeout(() => { confetti(); sfx("win"); buzz(24); }, 420);
     } catch (e) { saveErr(e); }
     finally { b.disabled = false; b.textContent = label; }
   }
@@ -2589,7 +2699,7 @@ Reply with only JSON in this shape:
   }
 
   /* ================= wiring ================= */
-  $("#startBtn").addEventListener("click", () => { actx(); sfx("start"); buzz(16); startDeck(); });
+  $("#startBtn").addEventListener("click", () => { actx(); sfx("rev"); setTimeout(() => sfx("start"), 380); buzz(16); startDeck(); });
   document.querySelectorAll(".sndtoggle").forEach((b) => b.addEventListener("click", () => { actx(); toggleSnd(); }));
   paintSnd();
   $("#keepBtn").addEventListener("click", () => decide("keep"));
