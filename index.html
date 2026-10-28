@@ -438,6 +438,51 @@ textarea.inp{min-height:3.9em}
 .card .more{position:absolute;top:14px;right:14px;z-index:3;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);pointer-events:none}
 .card .more svg{width:18px;height:18px}
 
+
+/* ===== Categories, room map, settings ===== */
+.segm.three{grid-template-columns:repeat(3, 1fr)}
+.catbar{flex:none;display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 8px 8px 10px;border-radius:14px;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.cb-emo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:20px;line-height:1;background:var(--tint-soft);flex:none}
+.cb-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.cb-t b{font:700 15px/1.2 var(--sys);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cb-t small{font:500 13px/1.2 var(--sys);color:var(--label2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cb-all{appearance:none;border:0;border-radius:999px;padding:9px 14px;font:700 14px/1 var(--sys);background:var(--tint);color:var(--on-tint);cursor:pointer;white-space:nowrap;flex:none}
+.cb-all:active{opacity:.75}
+.catbar.bump{animation:popin .45s cubic-bezier(.2,1.6,.4,1)}
+.catchip{font:700 12px/1 var(--sys);color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);padding:5px 9px;border-radius:999px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);white-space:nowrap}
+.card .top-row{flex-wrap:wrap}
+.pg-h{grid-column:1 / -1;display:flex;align-items:center;gap:7px;font:700 15px/1.2 var(--sys);margin:8px 2px 0}
+.pg-h .n{color:var(--label2);font-weight:600}
+.catgroups{display:flex;flex-direction:column;gap:8px}
+.cg-h{margin:8px 16px 0;font:600 15px/1.2 var(--sys);display:flex;gap:7px;align-items:baseline}
+.cg-h .n{color:var(--label2);font-weight:500}
+.catsel{max-width:160px;text-overflow:ellipsis;-webkit-appearance:none;appearance:none;padding-right:12px}
+.asheet-wrap{position:fixed;inset:0;z-index:55;display:flex;align-items:flex-end;justify-content:center}
+.asheet{position:relative;width:100%;max-width:520px;padding:0 10px calc(10px + env(safe-area-inset-bottom, 0px));display:flex;flex-direction:column;gap:8px}
+.as-group{background:var(--elev);border-radius:14px;overflow:hidden}
+.as-title{margin:0;padding:14px 18px;text-align:center;font:500 13px/1.35 var(--sys);color:var(--label2);border-bottom:.5px solid var(--sep)}
+.as-btn{appearance:none;border:0;background:none;width:100%;padding:17px;font:600 19px/1.2 var(--sys);cursor:pointer;color:var(--tint);display:flex;align-items:center;justify-content:center;gap:8px}
+.as-btn + .as-btn{border-top:.5px solid var(--sep)}
+.as-btn.keep{color:var(--green)}
+.as-btn.toss{color:var(--red)}
+.as-btn:active{background:var(--fill)}
+.as-cancel{appearance:none;border:0;background:var(--elev);border-radius:14px;padding:17px;font:700 19px/1.2 var(--sys);color:var(--tint);cursor:pointer}
+.rm-card{background:var(--card);border-radius:14px;overflow:hidden}
+.rm{position:relative;width:100%;max-width:100%;background:var(--fill)}
+.rm img{display:block;width:100%;height:100%;object-fit:cover}
+.rmb{position:absolute;border:3px solid;border-radius:8px;padding:0;cursor:pointer;background:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.7)}
+.rmb span{position:absolute;left:3px;top:3px;min-width:20px;height:20px;border-radius:10px;font:700 12px/20px var(--round);color:#fff;text-align:center;padding:0 5px}
+.rmb.keep{border-color:#34C759;background:rgba(52,199,89,.2)}
+.rmb.keep span{background:#34C759}
+.rmb.toss{border-color:#FF3B30;background:rgba(255,59,48,.2)}
+.rmb.toss span{background:#FF3B30}
+.rmb.wait{border-color:rgba(255,255,255,.9);border-style:dashed;background:rgba(0,0,0,.18)}
+.rmb.wait span{background:#8E8E93}
+.rmb.done{opacity:.4}
+.rm-legend{display:flex;gap:6px 14px;flex-wrap:wrap;font:600 13px/1.3 var(--sys);color:var(--label2);margin:2px 4px 0}
+.rm-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+#setScreen .frow .lbl{width:70px}
+
 @media (max-width:360px){ .photos{grid-template-columns:repeat(3, minmax(0, 1fr))} .tiles.three .tile b{font-size:26px} .lt{font-size:30px} }
 @media (min-width:700px){ .pgrid{grid-template-columns:repeat(4, minmax(0, 1fr))} }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important;animation:none !important} }
@@ -479,6 +524,7 @@ textarea.inp{min-height:3.9em}
 
   <section class="screen" id="deckScreen" hidden>
     <div class="prog"><div class="track"><i id="bar"></i></div><span id="deckCount"></span><span class="streak" id="streak" hidden></span><button class="sndbtn sndtoggle" id="sndBtn" type="button" aria-label="Sound"></button></div>
+    <div class="catbar" id="catBar" hidden><span class="cb-emo" id="cbEmo"></span><span class="cb-t"><b id="cbName"></b><small id="cbLeft"></small></span><button class="cb-all" id="cbAll" type="button">Decide all</button></div>
     <div class="deck" id="deck"></div>
     <p class="swipehint" id="swipeHint" hidden>👈 Donate · Keep 👉</p>
     <div class="actions">
@@ -562,7 +608,7 @@ textarea.inp{min-height:3.9em}
       <ul class="group icons">
         <li><button class="row" id="copyLink" type="button"><span class="isq tint" data-ic="link"></span><span class="tx"><span class="t">Copy Link for <span class="kidname">Her</span></span></span></button></li>
       </ul>
-      <p class="sect-f">Share this page with <span class="kidname">her</span> by email and set her to Editor, with the public link off. That's what lets her swipes come back here on their own.</p>
+      <p class="sect-f">Share this page with <span class="kidname">them</span> by email and set them to Editor, with the public link off. That's what lets their swipes come back here on their own.</p>
     </div>
     <p class="sect-f" id="aiNote" hidden>Claude can't look at photos in this view, so you'll draw the boxes and type the names yourself.</p>
   </section>
@@ -570,9 +616,10 @@ textarea.inp{min-height:3.9em}
   <section class="screen scroll" id="newScreen" hidden>
     <div class="hero"><h1 class="lt">New Round</h1></div>
     <div class="sect">
-      <div class="segm" role="group" aria-label="What did you shoot?">
-        <button id="modeMany" type="button" aria-pressed="true">Many Items per Photo</button>
-        <button id="modeOne" type="button" aria-pressed="false">One Item per Photo</button>
+      <div class="segm three" role="group" aria-label="What did you shoot?">
+        <button id="modeRoom" type="button" aria-pressed="false">Whole Room</button>
+        <button id="modeMany" type="button" aria-pressed="true">Laid Out</button>
+        <button id="modeOne" type="button" aria-pressed="false">One Each</button>
       </div>
       <p class="sect-f" id="modeHint"></p>
     </div>
@@ -588,7 +635,7 @@ textarea.inp{min-height:3.9em}
         <li><div class="frow"><input class="inp" id="whereIn" type="text" placeholder="Where was it stored?" maxlength="60" autocomplete="off" aria-label="Where was it stored"></div></li>
         <li><div class="frow"><textarea class="inp" id="noteIn" rows="2" placeholder="Note for her (optional)" maxlength="240" aria-label="Note"></textarea></div></li>
       </ul>
-      <p class="sect-f"><span class="kidname">She</span> sees your note before she starts swiping.</p>
+      <p class="sect-f"><span class="kidname">They</span> see your note before swiping.</p>
     </div>
     <p class="status" id="findStatus" aria-live="polite"></p>
     <button class="btn gray" id="manualBtn" type="button" hidden>Draw the Boxes Myself</button>
@@ -619,6 +666,24 @@ textarea.inp{min-height:3.9em}
     <div class="bottom two"><button class="btn gray" id="prevBtn" type="button">Preview</button><button class="btn fill" id="sendBtn" type="button">Send</button></div>
   </section>
 
+  <section class="screen scroll" id="setScreen" hidden>
+    <div class="hero"><h1 class="lt" id="setTitle">Settings</h1><p class="lede" id="setLede" hidden>Two quick names and you're ready to sort.</p></div>
+    <div class="sect">
+      <h2 class="sect-h">Names</h2>
+      <ul class="group">
+        <li><div class="frow"><span class="lbl">You</span><input class="inp" id="cfgDad" type="text" placeholder="Dad, Mom, or your name" maxlength="24" autocomplete="off"></div></li>
+        <li><div class="frow"><span class="lbl">Sorter</span><input class="inp" id="cfgKid" type="text" placeholder="Who's deciding? First name" maxlength="24" autocomplete="off"></div></li>
+      </ul>
+      <p class="sect-f">They see "Hey Maya 👋" on the title screen, and your name on your notes.</p>
+    </div>
+    <div class="sect">
+      <h2 class="sect-h">Text me button</h2>
+      <ul class="group"><li><div class="frow"><span class="lbl">Phone</span><input class="inp" id="cfgPhone" type="tel" inputmode="tel" placeholder="Optional" maxlength="20" autocomplete="off"></div></li></ul>
+      <p class="sect-f">If their picks can't sync, the finish screen offers to text you the list.</p>
+    </div>
+    <div class="bottom"><button class="btn fill" id="cfgSave" type="button">Save</button></div>
+  </section>
+
   <section class="screen scroll" id="sentScreen" hidden>
     <div class="hero" style="align-items:center;text-align:center;padding-top:18px">
       <div class="bigic ok" data-ic="check"></div>
@@ -630,7 +695,7 @@ textarea.inp{min-height:3.9em}
       <p class="bubble out" id="shareText"></p>
     </div>
     <button class="btn fill" id="copyShare" type="button"><span data-ic="copy"></span>Copy Message</button>
-    <p class="sect-f" style="text-align:center">Her picks show up in Rounds as she swipes.</p>
+    <p class="sect-f" style="text-align:center">Picks show up in Rounds as <span class="kidname">they</span> swipe.</p>
   </section>
 
   <section class="screen scroll" id="resScreen" hidden>
@@ -644,14 +709,22 @@ textarea.inp{min-height:3.9em}
       <div class="tile toss"><b id="resTossN">0</b><span>Donate</span></div>
       <div class="tile"><b id="resLeftN">0</b><span>Left</span></div>
     </div>
+    <div class="segm" id="resSeg" role="group" aria-label="View" hidden>
+      <button id="segList" type="button" aria-pressed="true">List</button>
+      <button id="segRoom" type="button" aria-pressed="false">Room Map</button>
+    </div>
+    <div class="sect" id="resRoomS" hidden>
+      <div class="edlist" id="resRoom"></div>
+      <p class="rm-legend"><span><i style="background:#34C759"></i>Keep</span><span><i style="background:#FF3B30"></i>Donate</span><span><i style="background:#8E8E93"></i>Not decided</span><span>Faded means packed or gone</span></p>
+    </div>
     <div class="sect" id="resKeepS">
       <h2 class="sect-h big">Keeping</h2>
-      <ul class="group thumbs" id="resKeep"></ul>
+      <div class="catgroups" id="resKeep"></div>
       <p class="sect-f">Check things off as you pack them.</p>
     </div>
     <div class="sect" id="resTossS">
       <h2 class="sect-h big">Donating</h2>
-      <ul class="group thumbs" id="resToss"></ul>
+      <div class="catgroups" id="resToss"></div>
       <p class="sect-f">Check things off as you drop them off.</p>
     </div>
     <details class="sect" id="resWait" hidden>
@@ -686,6 +759,13 @@ textarea.inp{min-height:3.9em}
     </div>
   </section>
 </div>
+<div class="asheet-wrap" id="asheet" hidden>
+  <div class="sheet-bd" id="asBd"></div>
+  <div class="asheet" role="dialog" aria-modal="true" aria-labelledby="asTitle">
+    <div class="as-group"><p class="as-title" id="asTitle"></p><div id="asBtns"></div></div>
+    <button class="as-cancel" id="asCancel" type="button">Cancel</button>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script id="keepers-data" type="application/json">{}</script>
@@ -697,13 +777,13 @@ textarea.inp{min-height:3.9em}
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s) => document.querySelector(s);
   const KID_SCREENS = ["introScreen", "deckScreen", "sumScreen", "roundsScreen", "emptyScreen"];
-  const SCREENS = ["loadScreen", ...KID_SCREENS, "homeScreen", "newScreen", "boxScreen", "nameScreen", "sentScreen", "resScreen"];
+  const SCREENS = ["loadScreen", ...KID_SCREENS, "homeScreen", "newScreen", "boxScreen", "nameScreen", "sentScreen", "resScreen", "setScreen"];
 
   let CFG = DEFAULTS, BAKED = [], ROUNDS = [], cur = null, busy = false, drag = null, toastTimer = 0, onScreen = "", NAVCFG = null;
   let MODE = "kid", PREVIEW = false, RETURN_TO = null;
   let DB = null, USER = null, SAMPLE = null, ASSETS = null, IS_OWNER = false, CAN_WRITE = null, IMG = null;
   const PICKS = {}, HANDLED = {};
-  const S = { rounds: new Map(), items: new Map(), resId: null, handled: {}, unsubH: null };
+  const S = { rounds: new Map(), items: new Map(), photos: new Map(), resId: null, handled: {}, unsubH: null, view: "list" };
   let D = null;
 
   /* ================= icons ================= */
@@ -726,6 +806,8 @@ textarea.inp{min-height:3.9em}
     pencil: '<path d="M4.5 19.5h4l10-10-4-4-10 10z"/><path d="M13 7l4 4"/>',
     link: '<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
     list: '<path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r=".6"/><circle cx="4.8" cy="12" r=".6"/><circle cx="4.8" cy="17.5" r=".6"/>',
+    bell: '<path d="M6 16.5V11a6 6 0 0112 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/>',
+    sliders: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>',
     restart: '<path d="M4.5 12a7.5 7.5 0 107.5-7.5H9"/><path d="M11 2L8.5 4.5 11 7"/>',
     sound: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
     mute: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>',
@@ -760,7 +842,37 @@ textarea.inp{min-height:3.9em}
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const plural = (n, a, b) => `${n} ${n === 1 ? a : b || a + "s"}`;
   const clean = (s) => String(s == null ? "" : s).replace(/\s*[—–]\s*/g, ", ").replace(/\s+-\s+/g, ", ").trim();
-  const kid = () => CFG.kidName || "her";
+  const kid = () => CFG.kidName || "them";
+  const CATS = [
+    ["books", "Books", "📚", "a library book sale, a Little Free Library, or a used bookstore"],
+    ["clothes", "Clothes & Shoes", "👕", "Goodwill, a clothing drive, or a consignment shop"],
+    ["toys", "Toys & Games", "🧸", "Goodwill, a daycare or church nursery, or a Buy Nothing group"],
+    ["keepsakes", "Keepsakes", "💌", "double check first. These are often one of a kind"],
+    ["school", "School & Art", "🎨", "recycling for papers. Keep a few favorites"],
+    ["electronics", "Electronics", "🎧", "an electronics recycling drop off"],
+    ["sports", "Sports & Outdoors", "⚽", "a sports resale shop or a youth league"],
+    ["music", "Music & Hobbies", "🎸", "a school music program or a local music shop"],
+    ["decor", "Room & Decor", "🪴", "Goodwill or a Buy Nothing group"],
+    ["bedding", "Bedding & Linens", "🛏️", "an animal shelter. Many take towels and blankets"],
+    ["kitchen", "Kitchen", "🍳", "Goodwill or a Buy Nothing group"],
+    ["other", "Other", "📦", "Goodwill or a Buy Nothing group"],
+  ];
+  const CAT = Object.fromEntries(CATS.map(([k, l, e, t], i) => [k, { k, l, e, t, i }]));
+  const CAT_KEYS = CATS.map((c) => c[0]).join(", ");
+  function normCat(s) {
+    s = String(s || "").toLowerCase().trim();
+    if (!s) return "";
+    if (CAT[s]) return s;
+    const hit = CATS.find(([k, l]) => l.toLowerCase().startsWith(s) || s.startsWith(k) || s.includes(k));
+    return hit ? hit[0] : "other";
+  }
+  const catIdx = (it) => (CAT[it.cat] ? CAT[it.cat].i : 99);
+  function groupByCat(items) {
+    const m = new Map();
+    items.forEach((it) => { const k = CAT[it.cat] ? it.cat : ""; if (!m.has(k)) m.set(k, []); m.get(k).push(it); });
+    const g = [...m.entries()].sort((a, b) => (CAT[a[0]] ? CAT[a[0]].i : 99) - (CAT[b[0]] ? CAT[b[0]].i : 99));
+    return g.map(([k, list]) => [CAT[k] || (g.length > 1 ? CAT.other : null), list]);
+  }
   const shortDate = () => new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" });
   function row(o) {
     const tag = o.href ? "a" : o.onclick ? "button" : "div";
@@ -888,7 +1000,7 @@ textarea.inp{min-height:3.9em}
     if (r >= 0.8) return ["🥹", "The Sentimental Soul", "You love your stuff, and your stuff loves you back."];
     if (r >= 0.55) return ["🖼️", "The Curator", "Picky but fair. Only the good stuff made the cut."];
     if (r >= 0.3) return ["⚖️", "The Balanced Boss", "A little keep, a little let go. Perfectly balanced."];
-    if (r >= 0.1) return ["🧹", "The Clean Sweeper", "Ruthless and efficient. Dad's garage thanks you."];
+    if (r >= 0.1) return ["🧹", "The Clean Sweeper", `Ruthless and efficient. ${CFG.dadName}'s garage thanks you.`];
     return ["✨", "The Minimalist", "Less stuff, more space. A totally clean slate."];
   }
   let streak = { n: 0, t: 0 };
@@ -929,7 +1041,8 @@ textarea.inp{min-height:3.9em}
       case "deckScreen": return { back: kidBack, right: roundsBtn, title: cur ? cur.title : "" };
       case "roundsScreen": return { back: { label: "Back", fn: () => (cur ? openRound(cur) : enterKid(PREVIEW)) } };
       case "emptyScreen": return { back: kidBack };
-      case "homeScreen": return { right: [{ label: "Preview", fn: () => { RETURN_TO = null; enterKid(true); } }, { icon: "plus", aria: "New round", fn: newRound }] };
+      case "homeScreen": return { right: [{ label: "Preview", fn: () => { RETURN_TO = null; enterKid(true); } }, { icon: "sliders", aria: "Settings", fn: () => openSettings(false) }, { icon: "plus", aria: "New round", fn: newRound }] };
+      case "setScreen": return onboarding ? {} : { back: { label: "Rounds", fn: renderHome } };
       case "newScreen": return { back: { label: "Cancel", plain: true, fn: () => { D = null; renderHome(); } } };
       case "boxScreen": return { back: { label: "Photos", fn: () => { renderNew(); show("newScreen"); } } };
       case "nameScreen": return { back: { label: "Rounds", fn: renderHome } };
@@ -961,7 +1074,7 @@ textarea.inp{min-height:3.9em}
   }
   document.querySelectorAll(".screen.scroll").forEach((s) => s.addEventListener("scroll", () => { if (s.id === onScreen) updateNav(); }, { passive: true }));
 
-  const DEPTH = { loadScreen: 0, homeScreen: 0, resScreen: 1, newScreen: 1, boxScreen: 2, nameScreen: 3, sentScreen: 4, introScreen: 0, deckScreen: 1, sumScreen: 2, roundsScreen: 3, emptyScreen: 0 };
+  const DEPTH = { loadScreen: 0, homeScreen: 0, resScreen: 1, setScreen: 1, newScreen: 1, boxScreen: 2, nameScreen: 3, sentScreen: 4, introScreen: 0, deckScreen: 1, sumScreen: 2, roundsScreen: 3, emptyScreen: 0 };
   function show(id) {
     const prev = onScreen, changed = id !== onScreen;
     onScreen = id;
@@ -1167,7 +1280,7 @@ textarea.inp{min-height:3.9em}
     const s = st(cur), first = !s.order.length;
     s.started = true; save(cur);
     $("#deck").replaceChildren();
-    streak = { n: 0, t: 0 }; $("#streak").hidden = true;
+    streak = { n: 0, t: 0 }; $("#streak").hidden = true; lastCat = null;
     show("deckScreen");
     paintSnd();
     fillDeck();
@@ -1183,7 +1296,7 @@ textarea.inp{min-height:3.9em}
       el("span", { class: "stamp keep", text: CFG.keepStamp }),
       el("span", { class: "stamp toss", text: CFG.tossWord }),
       el("div", { class: "info" },
-        it.emoji || it.where ? el("div", { class: "top-row" }, it.emoji ? el("span", { class: "emo", text: it.emoji }) : null, it.where ? el("span", { class: "where" }, ic("box"), el("span", { text: it.where })) : null) : null,
+        it.emoji || it.where || CAT[it.cat] ? el("div", { class: "top-row" }, it.emoji || CAT[it.cat] ? el("span", { class: "emo", text: it.emoji || CAT[it.cat].e }) : null, CAT[it.cat] ? el("span", { class: "catchip", text: CAT[it.cat].l }) : null, it.where ? el("span", { class: "where" }, ic("box"), el("span", { text: it.where })) : null) : null,
         el("h3", { text: it.name || "Mystery item" }),
         it.sub ? el("p", { class: "sub", text: it.sub }) : null,
         it.bio ? el("p", { class: "bio", text: it.bio }) : null,
@@ -1197,6 +1310,58 @@ textarea.inp{min-height:3.9em}
     const tot = cur.items.length, done = tot - left(cur).length;
     $("#deckCount").textContent = `${Math.min(done + 1, tot)} of ${tot}`;
     $("#bar").style.width = (done / tot) * 100 + "%";
+    paintCatBar();
+  }
+  let lastCat = null;
+  function paintCatBar() {
+    const bar = $("#catBar");
+    if (!cur || onScreen !== "deckScreen") { bar.hidden = true; return; }
+    const rest = left(cur), top = rest[0], c = top && CAT[top.cat];
+    if (!c || !cur.items.some((i) => i.cat && i.cat !== top.cat) && rest.length < 3) { bar.hidden = true; lastCat = top ? top.cat : null; return; }
+    const same = rest.filter((i) => i.cat === top.cat);
+    bar.hidden = false;
+    $("#cbEmo").textContent = c.e; $("#cbName").textContent = c.l;
+    $("#cbLeft").textContent = `${same.length} left in this group · ${rest.length} total`;
+    $("#cbAll").hidden = same.length < 3;
+    $("#cbAll").textContent = `Decide all ${same.length}`;
+    if (lastCat && lastCat !== top.cat) {
+      bar.classList.remove("bump"); void bar.offsetWidth; bar.classList.add("bump");
+      setTimeout(() => quip(`Next up: ${c.l} ${c.e}`, "big"), 520);
+    }
+    lastCat = top.cat;
+  }
+  function actionSheet(title, opts) {
+    const w = $("#asheet");
+    $("#asTitle").textContent = title;
+    $("#asBtns").replaceChildren(...opts.map((o) => el("button", { class: "as-btn " + (o.kind || ""), type: "button", onclick: () => { closeAS(); o.fn(); } }, o.label)));
+    w.hidden = false;
+    if (!reduce && w.animate) {
+      w.querySelector(".asheet").animate([{ transform: "translateY(110%)" }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(.2,.9,.25,1)" });
+      $("#asBd").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250 });
+    }
+    sfx("tick");
+  }
+  function closeAS() { $("#asheet").hidden = true; }
+  function bulkDecide(cat, choice) {
+    if (busy) return;
+    const s = st(cur), ids = left(cur).filter((i) => i.cat === cat).map((i) => i.id);
+    if (!ids.length) return;
+    ids.forEach((id) => { s.d[id] = choice; });
+    s.order.push("bulk:" + ids.join(","));
+    save(cur);
+    const r = $("#deck").getBoundingClientRect(), dir = choice === "keep" ? 1 : -1, c = CAT[cat];
+    burst(r.left + r.width / 2, r.top + r.height * 0.45, choice === "keep" ? ["💚", "💖", "✨", "💕", c.e] : ["👋", "🎁", "✨", "💨", c.e], 26, { from: -175, to: -5, dist: 230 });
+    quip(choice === "keep" ? `Kept all ${ids.length} ${c.e}` : `${CFG.tossWord} all ${ids.length} ${c.e}`, choice);
+    sfx(choice); buzz(22);
+    $("#swipeHint").hidden = true;
+    busy = true;
+    cards().forEach((el2) => {
+      if (!ids.includes(el2.dataset.id)) return;
+      el2.classList.add("gone");
+      el2.style.transition = reduce ? "none" : "transform .42s cubic-bezier(.25,.6,.3,1)";
+      el2.style.transform = `translate(${dir * (innerWidth + 400)}px, 40px) rotate(${dir * 24}deg)`;
+    });
+    setTimeout(() => { cards().forEach((x) => { if (ids.includes(x.dataset.id)) x.remove(); }); busy = false; fillDeck(); }, reduce ? 0 : 430);
   }
   function fillDeck() {
     const rest = left(cur);
@@ -1290,6 +1455,15 @@ textarea.inp{min-height:3.9em}
     const id = s.order.pop();
     if (!id) { toast("Nothing to undo yet"); return; }
     sfx("undo"); buzz(8); streak = { n: 0, t: 0 }; $("#streak").hidden = true;
+    if (id.startsWith("bulk:")) {
+      const ids = id.slice(5).split(",");
+      ids.forEach((x) => { delete s.d[x]; });
+      save(cur);
+      toast(`Undid all ${ids.length}`);
+      if (onScreen !== "deckScreen") { startDeck(); return; }
+      $("#deck").replaceChildren(); fillDeck();
+      return;
+    }
     const prev = s.d[id];
     delete s.d[id]; save(cur);
     const it = cur.items.find((i) => i.id === id);
@@ -1329,10 +1503,16 @@ textarea.inp{min-height:3.9em}
     return `You kept ${k} and sent ${t} off to a new home.`;
   }
   function grid(listId, emptyId, items, flipTo) {
-    $(listId).replaceChildren(...items.map((it) => el("li", null,
-      el("button", { class: "ph", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
-        el("span", { class: "im" }, el("img", { src: it.thumb || it.img, alt: "", loading: "lazy" })),
-        el("span", { class: "t", text: it.name || "Mystery item" })))));
+    const out = [];
+    const groups = groupByCat(items);
+    groups.forEach(([c, list]) => {
+      if (c && groups.length > 1) out.push(el("li", { class: "pg-h" }, el("span", { text: c.e }), el("span", { text: c.l }), el("span", { class: "n", text: String(list.length) })));
+      list.forEach((it) => out.push(el("li", null,
+        el("button", { class: "ph", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
+          el("span", { class: "im" }, el("img", { src: it.thumb || it.img, alt: "", loading: "lazy" })),
+          el("span", { class: "t", text: it.name || "Mystery item" })))));
+    });
+    $(listId).replaceChildren(...out);
     $(emptyId).hidden = items.length > 0;
   }
   function paintSync() {
@@ -1340,7 +1520,7 @@ textarea.inp{min-height:3.9em}
     const synced = canSync(r) && r.synced !== false;
     const g = $("#syncGroup");
     g.replaceChildren();
-    if (PREVIEW && r.source !== "baked") g.append(row({ icon: ["eye", "tint"], title: "Preview", sub: `In her view, picks go to your studio on their own.` }));
+    if (PREVIEW && r.source !== "baked") g.append(row({ icon: ["eye", "tint"], title: "Preview", sub: `In their view, picks go to your studio on their own.` }));
     else if (synced) g.append(row({ icon: ["check", "green"], title: `Sent to ${CFG.dadName}`, sub: `${CFG.dadName} can already see your picks.` }));
     else if (CFG.dadPhone) g.append(row({ icon: ["msg", "green"], title: `Text ${CFG.dadName} Your Picks`, sub: "Opens Messages with your list", href: smsHref(r), chev: true, cls: "tint" }));
     g.hidden = !g.children.length;
@@ -1406,7 +1586,7 @@ textarea.inp{min-height:3.9em}
   const kidCache = new Map();
   function kidItem(d) {
     const big = d.img ? "/_blob/" + d.img : d.full || d.thumb || "";
-    return { id: d.id, img: big, thumb: d.thumb || big, name: d.name || "Mystery item", sub: d.sub || "", where: d.where || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "" };
+    return { id: d.id, img: big, thumb: d.thumb || big, name: d.name || "Mystery item", sub: d.sub || "", where: d.where || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "" };
   }
   async function liveKidRounds() {
     const live = [...S.rounds.values()].filter((r) => r.status === "live").sort((a, b) => (a.sentAt || 0) - (b.sentAt || 0));
@@ -1489,11 +1669,12 @@ textarea.inp{min-height:3.9em}
 
   /* ---------- results ---------- */
   async function openResults(rid) {
+    if (S.resId !== rid) S.view = "list";
     S.resId = rid; S.handled = {};
     if (S.unsubH) { try { S.unsubH(); } catch (e) {} S.unsubH = null; }
     show("resScreen");
     renderResults();
-    await ensureItems(rid, true);
+    await Promise.all([ensureItems(rid, true), ensurePhotos(rid)]);
     renderResults();
     try {
       S.unsubH = DB.doc("handled/" + rid).onSnapshot((snap) => {
@@ -1528,23 +1709,57 @@ textarea.inp{min-height:3.9em}
     $("#navT").textContent = r.title || "Round";
     $("#resHead").textContent = !n ? `Waiting on ${kid()} to start.` : wait.length ? `${kid()[0].toUpperCase() + kid().slice(1)} has swiped ${n} of ${total}.` : `All ${total} swiped. Time to pack.`;
     $("#resKeepN").textContent = keep.length; $("#resTossN").textContent = toss.length; $("#resLeftN").textContent = items.length ? wait.length : total;
-    $("#resKeepS").hidden = !keep.length; $("#resTossS").hidden = !toss.length;
-    $("#resKeep").replaceChildren(...keep.map((i) => resRow(i, "Packed")));
-    $("#resToss").replaceChildren(...toss.map((i) => resRow(i, "Dropped off")));
-    $("#resWait").hidden = !wait.length || !items.length || !n;
+    const roomOn = S.view === "room" && (S.photos.get(r.id) || []).length > 0;
+    $("#resKeepS").hidden = roomOn || !keep.length; $("#resTossS").hidden = roomOn || !toss.length;
+    $("#resKeep").replaceChildren(...catGroups(keep, "Packed", false));
+    $("#resToss").replaceChildren(...catGroups(toss, "Dropped off", true));
+    const photos = S.photos.get(r.id) || [], room = S.view === "room" && photos.length > 0;
+    $("#resSeg").hidden = !photos.length || !items.some((i) => i.pid);
+    $("#segList").setAttribute("aria-pressed", String(!room)); $("#segRoom").setAttribute("aria-pressed", String(room));
+    $("#resRoomS").hidden = !room;
+    if (room) renderRoom(items, photos);
+    $("#resWait").hidden = roomOn || !wait.length || !items.length || !n;
     $("#resWaitN").textContent = `(${wait.length})`;
     $("#resWaitList").replaceChildren(...wait.map((i) => resRow(i, null)));
     const a = $("#resActions");
     a.replaceChildren(
       row({ icon: ["copy", "tint"], title: "Copy Both Lists", cls: "tint", onclick: () => copyText(listsText()).then((ok) => toast(ok ? "Both lists copied" : "Couldn't copy here")) }),
-      row({ icon: ["msg", "green"], title: `Copy Message for ${kid()[0].toUpperCase() + kid().slice(1)}`, cls: "tint", onclick: () => copyText(shareText(r.title || "New round", r.count || 0)).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Couldn't copy here")) }),
+      row({ icon: ["msg", "green"], title: `Copy Message for ${kid()[0].toUpperCase() + kid().slice(1)}`, cls: "tint", onclick: () => copyText(shareText(r.title || "New round", r.count || 0)).then((ok) => toast(ok ? "Copied. Paste it in a text." : "Couldn't copy here")) }),
       row({ icon: ["pencil", "orange"], title: "Edit Items", cls: "tint", chev: true, onclick: () => resumeRound(r.id) }));
-    if (r.status === "archived") a.append(row({ icon: ["archive", "gray"], title: "Restore Round", cls: "tint", onclick: () => writeDoc("rounds/" + r.id, { status: "live" }, true).then(() => toast("It's back in her list")).catch(saveErr) }));
+    if (wait.length && n) a.append(row({ icon: ["bell", "orange"], title: "Copy a Friendly Reminder", cls: "tint", onclick: () => copyText(`Hey ${kid()}, ${plural(wait.length, "thing is", "things are")} still waiting for you in ${CFG.appName}: ${r.title || "your round"}. ${LINK}`).then((ok) => toast(ok ? "Reminder copied. Paste it in a text." : "Couldn't copy here")) }));
+    if (r.status === "archived") a.append(row({ icon: ["archive", "gray"], title: "Restore Round", cls: "tint", onclick: () => writeDoc("rounds/" + r.id, { status: "live" }, true).then(() => toast("It's back in their list")).catch(saveErr) }));
     else {
       const arch = row({ icon: ["archive", "red"], title: "Archive Round", cls: "danger", onclick: () => {} });
-      armButton(arch.firstChild, "Archive Round", "Tap Again to Archive", () => writeDoc("rounds/" + r.id, { status: "archived" }, true).then(() => { toast("Archived. It's off her list."); renderHome(); }).catch(saveErr));
+      armButton(arch.firstChild, "Archive Round", "Tap Again to Archive", () => writeDoc("rounds/" + r.id, { status: "archived" }, true).then(() => { toast("Archived. It's off their list."); renderHome(); }).catch(saveErr));
       a.append(arch);
     }
+  }
+  function catGroups(list, label, tips) {
+    const groups = groupByCat(list);
+    if (groups.length === 1 && !groups[0][0]) return [el("ul", { class: "group thumbs" }, list.map((i) => resRow(i, label)))];
+    return groups.flatMap(([c, items]) => [
+      el("h3", { class: "cg-h" }, el("span", { text: c.e }), el("span", { text: c.l }), el("span", { class: "n", text: String(items.length) })),
+      el("ul", { class: "group thumbs" }, items.map((i) => resRow(i, label))),
+      tips ? el("p", { class: "sect-f", text: `Good home: ${c.t}.` }) : null,
+    ]).filter(Boolean);
+  }
+  function renderRoom(items, photos) {
+    const pd = (PICKS[S.resId] && PICKS[S.resId].d) || {};
+    $("#resRoom").replaceChildren(...photos.map((ph) => {
+      const box = el("div", { class: "rm" });
+      box.style.aspectRatio = `${ph.w || 4} / ${ph.h || 3}`;
+      const img = el("img", { src: ph.img ? "/_blob/" + ph.img : ph.full || "", alt: "" });
+      img.onerror = () => { if (ph.full && img.getAttribute("src") !== ph.full) img.src = ph.full; };
+      box.append(img);
+      items.forEach((i, idx) => {
+        if (i.pid !== ph.id || !i.box) return;
+        const d = pd[i.id] || "wait", word = d === "keep" ? CFG.keepWord : d === "toss" ? CFG.tossWord : "Not decided yet";
+        const b = el("button", { class: `rmb ${d}${S.handled[i.id] ? " done" : ""}`, type: "button", "aria-label": `${i.name}: ${word}`, onclick: () => { sfx("tick"); toast(`#${idx + 1} ${i.name || "Mystery item"} · ${word}`); } }, el("span", { text: String(idx + 1) }));
+        Object.assign(b.style, { left: i.box.x * 100 + "%", top: i.box.y * 100 + "%", width: i.box.w * 100 + "%", height: i.box.h * 100 + "%" });
+        box.append(b);
+      });
+      return el("div", { class: "rm-card" }, box);
+    }));
   }
   function toggleHandled(iid) {
     if (S.handled[iid]) delete S.handled[iid]; else { S.handled[iid] = true; sfx("tick"); buzz(8); }
@@ -1569,11 +1784,12 @@ textarea.inp{min-height:3.9em}
     show("newScreen");
   }
   function renderNew() {
-    $("#modeMany").setAttribute("aria-pressed", String(D.mode === "many"));
-    $("#modeOne").setAttribute("aria-pressed", String(D.mode === "one"));
-    $("#modeHint").textContent = D.mode === "many"
-      ? "Lay things out with a little space between them and shoot from above. Claude finds each item. Add more photos for more piles."
-      : "Each photo is one item. Good for big things or a quick string of snaps.";
+    ["Room", "Many", "One"].forEach((m) => $("#mode" + m).setAttribute("aria-pressed", String(D.mode === m.toLowerCase())));
+    $("#modeHint").textContent = {
+      room: "Stand back and shoot the whole room, closet, shelf or garage corner. Claude zooms in section by section to find every item. Add a photo per wall.",
+      many: "Lay things out with a little space between them and shoot from above. Claude finds each item. Add more photos for more piles.",
+      one: "Each photo is one item. Good for big things or a quick string of snaps.",
+    }[D.mode];
     $("#photoGrid").replaceChildren(...D.photos.map((ph, i) => el("li", null,
       el("img", { src: ph.url, alt: `Photo ${i + 1}` }),
       el("button", { class: "px", type: "button", "aria-label": "Remove this photo", onclick: () => { URL.revokeObjectURL(ph.url); D.photos.splice(i, 1); renderNew(); } }, ic("x")))));
@@ -1582,7 +1798,7 @@ textarea.inp{min-height:3.9em}
     $("#pickSub").textContent = D.photos.length ? `${plural(D.photos.length, "photo")} added` : "Camera or photo library";
     const f = $("#findBtn");
     f.disabled = !D.photos.length || !!D.busy;
-    f.textContent = D.mode === "many" ? "Find Items" : D.photos.length ? `Continue with ${plural(D.photos.length, "Item")}` : "Continue";
+    f.textContent = D.mode !== "one" ? "Find Items" : D.photos.length ? `Continue with ${plural(D.photos.length, "Item")}` : "Continue";
   }
   async function prepPhoto(file) {
     const u = URL.createObjectURL(file);
@@ -1610,23 +1826,22 @@ textarea.inp{min-height:3.9em}
 
   /* ---------- finding items ---------- */
   function detectPrompt(n) {
-    return `You are helping a dad sort his grown daughter's old belongings into keep or donate.
+    return `You are helping a parent sort their grown kid's old belongings into keep or donate.
 ${n === 1 ? "The image is a photo" : `The ${n} images are photos, numbered 1 to ${n} in the order given,`} taken from above of things laid out on a floor or table.
 A pink grid is drawn on top. The numbers along the top and left edges are percent of the image width and height: 0 is the top left corner and 100 is the bottom right.
-Find every separate item she would decide on by itself: each book, toy, piece of clothing, box, bag or keepsake. A boxed set still in its case is one item. If a photo shows just one item, return one box for it.
+Find every separate item they would decide on by itself: each book, toy, piece of clothing, box, bag or keepsake. A boxed set still in its case is one item. If a photo shows just one item, return one box for it.
 Ignore the floor, rugs, furniture, walls, shadows, feet, hands and the grid itself.
-For each item give a tight box as [left, top, right, bottom] in percent, plus a short label.
+For each item give a tight box as [left, top, right, bottom] in percent, a short label, and a category from: ${CAT_KEYS}.
 Reply with only JSON in this shape:
-{"photos":[{"photo":1,"items":[{"box":[12.5,8,30,41],"label":"Paperback book"}]}]}`;
+{"photos":[{"photo":1,"items":[{"box":[12.5,8,30,41],"label":"Paperback book","category":"books"}]}]}`;
   }
   function lab(g, t, x, y, fs) {
     const w = g.measureText(t).width;
     g.fillStyle = "rgba(0,0,0,.72)"; g.fillRect(x - 2, y - 1, w + 4, fs + 3);
     g.fillStyle = "#fff"; g.fillText(t, x, y);
   }
-  async function gridBlob(ph) {
-    const im = await loadImg(ph.url);
-    const c = scaled(im, 1568), g = c.getContext("2d"), W = c.width, H = c.height;
+  function drawGrid(c) {
+    const g = c.getContext("2d"), W = c.width, H = c.height;
     const fs = Math.max(13, Math.round(Math.min(W, H) / 44));
     g.font = `700 ${fs}px Arial, sans-serif`; g.textBaseline = "top";
     g.strokeStyle = "rgba(255,0,170,.62)"; g.lineWidth = Math.max(1, Math.round(W / 900));
@@ -1638,7 +1853,100 @@ Reply with only JSON in this shape:
       lab(g, String(p), Math.round((W * p) / 100) + 3, 3, fs);
       lab(g, String(p), 3, Math.round((H * p) / 100) + 3, fs);
     }
+  }
+  async function gridBlob(ph) {
+    const im = await loadImg(ph.url);
+    const c = scaled(im, 1568);
+    drawGrid(c);
     return toBlob(c, 0.85);
+  }
+  function gridBlobFrom(im, r, max) {
+    const W = im.naturalWidth, H = im.naturalHeight;
+    const sx = r.x * W, sy = r.y * H, sw = r.w * W, sh = r.h * H, s = Math.min(1, max / Math.max(sw, sh));
+    const c = canvasOf(sw * s, sh * s);
+    c.getContext("2d").drawImage(im, sx, sy, sw, sh, 0, 0, c.width, c.height);
+    drawGrid(c);
+    return toBlob(c, 0.85);
+  }
+  function tileRects(w, h) {
+    const cols = w >= h ? 3 : 2, rows = w >= h ? 2 : 3, ov = 0.14, out = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const x0 = Math.max(0, (c - ov) / cols), y0 = Math.max(0, (r - ov) / rows);
+      const x1 = Math.min(1, (c + 1 + ov) / cols), y1 = Math.min(1, (r + 1 + ov) / rows);
+      out.push({ x: x0, y: y0, w: x1 - x0, h: y1 - y0 });
+    }
+    return out;
+  }
+  const ROOM_RULES = `Find every separate thing they would decide on by itself: books, clothes, shoes, toys, stuffed animals, games, keepsakes, trophies, art, school papers, electronics, sports gear, instruments, decor, bags, boxes and bins. A stack of the same small things, like a pile of papers, can be one item. Look closely at shelves, beds, floors, desks, hooks and walls.
+Skip walls, windows, doors, lights, outlets, and the shelves or furniture the items sit on.`;
+  function roomPrompt(nTiles) {
+    return `You are helping a parent sort their grown kid's belongings into keep or donate.
+Image 1 is a whole photo of a room, closet, shelf or garage area. Images 2 to ${nTiles + 1} are zoomed in sections of that same photo, in reading order, overlapping a little.
+Each image has its own pink grid. The numbers on its top and left edges are percent of THAT image's width and height.
+${ROOM_RULES}
+In the zoomed sections, include small things that are hard to see in image 1. If an item is cut off at the edge of a section, box the part you can see.
+For each item in each image give a tight box as [left, top, right, bottom] in that image's percent, a short label, and a category from: ${CAT_KEYS}.
+Reply with only JSON in this shape:
+{"images":[{"image":1,"items":[{"box":[12,8,30,41],"label":"Stuffed bear","category":"toys"}]}]}`;
+  }
+  function sectionPrompt(n) {
+    return `You are helping a parent sort their grown kid's belongings into keep or donate.
+These ${n} images are zoomed in sections of one photo of a room, numbered 1 to ${n} in the order given. Each has its own pink grid in percent of that image.
+${ROOM_RULES}
+If an item is cut off at the edge of a section, box the part you can see.
+For each item in each image give a tight box as [left, top, right, bottom] in that image's percent, a short label, and a category from: ${CAT_KEYS}.
+Reply with only JSON in this shape:
+{"images":[{"image":1,"items":[{"box":[12,8,30,41],"label":"Stuffed bear","category":"toys"}]}]}`;
+  }
+  function pickImages(res, n) {
+    const arr = Array.isArray(res) ? res : (res && (res.images || res.photos)) || [];
+    return Array.from({ length: n }, (_, k) => {
+      const e = arr.find((x) => Number(x && (x.image != null ? x.image : x.photo)) === k + 1) || arr[k] || {};
+      const items = Array.isArray(e.items) ? e.items : Array.isArray(e) ? e : [];
+      return items.map(toBox).filter(Boolean);
+    });
+  }
+  const bArea = (b) => b.w * b.h;
+  const bInter = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+  /* Overview boxes find everything; section boxes are sharper and catch small things. Keep the best of both. */
+  function mergeRoom(over, tiles) {
+    const out = over.map((b) => ({ ...b })), extra = [];
+    const dup = (t) => extra.some((e) => bInter(t, e) / Math.min(bArea(t), bArea(e)) > 0.5);
+    for (const t of tiles) {
+      let best = null, bv = 0;
+      for (const o of out) { const v = bInter(t, o) / Math.min(bArea(t), bArea(o)); if (v > bv) { bv = v; best = o; } }
+      if (best && bv > 0.5) {
+        const r = bArea(t) / bArea(best);
+        if (r >= 0.4 && r <= 1.6) {
+          if (!t.edge && !best.sharp) { Object.assign(best, { x: t.x, y: t.y, w: t.w, h: t.h, sharp: true }); if (!best.cat) best.cat = t.cat; }
+        } else if (r < 0.4 && !t.edge && !dup(t)) { extra.push(t); best.subs = (best.subs || 0) + 1; }
+        continue;
+      }
+      if (!t.edge && !dup(t)) extra.push(t);
+    }
+    return [...out.filter((o) => (o.subs || 0) < 2), ...extra].map(({ x, y, w, h, label, cat }) => ({ x, y, w, h, label, cat }));
+  }
+  async function roomDetect(ph) {
+    const im = await loadImg(ph.url);
+    const tiles = tileRects(im.naturalWidth, im.naturalHeight), rects = [{ x: 0, y: 0, w: 1, h: 1 }, ...tiles];
+    const blobs = [];
+    for (let i = 0; i < rects.length; i++) blobs.push(await gridBlobFrom(im, rects[i], i ? 1300 : 1568));
+    let lists;
+    const max = IMG.maxCount || 1;
+    if (max >= rects.length) lists = pickImages(await SAMPLE.json(roomPrompt(tiles.length), { images: blobs }), rects.length);
+    else {
+      lists = pickImages(await SAMPLE.json(detectPrompt(1), { images: [blobs[0]] }), 1);
+      for (let i = 1; i < blobs.length; i += max) {
+        const part = blobs.slice(i, i + max);
+        lists.push(...pickImages(await SAMPLE.json(sectionPrompt(part.length), { images: part }), part.length));
+      }
+    }
+    const over = lists[0] || [], fromTiles = [];
+    tiles.forEach((r, i) => (lists[i + 1] || []).forEach((b) => {
+      const edge = (b.x < 0.02 && r.x > 0) || (b.x + b.w > 0.98 && r.x + r.w < 1) || (b.y < 0.02 && r.y > 0) || (b.y + b.h > 0.98 && r.y + r.h < 1);
+      fromTiles.push({ x: r.x + b.x * r.w, y: r.y + b.y * r.h, w: b.w * r.w, h: b.h * r.h, label: b.label, cat: b.cat, edge });
+    }));
+    return readingOrder(mergeRoom(over, fromTiles));
   }
   function toBox(it) {
     const b = it && (it.box || it.bbox);
@@ -1649,7 +1957,7 @@ Reply with only JSON in this shape:
     l /= div; t /= div; r /= div; bt /= div;
     const x0 = Math.max(0, Math.min(l, r)), x1 = Math.min(1, Math.max(l, r)), y0 = Math.max(0, Math.min(t, bt)), y1 = Math.min(1, Math.max(t, bt));
     if (x1 - x0 < 0.01 || y1 - y0 < 0.01) return null;
-    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0, label: clean(it.label || "") };
+    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0, label: clean(it.label || ""), cat: normCat(it.category || it.cat) };
   }
   function readingOrder(boxes) {
     if (boxes.length < 2) return boxes.slice();
@@ -1741,9 +2049,11 @@ Reply with only JSON in this shape:
     setStatus("#findStatus", "");
     D.photos.forEach((p) => { p.boxes = []; p.sel = -1; p.adding = false; });
     D.scanning = true;
-    renderBoxes("Claude is studying your photo and finding every item.");
+    renderBoxes(D.mode === "room" ? "Claude is zooming in section by section to find every item in the room." : "Claude is studying your photo and finding every item.");
     const stop = ticker("#boxStatus", `Finding items in ${plural(D.photos.length, "photo")}`);
     try {
+      if (D.mode === "room") { for (const ph of D.photos) ph.boxes = await roomDetect(ph); }
+      else {
       const per = Math.max(1, Math.min(IMG.maxCount || 1, 4));
       for (let i = 0; i < D.photos.length; i += per) {
         const batch = D.photos.slice(i, i + per);
@@ -1757,6 +2067,7 @@ Reply with only JSON in this shape:
         });
       }
       await Promise.all(D.photos.map(refinePhoto));
+      }
       stop(); D.busy = false; D.scanning = false; setStatus("#boxStatus", ""); renderNew();
       const n = D.photos.reduce((a, p) => a + p.boxes.length, 0);
       D.photos.forEach((p) => { p.reveal = true; });
@@ -1882,7 +2193,9 @@ Reply with only JSON in this shape:
     renderNames();
     setStatus("#nameStatus", `Cutting out ${plural(total, "item")}`, true);
     let n = 0;
-    for (const ph of D.photos) {
+    const photoJobs = [];
+    for (const [pi, ph] of D.photos.entries()) {
+      const pid = "p" + (pi + 1);
       let im;
       try { im = await loadImg(ph.url); } catch (e) { continue; }
       const W = im.naturalWidth, H = im.naturalHeight;
@@ -1895,18 +2208,21 @@ Reply with only JSON in this shape:
         const c = canvasOf(sw * s, sh * s);
         c.getContext("2d").drawImage(im, sx, sy, sw, sh, 0, 0, c.width, c.height);
         n++;
-        const it = { iid: `${D.rid}-${String(n).padStart(2, "0")}`, n, hint: b.label || "", name: "", sub: "", bio: "", tags: [], img: "", thumb: thumbOf(c), full: "", state: "naming" };
+        const it = { iid: `${D.rid}-${String(n).padStart(2, "0")}`, n, hint: b.label || "", name: "", sub: "", bio: "", tags: [], img: "", thumb: thumbOf(c), full: "", state: "naming",
+          cat: b.cat || "", pid: whole ? "" : pid, box: whole ? null : { x: +b.x.toFixed(4), y: +b.y.toFixed(4), w: +b.w.toFixed(4), h: +b.h.toFixed(4) } };
         it.blob = await toBlob(c, 0.86);
         it.url = URL.createObjectURL(it.blob);
         D.items.push(it);
         $("#nameList").append(itemCard(it));
         $("#nameCount").textContent = plural(D.items.length, "Item");
       }
+      if (!whole && DB) { try { photoJobs.push({ pid, n: pi + 1, w: ph.w, h: ph.h, blob: await toBlob(scaled(im, 1600), 0.82) }); } catch (e) {} }
     }
     D.photos.forEach((p) => URL.revokeObjectURL(p.url));
     D.photos = [];
     if (DB) writeDoc(`rounds/${D.rid}`, roundBody()).catch(saveErr);
-    D.uploads = pool(D.items.slice(), 3, uploadItem);
+    const rid = D.rid;
+    D.uploads = Promise.all([pool(D.items.slice(), 3, uploadItem), pool(photoJobs, 2, (j) => savePhoto(rid, j))]);
     identify();
   }
   async function blobToDataURL(blob, max, q) {
@@ -1919,6 +2235,18 @@ Reply with only JSON in this shape:
     if (!it.img) { try { it.full = await blobToDataURL(it.blob, 760, 0.72); } catch (e) {} }
     return saveItem(it, true);
   }
+  async function savePhoto(rid, j) {
+    let img = "", full = "";
+    if (ASSETS) { try { img = (await ASSETS.upload(j.blob)).id; } catch (e) {} }
+    if (!img) { try { full = await blobToDataURL(j.blob, 1000, 0.7); } catch (e) {} }
+    if (DB) await writeDoc(`rounds/${rid}/photos/${j.pid}`, { n: j.n, img, full, w: j.w, h: j.h }).catch(() => {});
+  }
+  async function ensurePhotos(rid) {
+    try {
+      const snap = await DB.collection(`rounds/${rid}/photos`).get();
+      S.photos.set(rid, snap.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => (a.n || 0) - (b.n || 0)));
+    } catch (e) { if (!S.photos.has(rid)) S.photos.set(rid, []); }
+  }
   const itemSrc = (it) => it.url || (it.img ? "/_blob/" + it.img : it.full || it.thumb);
   async function itemBlob(it) {
     if (it.blob) return it.blob;
@@ -1927,18 +2255,19 @@ Reply with only JSON in this shape:
   }
   function namePrompt(batch) {
     const hints = batch.map((it, k) => (it.hint ? `${k + 1}: ${it.hint}` : "")).filter(Boolean).join("; ");
-    return `You are helping a dad clear his grown daughter${CFG.kidName ? " " + CFG.kidName + "'s" : "'s"} old stuff out of his garage. She will swipe through these like a dating app: right to keep, left to donate.
+    return `You are helping a parent clear out their grown kid${CFG.kidName ? " " + CFG.kidName + "'s" : "'s"} old stuff. They will swipe through these like a dating app: right to keep, left to donate.
 There ${batch.length === 1 ? "is 1 image" : `are ${batch.length} images, numbered 1 to ${batch.length} in the order given`}. Each one is a single item cut out of a photo of things laid out on the floor.
 ${D.where ? `They were stored here: ${D.where}.` : ""}${hints ? `\nRough labels from the full photo: ${hints}.` : ""}
 For each image write:
 name: what it is, short and specific. For a book, its exact title if you can read it. Otherwise the plain name a person would say, like "Gray zip hoodie". If you can't tell what it is, start with "Mystery" and describe it, like "Mystery blue box".
 detail: one short line of facts you can see, such as author and format, brand, size, color or condition, separated by " · ".
-bio: the item's dating profile in first person, two short sentences, warm and funny, PG. Don't invent shared memories as facts and don't guilt her into keeping it. Never use dashes.
+bio: the item's dating profile in first person, two short sentences, warm and funny, PG. Don't invent shared memories as facts and don't guilt them into keeping it. Never use dashes.
 tags: three short tags.
 emoji: one emoji that fits the item.
+category: the best fit from: ${CAT_KEYS}.
 Also give a short title for the whole set, like "Books from the blue tote".
 Reply with only JSON in this shape:
-{"title":"...","items":[{"n":1,"name":"...","detail":"...","bio":"...","tags":["...","...","..."],"emoji":"📚"}]}`;
+{"title":"...","items":[{"n":1,"name":"...","detail":"...","bio":"...","tags":["...","...","..."],"emoji":"📚","category":"books"}]}`;
   }
   function applyName(it, r) {
     it.name = clean(r.name || it.name);
@@ -1946,6 +2275,7 @@ Reply with only JSON in this shape:
     it.bio = clean(r.bio || it.bio);
     if (Array.isArray(r.tags)) it.tags = r.tags.map((t) => clean(t)).filter(Boolean).slice(0, 4);
     if (r.emoji) it.emoji = String(r.emoji).trim().slice(0, 8);
+    if (r.category) it.cat = normCat(r.category) || it.cat;
   }
   async function identify(only) {
     const list = (only || D.items).filter((it) => D.items.includes(it));
@@ -2006,13 +2336,15 @@ Reply with only JSON in this shape:
     again.hidden = !(SAMPLE && IMG);
     const rm = el("button", { class: "mini danger", type: "button" }, ic("trash"), el("span", { text: "Remove" }));
     armButton(rm, "Remove", "Tap to Remove", () => removeItem(it));
+    const catSel = el("select", { class: "mini catsel", "aria-label": "Category" }, el("option", { value: "", text: "Category" }), ...CATS.map(([k, l, e]) => el("option", { value: k, text: `${e} ${l}` })));
+    catSel.addEventListener("change", () => { it.cat = catSel.value; saveItem(it); });
     const no = el("span", { class: "num" });
     const card = el("li", { class: "group ig" },
       el("div", { class: "ig-top" }, el("div", { class: "ig-pic" }, img, no), el("div", { class: "ig-f" }, name, sub)),
       el("div", { class: "frow" }, bio),
       el("div", { class: "frow" }, tags),
-      el("div", { class: "ig-acts" }, rot, again, rm));
-    it.el = { card, img, name, sub, bio, tags, no };
+      el("div", { class: "ig-acts" }, catSel, rot, again, rm));
+    it.el = { card, img, name, sub, bio, tags, no, cat: catSel };
     paint(it, true);
     return card;
   }
@@ -2028,6 +2360,7 @@ Reply with only JSON in this shape:
       if (a !== e.sub) e.sub.value = it.sub;
       if (a !== e.bio) e.bio.value = it.bio;
       if (a !== e.tags) e.tags.value = it.tags.join(", ");
+      if (e.cat && a !== e.cat) e.cat.value = CAT[it.cat] ? it.cat : "";
     }
   }
   function renderNames() {
@@ -2087,7 +2420,7 @@ Reply with only JSON in this shape:
     clearTimeout(roundTimer);
     roundTimer = setTimeout(() => { setSaving(1); writeDoc(`rounds/${D.rid}`, roundBody()).catch(saveErr).finally(() => setSaving(-1)); }, 700);
   }
-  const itemBody = (it) => ({ emoji: it.emoji || "", n: it.n, name: clean(it.name), sub: clean(it.sub), bio: clean(it.bio), tags: it.tags.slice(0, 4), where: D.where || "", img: it.img || "", thumb: it.thumb || "", full: it.full || "" });
+  const itemBody = (it) => ({ emoji: it.emoji || "", cat: it.cat || "", pid: it.pid || "", box: it.box || null, n: it.n, name: clean(it.name), sub: clean(it.sub), bio: clean(it.bio), tags: it.tags.slice(0, 4), where: D.where || "", img: it.img || "", thumb: it.thumb || "", full: it.full || "" });
   function saveItem(it, now) {
     if (!DB || !D || !D.items.includes(it)) return Promise.resolve();
     const rid = D.rid;
@@ -2108,6 +2441,7 @@ Reply with only JSON in this shape:
     try {
       D.title = clean($("#titleIn").value) || D.title || "New round";
       D.note = $("#rnote").value.trim();
+      D.items.sort((a, b) => catIdx(a) - catIdx(b) || (a.n || 0) - (b.n || 0));
       D.items.forEach((it, i) => { it.n = i + 1; if (!clean(it.name)) it.name = "Mystery item"; });
       await D.uploads;
       await Promise.all(D.items.map((it) => saveItem(it, true)));
@@ -2118,7 +2452,7 @@ Reply with only JSON in this shape:
       clearTimeout(roundTimer);
       await writeDoc(`rounds/${D.rid}`, roundBody());
       S.items.delete(D.rid);
-      if (wasLive) { toast("Saved. She sees the changes next time she opens it."); openResults(D.rid); return; }
+      if (wasLive) { toast("Saved. Changes show up next time it's opened."); openResults(D.rid); return; }
       $("#sentHead").textContent = `${plural(D.items.length, "thing is", "things are")} waiting on ${kid()}.`;
       $("#shareText").textContent = shareText(D.title, D.items.length);
       show("sentScreen");
@@ -2133,16 +2467,16 @@ Reply with only JSON in this shape:
     D = {
       rid, status: r.status === "archived" ? "live" : r.status, title: r.title || "", where: r.where || "", note: r.note || "", mode: "many", photos: [],
       createdAt: r.createdAt || Date.now(), sentAt: r.sentAt || 0, date: r.date || "", naming: 0,
-      items: items.map((d) => ({ iid: d.id, n: d.n, hint: "", name: d.name || "", sub: d.sub || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", img: d.img || "", thumb: d.thumb || "", full: d.full || "", state: "ready" })),
+      items: items.map((d) => ({ iid: d.id, n: d.n, hint: "", name: d.name || "", sub: d.sub || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "", pid: d.pid || "", box: d.box || null, img: d.img || "", thumb: d.thumb || "", full: d.full || "", state: "ready" })),
     };
     renderNames();
-    setStatus("#nameStatus", D.status === "live" ? "Changes save as you type. She sees them next time she opens it." : "Pick up where you left off.");
+    setStatus("#nameStatus", D.status === "live" ? "Changes save as you type. They show up next time it's opened." : "Pick up where you left off.");
   }
   function previewDraft() {
     if (!D.items.length) { toast("Nothing to preview yet."); return; }
     D.title = clean($("#titleIn").value) || D.title; D.note = $("#rnote").value.trim();
     const r = { id: "draft-" + D.rid, source: "draft", title: D.title || "New round", note: D.note, date: "",
-      items: D.items.map((it) => ({ id: it.iid, img: itemSrc(it), thumb: it.thumb, name: clean(it.name) || "Mystery item", sub: clean(it.sub), where: D.where, bio: clean(it.bio), tags: it.tags, emoji: it.emoji || "" })) };
+      items: D.items.map((it) => ({ id: it.iid, img: itemSrc(it), thumb: it.thumb, name: clean(it.name) || "Mystery item", sub: clean(it.sub), where: D.where, bio: clean(it.bio), tags: it.tags, emoji: it.emoji || "", cat: it.cat || "" })) };
     MODE = "kid"; PREVIEW = true; RETURN_TO = "nameScreen";
     mem[lkey(r)] = { d: {}, order: [], started: false };
     ROUNDS = [r]; cur = r;
@@ -2158,13 +2492,14 @@ Reply with only JSON in this shape:
     const img = $("#shImg"), bg = $("#shBg");
     img.onerror = () => { if (it.thumb && img.getAttribute("src") !== it.thumb) { img.src = it.thumb; bg.src = it.thumb; } };
     img.src = it.img; bg.src = it.img; img.alt = it.name || "";
-    $("#shEmo").hidden = !it.emoji; $("#shEmo").textContent = it.emoji || "";
+    const emo = it.emoji || (CAT[it.cat] ? CAT[it.cat].e : "");
+    $("#shEmo").hidden = !emo; $("#shEmo").textContent = emo;
     $("#shWhere").replaceChildren(...(it.where ? [ic("box"), el("span", { text: it.where })] : [])); $("#shWhere").hidden = !it.where;
     $("#shName").textContent = it.name || "Mystery item";
     $("#shSub").textContent = it.sub || ""; $("#shSub").hidden = !it.sub;
     $("#shBio").textContent = it.bio || ""; $("#shBio").hidden = !it.bio;
     $("#shTags").replaceChildren(...(it.tags || []).map((t) => el("li", { text: t })));
-    $("#shPos").textContent = `Item ${cur.items.indexOf(it) + 1} of ${cur.items.length}`;
+    $("#shPos").textContent = `${CAT[it.cat] ? CAT[it.cat].e + " " + CAT[it.cat].l + " · " : ""}Item ${cur.items.indexOf(it) + 1} of ${cur.items.length}`;
     $("#shPhoto").classList.remove("zoom");
     $("#shBody").scrollTop = 0;
     const w = $("#sheet"), panel = $("#sheetPanel");
@@ -2222,6 +2557,37 @@ Reply with only JSON in this shape:
     $("#shToss").addEventListener("click", () => sheetDecide("toss"));
   })();
 
+  /* ---------- settings ---------- */
+  let onboarding = false;
+  function applyCfg() {
+    $("#tsWordmark").textContent = CFG.appName;
+    document.querySelectorAll(".brand-name").forEach((n) => { n.textContent = CFG.appName; });
+    $("#keepBtn").setAttribute("aria-label", CFG.keepWord); $("#tossBtn").setAttribute("aria-label", CFG.tossWord);
+    $("#keepWordT").textContent = CFG.keepWord; $("#tossWordT").textContent = CFG.tossWord;
+    const K = kid(), Kc = K[0].toUpperCase() + K.slice(1);
+    document.querySelectorAll(".kidname").forEach((n) => { if (n.dataset.orig == null) n.dataset.orig = n.textContent; n.textContent = /^[A-Z]/.test(n.dataset.orig) ? Kc : K; });
+    $("#noteIn").placeholder = $("#rnote").placeholder = `Note for ${Kc} (optional)`;
+    $("#previewBar").textContent = `Preview of ${CFG.kidName ? CFG.kidName + "'s" : "their"} view. Swipes here aren't saved.`;
+  }
+  function openSettings(first) {
+    onboarding = !!first;
+    $("#cfgDad").value = CFG.dadName || ""; $("#cfgKid").value = CFG.kidName || ""; $("#cfgPhone").value = CFG.dadPhone || "";
+    $("#setTitle").textContent = first ? `Welcome to ${CFG.appName}` : "Settings";
+    $("#setLede").hidden = !first;
+    MODE = "dad"; PREVIEW = false;
+    show("setScreen");
+  }
+  async function saveSettings() {
+    const dad = $("#cfgDad").value.trim(), kn = $("#cfgKid").value.trim(), ph = $("#cfgPhone").value.trim();
+    if (!kn) { toast("Add the name of who's deciding"); $("#cfgKid").focus(); return; }
+    CFG.dadName = dad || "Dad"; CFG.kidName = kn; CFG.dadPhone = ph;
+    applyCfg();
+    if (DB) { try { await writeDoc("config/main", { dadName: CFG.dadName, kidName: CFG.kidName, dadPhone: CFG.dadPhone }); } catch (e) { saveErr(e); } }
+    toast(onboarding ? `All set. Start your first round for ${CFG.kidName}.` : "Saved");
+    onboarding = false;
+    renderHome();
+  }
+
   /* ================= wiring ================= */
   $("#startBtn").addEventListener("click", () => { actx(); sfx("start"); buzz(16); startDeck(); });
   document.querySelectorAll(".sndtoggle").forEach((b) => b.addEventListener("click", () => { actx(); toggleSnd(); }));
@@ -2230,6 +2596,7 @@ Reply with only JSON in this shape:
   $("#tossBtn").addEventListener("click", () => decide("toss"));
   $("#undoBtn").addEventListener("click", undo);
   addEventListener("keydown", (e) => {
+    if (!$("#asheet").hidden) { if (e.key === "Escape") { e.preventDefault(); closeAS(); } return; }
     if (!$("#sheet").hidden) { if (e.key === "Escape") { e.preventDefault(); closeDetail(); } return; }
     if (onScreen !== "deckScreen" || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "ArrowRight") { e.preventDefault(); decide("keep"); }
@@ -2239,6 +2606,7 @@ Reply with only JSON in this shape:
   $("#newBtn2").addEventListener("click", newRound);
   $("#modeMany").addEventListener("click", () => { D.mode = "many"; renderNew(); });
   $("#modeOne").addEventListener("click", () => { D.mode = "one"; renderNew(); });
+  $("#modeRoom").addEventListener("click", () => { D.mode = "room"; renderNew(); });
   $("#photoIn").addEventListener("change", onPhotos);
   $("#findBtn").addEventListener("click", findItems);
   $("#manualBtn").addEventListener("click", () => renderBoxes("Tap Add Box and drag around each item. Drag a corner to resize."));
@@ -2247,7 +2615,21 @@ Reply with only JSON in this shape:
   $("#rnote").addEventListener("input", () => { D.note = $("#rnote").value; saveRound(); });
   $("#prevBtn").addEventListener("click", previewDraft);
   $("#sendBtn").addEventListener("click", () => { actx(); sendRound(); });
-  $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text to her." : "Select the message and copy it.")));
+  $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text." : "Select the message and copy it.")));
+  $("#cfgSave").addEventListener("click", saveSettings);
+  $("#cbAll").addEventListener("click", () => {
+    const top = cur && left(cur)[0];
+    if (!top || !CAT[top.cat]) return;
+    const c = CAT[top.cat], n = left(cur).filter((i) => i.cat === top.cat).length;
+    actionSheet(`Decide all ${n} in ${c.l} at once? You can still change any of them at the end.`, [
+      { label: `💚 ${CFG.keepWord} all ${n}`, kind: "keep", fn: () => bulkDecide(top.cat, "keep") },
+      { label: `👋 ${CFG.tossWord} all ${n}`, kind: "toss", fn: () => bulkDecide(top.cat, "toss") },
+    ]);
+  });
+  $("#asBd").addEventListener("click", closeAS);
+  $("#asCancel").addEventListener("click", closeAS);
+  $("#segList").addEventListener("click", () => { S.view = "list"; renderResults(); });
+  $("#segRoom").addEventListener("click", () => { S.view = "room"; sfx("tick"); renderResults(); });
   $("#copyLink").addEventListener("click", () => copyText(LINK).then((ok) => toast(ok ? "Link copied" : LINK)));
 
   /* ================= boot ================= */
@@ -2262,14 +2644,7 @@ Reply with only JSON in this shape:
     const data = await loadData();
     CFG = { ...DEFAULTS, ...(data.config || {}) };
     BAKED = (data.rounds || []).filter((r) => r && r.id && Array.isArray(r.items) && r.items.length).map((r) => ({ ...r, source: "baked" }));
-    $("#tsWordmark").textContent = CFG.appName;
-    document.querySelectorAll(".brand-name").forEach((n) => { n.textContent = CFG.appName; });
-    $("#keepBtn").setAttribute("aria-label", CFG.keepWord); $("#tossBtn").setAttribute("aria-label", CFG.tossWord);
-    $("#keepWordT").textContent = CFG.keepWord; $("#tossWordT").textContent = CFG.tossWord;
-    const K = kid(), Kc = K[0].toUpperCase() + K.slice(1);
-    document.querySelectorAll(".kidname").forEach((n) => { n.textContent = /^[A-Z]/.test(n.textContent) ? Kc : K; });
-    $("#noteIn").placeholder = $("#rnote").placeholder = `Note for ${Kc} (optional)`;
-    $("#previewBar").textContent = `Preview of ${CFG.kidName ? CFG.kidName + "'s" : "her"} view. Swipes here aren't saved.`;
+    applyCfg();
 
     [DB, USER, SAMPLE, ASSETS] = await getCaps();
     if (USER) {
@@ -2279,8 +2654,14 @@ Reply with only JSON in this shape:
     if (SAMPLE && typeof SAMPLE.limits === "function") {
       try { const l = await SAMPLE.limits(); IMG = l && l.images && l.images.maxCount ? l.images : null; } catch (e) {}
     }
-    if (DB) await startSync();
-    if (IS_OWNER && DB) renderHome();
+    if (DB) {
+      await startSync();
+      try {
+        const cs = await DB.doc("config/main").get();
+        if (cs.exists) { const c = cs.data() || {}; ["dadName", "kidName", "dadPhone"].forEach((k) => { if (typeof c[k] === "string") CFG[k] = c[k].trim() || CFG[k]; }); applyCfg(); }
+      } catch (e) {}
+    }
+    if (IS_OWNER && DB) { if (!CFG.kidName) openSettings(true); else renderHome(); }
     else await enterKid(false);
   })();
 })();

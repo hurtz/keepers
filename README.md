@@ -17,17 +17,18 @@ No more "I'll look at i## How it works
 There are two sides: **Dad's studio** and **her swipe deck**. Same page, same link.
 
 **Studio (you)**
-1. **Snap the stuff.** Lay a batch out with a little space between things and take one photo from above. Or switch to "one thing per photo" and snap items one by one.
+1. **Snap the stuff.** Three ways: **Whole Room** (stand back and shoot a room, closet or shelf; Claude zooms in section by section to catch small things), **Laid Out** (a batch on the floor, shot from above), or **One Each** (one item per photo).
 2. **Check the boxes.** Claude draws a box around every item it finds, then each box snaps tight to the item. Drag to move, drag a corner to resize, tap × to drop one, or draw one it missed.
-3. **Name everything.** Each item is cut out and Claude names it (reading book titles off covers), adds details, tags and a dating profile. Edit anything. Rotate a crop. Ask Claude again on one item.
+3. **Name and sort everything.** Claude also puts every item in a category (books, clothes, toys, keepsakes and more) so similar things stay together.  Each item is cut out and Claude names it (reading book titles off covers), adds details, tags and a dating profile. Edit anything. Rotate a crop. Ask Claude again on one item.
 4. **Preview and send.** See exactly what she'll see, then send. Copy a ready text with the link for her.
 
 **Swipe deck (her)**
 5. **Swipe.** Right to keep, left to donate. Undo is one tap. Tap a card to open it full screen, zoom the photo, read the whole profile, and decide from there.
-6. **Fix it at the end.** The summary shows both piles. Tap anything to switch it.
+6. **Go group by group.** Items come in category order with a bar that shows the group. **Decide all** keeps or donates a whole group in one tap (and one undo).
+7. **Fix it at the end.** The summary shows both piles. Tap anything to switch it.
 
 **Back to you**
-7. **Watch it land.** Her picks show up in the studio live: who's waiting, how far she got, and the final keep and donate lists. Tick items off as you pack or drop them off. Archive the round when it's done.
+8. **Watch it land.** Her picks show up in the studio live: who's waiting, how far she got, and the final keep and donate lists. Tick items off as you pack or drop them off. Archive the round when it's done.
 
 Everything saves as you go, so a half finished round is still there if your phone locks.
 
@@ -40,6 +41,9 @@ Everything saves as you go, so a half finished round is still there if your phon
 * AI item finding with a hand editor for anything it misses.
 * AI names and profiles, every field editable.
 * Live two way sync: send rounds, get picks back, no copy and paste.
+* Room Map: the original photo with every item boxed in green (keep), red (donate) or gray (not decided), so you know exactly what to pull out.
+* Results grouped by category, with a suggested good home for each donate group.
+* Settings with names, so any parent can use it for any kid.
 * Packing checklist for the keep pile and donate pile.
 * Preview her side before you send. Preview swipes are never saved.
 * Big touch targets. Keyboard arrows on a laptop.
