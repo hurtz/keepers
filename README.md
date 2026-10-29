@@ -35,16 +35,19 @@ Everything saves as you go, so a half finished round is still there if your phon
 ## Features
 
 * Grand Prix design: sunset skies with speed streaks, bold italic Saira type, slanted race buttons, a starting grid title screen, item stat bars with a keeper rating, 3D category icons and trophy badges, and a little engine rev when you hit Let's Go.
-* Feels like a dating app: drag, tilt, stamp, fly away.
+* Feels like a dating app: drag, tilt, stamp, fly away. Right keeps, left donates, down sells, up is maybe.
+* Maybe pile: anything they're not sure about comes back at the end for a last call, so every item still gets a decision.
+* Sell option: Claude estimates what each item would sell for used and writes a ready to post Marketplace listing. Your Selling list shows the asking prices and a total, with a Listing button that copies the ad.
+* Donation value: the donate list shows a rough thrift store value total to keep for your taxes (an estimate, not tax advice).
 * Native feeling transitions, a live AI scanning moment when Claude studies your photo, and a Garage Progress dashboard with rings for your side.
 * Game feel on her side: an animated title screen, heart bursts, sound effects, streaks, milestones, and a confetti finale that reveals her sorting style.
 * AI item finding with a hand editor for anything it misses.
 * AI names and profiles, every field editable.
 * Live two way sync: send rounds, get picks back, no copy and paste.
-* Room Map: the original photo with every item boxed in green (keep), red (donate) or gray (not decided), so you know exactly what to pull out.
+* Room Map: the original photo with every item boxed in pink (keep), yellow (sell), dark (donate) or gray (not decided), so you know exactly what to pull out.
 * Results grouped by category, with a suggested good home for each donate group.
 * Settings with names, so any parent can use it for any kid.
-* Packing checklist for the keep pile and donate pile.
+* Packing checklist for the keep, sell and donate piles.
 * Preview her side before you send. Preview swipes are never saved.
 * Big touch targets. Keyboard arrows on a laptop.
 * One HTML file. No framework, no tracking.
@@ -58,7 +61,7 @@ To let her swipes sync back, share the page with her by email and set her to **E
 The page also runs as a plain static site with no Claude features. It then shows rounds baked into `rounds.json`, which you can build with the photo tool below.
 
 ing.
-* Light and dark mode. Keyboard arrows work on a laptop.
+* One bright light look everywhere. Keyboard arrows work on a laptop.
 
 ## Try it
 

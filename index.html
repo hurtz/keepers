@@ -632,6 +632,39 @@ body{letter-spacing:0}
 .abtn.small{width:56px;height:56px;flex:none;border-radius:0;background:#E6E1EE;color:var(--ink);clip-path:polygon(16% 0,100% 0,84% 100%,0 100%)}
 .swipehint{background:rgba(28,21,48,.88);font-weight:700}
 
+/* ---------- maybe + sell ---------- */
+.actions .mid{display:flex;flex-direction:column;gap:6px;flex:none}
+.abtn.tiny{width:74px;height:29px;border-radius:0;display:flex;align-items:center;justify-content:center;gap:4px;clip-path:polygon(10% 0,100% 0,90% 100%,0 100%);font:italic 900 13px/1 var(--disp);font-stretch:75%;letter-spacing:.08em;text-transform:uppercase}
+.abtn.tiny svg{width:14px;height:14px;stroke-width:2.8}
+.abtn.tiny.maybe{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px #D9D3E2}
+.abtn.tiny.sell{background:var(--volt);color:var(--ink)}
+#deckScreen.mp .abtn.tiny.maybe{visibility:hidden}
+.prog .sndbtn{margin-bottom:0}
+.mpbar{flex:none;margin:10px 0 0;padding:11px 16px;background:var(--volt);color:var(--ink);font:italic 900 16px/1.1 var(--disp);font-stretch:72%;letter-spacing:.06em;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);text-align:center;animation:popin .45s cubic-bezier(.2,1.6,.4,1)}
+.stamp.sell{left:50%;top:auto;bottom:40%;right:auto;background:var(--volt);color:var(--ink);transform:translateX(-50%) rotate(-5deg)}
+.stamp.maybe{left:50%;right:auto;top:20px;background:#fff;color:var(--ink);transform:translateX(-50%) rotate(4deg);box-shadow:inset 0 0 0 3px var(--ink)}
+.swipehint{white-space:pre;text-align:center;line-height:1.35}
+.quip.sell{background:var(--volt);color:var(--ink)}
+.quip.maybe{background:#fff;color:var(--ink)}
+.tile.sell::before{background:var(--volt)}
+.tiles.four{grid-template-columns:repeat(4, minmax(0, 1fr));gap:8px}
+.tiles.four .tile{padding:12px 8px 10px 14px}
+.tiles.four .tile b{font-size:40px}
+.tiles.four .tile span{font-size:10.5px;letter-spacing:.12em}
+.sect-h.big .aux{margin-left:auto;font-weight:800;font-stretch:85%;font-size:14px;letter-spacing:.06em;color:var(--hot);font-style:italic}
+.ph .pr{font:italic 900 15px/1 var(--disp);font-stretch:75%;color:var(--hot);letter-spacing:.02em}
+.rmb.sell{border-color:#E6C200;background:rgba(255,230,0,.25)}
+.rmb.sell span{background:#E6C200;color:var(--ink)}
+.row .mini.lst{flex:none;padding:7px 10px}
+.sh-price{margin:2px 0 0;font:italic 800 14px var(--disp);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.sh-price b{color:var(--hot);font-weight:900}
+.sh-acts{row-gap:8px}
+.shbtn2{appearance:none;border:0;cursor:pointer;min-height:44px;border-radius:0;clip-path:polygon(5% 0,100% 0,95% 100%,0 100%);display:flex;align-items:center;justify-content:center;gap:7px;font:italic 900 17px/1 var(--disp);font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;background:#E6E1EE;color:var(--ink)}
+.shbtn2 svg{width:17px;height:17px;stroke-width:2.6}
+.shbtn2.sell{background:var(--volt)}
+.shbtn2:active{transform:scale(.96)}
+.sheet.mp #shMaybe{visibility:hidden}
+
 /* ---------- effects ---------- */
 .fx .shp{display:block}
 .fx .shp svg{width:100%;height:100%;display:block}
@@ -754,13 +787,18 @@ body{letter-spacing:0}
   </section>
 
   <section class="screen" id="deckScreen" hidden>
-    <div class="prog"><div class="track"><i id="bar"></i></div><span id="deckCount"></span><span class="streak" id="streak" hidden></span><button class="sndbtn sndtoggle" id="sndBtn" type="button" aria-label="Sound"></button></div>
+    <div class="prog"><div class="track"><i id="bar"></i></div><span id="deckCount"></span><span class="streak" id="streak" hidden></span><button class="sndbtn" id="undoBtn" type="button" aria-label="Undo" data-ic="undo"></button><button class="sndbtn sndtoggle" id="sndBtn" type="button" aria-label="Sound"></button></div>
+    <p class="mpbar" id="mpBar" hidden></p>
     <div class="catbar" id="catBar" hidden><span class="cb-emo" id="cbEmo"></span><span class="cb-t"><b id="cbName"></b><small id="cbLeft"></small></span><button class="cb-all" id="cbAll" type="button">Decide all</button></div>
     <div class="deck" id="deck"></div>
-    <p class="swipehint" id="swipeHint" hidden>‹ Donate · Keep ›</p>
+    <p class="swipehint" id="swipeHint" hidden>‹ Donate · Keep ›
+↑ Maybe · Sell ↓</p>
     <div class="actions">
       <button class="abtn big toss" id="tossBtn" type="button" aria-label="Donate"><span data-ic="x"></span><b id="tossLbl">Donate</b></button>
-      <button class="abtn small" id="undoBtn" type="button" aria-label="Undo" data-ic="undo"></button>
+      <div class="mid">
+        <button class="abtn tiny maybe" id="maybeBtn" type="button" aria-label="Maybe"><span data-ic="help"></span>Maybe</button>
+        <button class="abtn tiny sell" id="sellBtn" type="button" aria-label="Sell"><span data-ic="cash"></span>Sell</button>
+      </div>
       <button class="abtn big keep" id="keepBtn" type="button" aria-label="Keep"><b id="keepLbl">Keep</b><span data-ic="heart"></span></button>
     </div>
   </section>
@@ -780,12 +818,17 @@ body{letter-spacing:0}
         <p class="bc-desc" id="styleDesc"></p>
       </div>
     </div>
-    <div class="tiles"><div class="tile keep"><b id="keepNum">0</b><span id="keepWordT">Keep</span></div><div class="tile toss"><b id="tossNum">0</b><span id="tossWordT">Donate</span></div></div>
+    <div class="tiles three"><div class="tile keep"><b id="keepNum">0</b><span id="keepWordT">Keep</span></div><div class="tile sell"><b id="sellNum">0</b><span>Sell</span></div><div class="tile toss"><b id="tossNum">0</b><span id="tossWordT">Donate</span></div></div>
     <ul class="group icons" id="syncGroup"></ul>
     <div class="sect">
       <h2 class="sect-h big"><span id="keepHead">Keeping</span></h2>
       <ul class="pgrid" id="keepGrid"></ul>
       <p class="sect-f" id="keepEmpty" hidden>Nothing here. Bold move.</p>
+    </div>
+    <div class="sect" id="sellSect" hidden>
+      <h2 class="sect-h big"><span>Selling</span><span class="aux" id="sellTot"></span></h2>
+      <ul class="pgrid" id="sellGrid"></ul>
+      <p class="sect-f" id="sellEmpty" hidden></p>
     </div>
     <div class="sect">
       <h2 class="sect-h big"><span id="tossHead">Donating</span></h2>
@@ -816,7 +859,7 @@ body{letter-spacing:0}
       <div class="dash-stats">
         <p class="dash-k">Garage progress</p>
         <div class="dash-row"><b id="dSorted">0</b><span>of <span id="dTotal">0</span> sorted</span></div>
-        <div class="dash-mini"><span><i style="background:#fff"></i><b id="dKeep">0</b> keep · <b id="dToss">0</b> donate</span><span><i style="background:#FFE600"></i><b id="dDone">0</b> packed or gone</span></div>
+        <div class="dash-mini"><span><i style="background:#fff"></i><b id="dKeep">0</b> keep · <b id="dSell">0</b> sell · <b id="dToss">0</b> donate</span><span><i style="background:#FFE600"></i><b id="dDone">0</b> packed or gone</span></div>
       </div>
     </div>
     <div class="empty-card" id="homeEmpty" hidden>
@@ -938,8 +981,9 @@ body{letter-spacing:0}
       <h1 class="lt" id="resTitle"></h1>
       <p class="lede" id="resHead"></p>
     </div>
-    <div class="tiles three">
+    <div class="tiles four">
       <div class="tile keep"><b id="resKeepN">0</b><span>Keep</span></div>
+      <div class="tile sell"><b id="resSellN">0</b><span>Sell</span></div>
       <div class="tile toss"><b id="resTossN">0</b><span>Donate</span></div>
       <div class="tile"><b id="resLeftN">0</b><span>Left</span></div>
     </div>
@@ -949,15 +993,21 @@ body{letter-spacing:0}
     </div>
     <div class="sect" id="resRoomS" hidden>
       <div class="edlist" id="resRoom"></div>
-      <p class="rm-legend"><span><i style="background:#FF2D6F"></i>Keep</span><span><i style="background:#1C1530"></i>Donate</span><span><i style="background:#8E8E93"></i>Not decided</span><span>Faded means packed or gone</span></p>
+      <p class="rm-legend"><span><i style="background:#FF2D6F"></i>Keep</span><span><i style="background:#E6C200"></i>Sell</span><span><i style="background:#1C1530"></i>Donate</span><span><i style="background:#8E8E93"></i>Not decided</span><span>Faded means packed or gone</span></p>
     </div>
     <div class="sect" id="resKeepS">
       <h2 class="sect-h big">Keeping</h2>
       <div class="catgroups" id="resKeep"></div>
       <p class="sect-f">Check things off as you pack them.</p>
     </div>
+    <div class="sect" id="resSellS">
+      <h2 class="sect-h big"><span>Selling</span><span class="aux" id="resSellTot"></span></h2>
+      <div class="catgroups" id="resSell"></div>
+      <p class="sect-f">Tap Listing to copy a ready to post Marketplace ad. Check things off as they sell.</p>
+    </div>
     <div class="sect" id="resTossS">
       <h2 class="sect-h big">Donating</h2>
+      <p class="sect-f" id="resTossVal" hidden></p>
       <div class="catgroups" id="resToss"></div>
       <p class="sect-f">Check things off as you drop them off.</p>
     </div>
@@ -984,6 +1034,7 @@ body{letter-spacing:0}
       <h2 id="shName"></h2>
       <p class="sh-sub" id="shSub"></p>
       <div id="shStats"></div>
+      <p class="sh-price" id="shPrice" hidden></p>
       <p class="sh-bio" id="shBio"></p>
       <ul class="sh-tags" id="shTags"></ul>
       <p class="sh-pos" id="shPos"></p>
@@ -991,6 +1042,8 @@ body{letter-spacing:0}
     <div class="sh-acts">
       <button class="shbtn toss" id="shToss" type="button" data-ic="x"><span>Donate</span></button>
       <button class="shbtn keep" id="shKeep" type="button" data-ic="heart"><span>Keep</span></button>
+      <button class="shbtn2" id="shMaybe" type="button" data-ic="help"><span>Maybe</span></button>
+      <button class="shbtn2 sell" id="shSell" type="button" data-ic="cash"><span>Sell</span></button>
     </div>
   </section>
 </div>
@@ -1049,6 +1102,8 @@ body{letter-spacing:0}
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/>',
     eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   };
+  ICONS.help = '<circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.7.3-1.2 1-1.2 1.8v.6"/><path d="M12 17.2v.3"/>';
+  ICONS.cash = '<path d="M12 2.5v19"/><path d="M16.6 6.6c-.9-1.3-2.6-2-4.6-2-2.7 0-4.5 1.4-4.5 3.4 0 4.8 9.6 2.7 9.6 7.3 0 2.1-2 3.5-4.9 3.5-2.3 0-4.1-.9-5.1-2.6"/>';
   const FILLED = new Set(["heart"]);
   function ic(name, cls) {
     const t = document.createElement("template");
@@ -1103,14 +1158,39 @@ body{letter-spacing:0}
     return n || c || sz ? { n, c, s: sz } : null;
   }
   const mixHot = (t) => `rgb(255,${Math.round(45 + 78 * t)},${Math.round(111 - 42 * t)})`;
-  function statsEl(x) {
-    x = toStats(x);
-    if (!x) return null;
+  function statsEl(x, price) {
+    x = toStats(x) || {};
+    const pr = priceOf({ price });
     const rows = [["Nostalgia", x.n, String(x.n)], ["Condition", x.c, String(x.c)], ["Size", { S: 3, M: 6, L: 9 }[x.s] || 0, x.s]].filter((r) => r[1]);
+    if (pr) rows.push(["Resale", resaleBars(pr.hi), "$" + pr.ask, true]);
     if (!rows.length) return null;
     return el("div", { class: "stats" }, rows.map(([lb, v, txt]) => el("div", { class: "st-row" }, el("b", { text: lb }),
       el("span", { class: "st-bar" }, Array.from({ length: 10 }, (_, k) => { const i = el("i"); if (k < v) i.style.background = mixHot(k / 9); return i; })),
       el("em", { text: txt }))));
+  }
+  const VEC = { keep: [1, 0], toss: [-1, 0], sell: [0, 1], maybe: [0, -1] };
+  const WORD = (c) => ({ keep: CFG.keepWord, toss: CFG.tossWord, sell: "Sell", maybe: "Maybe" }[c] || c);
+  function toPrice(p) {
+    if (p == null) return null;
+    let lo, hi;
+    if (Array.isArray(p)) { lo = p[0]; hi = p.length > 1 ? p[1] : p[0]; }
+    else if (typeof p === "object") { lo = p.low != null ? p.low : p.lo; hi = p.high != null ? p.high : p.hi; }
+    else lo = hi = p;
+    lo = Math.max(0, Math.round(Number(lo) || 0)); hi = Math.max(lo, Math.round(Number(hi) || 0));
+    return [lo, hi];
+  }
+  function priceOf(it) {
+    const p = toPrice(it && it.price);
+    if (!p) return null;
+    const mid = (p[0] + p[1]) / 2, ask = !p[1] ? 0 : mid >= 10 ? Math.round(mid / 5) * 5 : Math.max(1, Math.round(mid));
+    return { lo: p[0], hi: p[1], ask };
+  }
+  const resaleBars = (hi) => (hi <= 0 ? 0 : Math.min(10, Math.max(1, Math.round(Math.log2(hi / 2.5) * 1.6))));
+  const priceRange = (p) => (p.lo === p.hi ? `$${p.hi}` : `$${p.lo} to $${p.hi}`);
+  function listingText(it) {
+    const p = priceOf(it);
+    const body = it.listing || [it.name, it.sub].filter(Boolean).join(". ") + ".";
+    return `${it.name || "Item for sale"}${p && p.ask ? `\n$${p.ask}` : ""}\n\n${body}`;
   }
   function rating(x) { x = toStats(x); if (!x || !x.n || !x.c) return ""; const v = x.n + x.c; return v >= 17 ? "S" : v >= 14 ? "A" : v >= 10 ? "B" : "C"; }
   const NUMW = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
@@ -1179,6 +1259,8 @@ body{letter-spacing:0}
   const SFX = {
     keep() { tone(659, 0, 0.16, "triangle", 0.16); tone(880, 0.07, 0.2, "triangle", 0.15); tone(1319, 0.14, 0.28, "sine", 0.1); },
     toss() { whoosh(); tone(330, 0, 0.12, "sine", 0.06); },
+    sell() { tone(1568, 0, 0.07, "square", 0.04); tone(2093, 0.06, 0.24, "triangle", 0.12); tone(2637, 0.12, 0.3, "sine", 0.07); },
+    maybe() { tone(587, 0, 0.12, "sine", 0.1); tone(740, 0.09, 0.18, "sine", 0.08); },
     undo() { tone(523, 0, 0.08, "triangle", 0.1); tone(392, 0.07, 0.12, "triangle", 0.09); },
     start() { [392, 523, 659, 784].forEach((f, i) => tone(f, i * 0.07, 0.22, "triangle", 0.13)); },
     tick() { tone(1480, 0, 0.05, "sine", 0.05); },
@@ -1215,7 +1297,9 @@ body{letter-spacing:0}
     heart: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.5 3 4.5 6.9 4.5c2.1 0 3.6 1.1 5.1 2.9 1.5-1.8 3-2.9 5.1-2.9 3.9 0 6 4 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg>',
     spark: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0z"/></svg>',
     chev: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h7.5l9 9-9 9H3l9-9z"/></svg>',
+    coin: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><circle cx="12" cy="12" r="8" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.6"/><path d="M14.6 9.2c-.5-.8-1.5-1.3-2.6-1.3-1.5 0-2.5.8-2.5 1.9 0 2.7 5.3 1.5 5.3 4.1 0 1.2-1.1 2-2.7 2-1.3 0-2.3-.5-2.9-1.5M12 6.4v11.2" fill="none" stroke="#1C1530" stroke-width="1.7" stroke-linecap="round"/></svg>',
   };
+  const GOLDC = ["#FFE600", "#FFD23F", "#FFB547"];
   const HOTC = ["#FF2D6F", "#FF4F5E", "#FF7B45", "#FFB547", "#FFE600"], INKC = ["#1C1530", "#4A4160", "#8E879F", "#C9C3D6"];
   function shape(k, cols, sz) {
     if (k === "flag") { const f = el("span", { class: "flag" }); return f; }
@@ -1270,6 +1354,8 @@ body{letter-spacing:0}
   }
   const KEEP_Q = ["Keeper!", "Love it!", "Mine!", "Pole position", "Good pick", "Locked in"];
   const TOSS_Q = ["New home", "See ya", "Pit stop", "Next!", "Set free", "Gifted"];
+  const SELL_Q = ["Cha ching!", "Sold!", "Cash it in", "Money move"];
+  const MAYBE_Q = ["Maybe pile", "Think on it", "Later"];
   function countUp(node, to) {
     if (reduce || !to) { node.textContent = to; return; }
     const t0 = performance.now(), dur = 800;
@@ -1298,6 +1384,7 @@ body{letter-spacing:0}
     if (streak.n === 5 || streak.n === 10 || streak.n === 20) { sfx("streak"); setTimeout(() => quip(streak.n >= 10 ? "Unstoppable" : "On fire", "big"), 420); }
   }
   function milestone() {
+    if (inMaybe(cur)) return;
     const tot = cur.items.length, done = tot - left(cur).length;
     if (tot >= 6 && done === Math.floor(tot / 2)) setTimeout(() => quip("Halfway there", "big"), 460);
     else if (tot >= 3 && tot - done === 1) setTimeout(() => quip("Final lap!", "big"), 460);
@@ -1513,9 +1600,9 @@ body{letter-spacing:0}
     if (!canSync(r)) return;
     clearTimeout(pickTimers[r.id]);
     const go = () => {
-      let k = 0, t = 0;
-      for (const v of Object.values(s.d)) { if (v === "keep") k++; else if (v === "toss") t++; }
-      return writeDoc("picks/" + r.id, { d: s.d, order: s.order.slice(-400), done: isDone(r), total: r.items.length, kept: k, tossed: t, updatedAt: Date.now() })
+      let k = 0, t = 0, sl = 0;
+      for (const v of Object.values(s.d)) { if (v === "keep") k++; else if (v === "toss") t++; else if (v === "sell") sl++; }
+      return writeDoc("picks/" + r.id, { d: s.d, order: s.order.slice(-400), done: isDone(r), total: r.items.length, kept: k, tossed: t, sold: sl, updatedAt: Date.now() })
         .then(() => { r.synced = true; })
         .catch((e) => { r.synced = false; if (e && e.code === "invalid_argument") CAN_WRITE = false; })
         .finally(() => { if (onScreen === "sumScreen" && cur === r) paintSync(); });
@@ -1523,7 +1610,9 @@ body{letter-spacing:0}
     if (now) return go();
     pickTimers[r.id] = setTimeout(go, 450);
   }
-  const left = (r) => r.items.filter((it) => !st(r).d[it.id]);
+  const left = (r) => r.items.filter((it) => { const v = st(r).d[it.id]; return !v || v === "maybe"; });
+  function queue(r) { const s = st(r), a = left(r); return [...a.filter((i) => s.d[i.id] !== "maybe"), ...a.filter((i) => s.d[i.id] === "maybe")]; }
+  const inMaybe = (r) => { const q = queue(r); return q.length > 0 && st(r).d[q[0].id] === "maybe"; };
   const isDone = (r) => r.items.length > 0 && left(r).length === 0;
 
   const FLOATERS = ["❤️", "📚", "🧸", "👗", "🎸", "💌", "🏆", "🎀", "✨", "🛼", "📸", "🧩", "🏁", "🎨"];
@@ -1576,11 +1665,13 @@ body{letter-spacing:0}
       el("div", { class: "tint k" }), el("div", { class: "tint t" }), el("span", { class: "more", "aria-hidden": "true" }, ic("info")),
       el("span", { class: "stamp keep", text: CFG.keepStamp }),
       el("span", { class: "stamp toss", text: CFG.tossWord }),
+      el("span", { class: "stamp sell", text: "Sell" }),
+      el("span", { class: "stamp maybe", text: "Maybe" }),
       el("div", { class: "info" },
         cat || it.where ? el("div", { class: "top-row" }, cat ? catIc(it.cat) : null, cat ? el("span", { class: "catchip", text: cat.l }) : el("span", { class: "where" }, ic("box"), el("span", { text: it.where }))) : null,
         el("h3", { text: it.name || "Mystery item" }),
         it.sub ? el("p", { class: "sub", text: it.sub }) : null,
-        statsEl(it.stats),
+        statsEl(it.stats, it.price),
         it.bio ? el("p", { class: "bio", text: it.bio }) : null));
     c.addEventListener("pointerdown", down);
     return c;
@@ -1599,9 +1690,18 @@ body{letter-spacing:0}
   function paintCatBar() {
     const bar = $("#catBar");
     if (!cur || onScreen !== "deckScreen") { bar.hidden = true; return; }
-    const rest = left(cur), top = rest[0], c = top && CAT[top.cat];
+    const rest = queue(cur), top = rest[0], c = top && CAT[top.cat];
+    const mp = inMaybe(cur), mb = $("#mpBar");
+    $("#deckScreen").classList.toggle("mp", mp);
+    mb.hidden = !mp;
+    if (mp) {
+      mb.textContent = `Maybe pile · ${rest.length} left · make the call`;
+      if (!cur._mp) { cur._mp = true; setTimeout(() => quip("Maybe pile", "big"), 420); }
+      bar.hidden = true; return;
+    }
+    cur._mp = false;
     if (!c || !cur.items.some((i) => i.cat && i.cat !== top.cat) && rest.length < 3) { bar.hidden = true; lastCat = top ? top.cat : null; return; }
-    const same = rest.filter((i) => i.cat === top.cat);
+    const same = rest.filter((i) => i.cat === top.cat && st(cur).d[i.id] !== "maybe");
     bar.hidden = false;
     $("#cbEmo").replaceChildren(catIc(top.cat)); $("#cbName").textContent = c.l;
     $("#cbLeft").textContent = `${same.length} left in this group · ${rest.length} total`;
@@ -1627,14 +1727,14 @@ body{letter-spacing:0}
   function closeAS() { $("#asheet").hidden = true; }
   function bulkDecide(cat, choice) {
     if (busy) return;
-    const s = st(cur), ids = left(cur).filter((i) => i.cat === cat).map((i) => i.id);
+    const s = st(cur), ids = queue(cur).filter((i) => i.cat === cat && s.d[i.id] !== "maybe").map((i) => i.id);
     if (!ids.length) return;
     ids.forEach((id) => { s.d[id] = choice; });
     s.order.push("bulk:" + ids.join(","));
     save(cur);
-    const r = $("#deck").getBoundingClientRect(), dir = choice === "keep" ? 1 : -1, c = CAT[cat];
-    burst(r.left + r.width / 2, r.top + r.height * 0.45, choice === "keep" ? ["heart", "heart", "spark", "heart"] : ["chev", "chev", "spark"], 26, { from: -175, to: -5, dist: 230, cols: choice === "keep" ? HOTC : INKC });
-    quip(choice === "keep" ? `Kept all ${ids.length}` : `${CFG.tossWord} all ${ids.length}`, choice);
+    const r = $("#deck").getBoundingClientRect(), [bx, by] = VEC[choice], c = CAT[cat];
+    burst(r.left + r.width / 2, r.top + r.height * 0.45, choice === "keep" ? ["heart", "heart", "spark", "heart"] : choice === "sell" ? ["coin", "coin", "spark"] : ["chev", "chev", "spark"], 26, { from: -175, to: -5, dist: 230, cols: choice === "keep" ? HOTC : choice === "sell" ? GOLDC : INKC });
+    quip(choice === "keep" ? `Kept all ${ids.length}` : `${WORD(choice)} all ${ids.length}`, choice);
     sfx(choice); buzz(22);
     $("#swipeHint").hidden = true;
     busy = true;
@@ -1642,12 +1742,12 @@ body{letter-spacing:0}
       if (!ids.includes(el2.dataset.id)) return;
       el2.classList.add("gone");
       el2.style.transition = reduce ? "none" : "transform .42s cubic-bezier(.25,.6,.3,1)";
-      el2.style.transform = `translate(${dir * (innerWidth + 400)}px, 40px) rotate(${dir * 24}deg)`;
+      el2.style.transform = bx ? `translate(${bx * (innerWidth + 400)}px, 40px) rotate(${bx * 24}deg)` : `translate(0px, ${by * (innerHeight + 300)}px)`;
     });
     setTimeout(() => { cards().forEach((x) => { if (ids.includes(x.dataset.id)) x.remove(); }); busy = false; fillDeck(); }, reduce ? 0 : 430);
   }
   function fillDeck() {
-    const rest = left(cur);
+    const rest = queue(cur);
     progress();
     if (!rest.length) { setTimeout(() => renderSummary(true), reduce ? 0 : 260); return; }
     const want = rest.slice(0, 2);
@@ -1659,16 +1759,20 @@ body{letter-spacing:0}
     });
     rest.slice(2, 6).forEach((it) => { const im = new Image(); im.src = it.img; });
   }
-  function lean(c, dx) {
-    const a = Math.max(-1, Math.min(1, dx / 110));
+  function lean(c, dx, dy) {
+    const a = Math.max(-1, Math.min(1, dx / 110)), b = Math.max(-1, Math.min(1, (dy || 0) / 120));
     c.querySelector(".stamp.keep").style.opacity = Math.max(0, a);
     c.querySelector(".stamp.toss").style.opacity = Math.max(0, -a);
+    const ss = c.querySelector(".stamp.sell"), sm = c.querySelector(".stamp.maybe");
+    if (ss) { ss.style.opacity = Math.max(0, b); sm.style.opacity = inMaybe(cur) ? 0 : Math.max(0, -b); }
+    $("#sellBtn").style.transform = b > 0 ? `scale(${1 + b * 0.14})` : "";
+    $("#maybeBtn").style.transform = b < 0 ? `scale(${1 - b * 0.14})` : "";
     const tk = c.querySelector(".tint.k"), tt = c.querySelector(".tint.t");
     if (tk) { tk.style.opacity = Math.max(0, a); tt.style.opacity = Math.max(0, -a); }
     $("#keepBtn").style.transform = a > 0 ? `scale(${1 + a * 0.12})` : "";
     $("#tossBtn").style.transform = a < 0 ? `scale(${1 - a * 0.12})` : "";
   }
-  function resetButtons() { $("#keepBtn").style.transform = ""; $("#tossBtn").style.transform = ""; }
+  function resetButtons() { ["#keepBtn", "#tossBtn", "#sellBtn", "#maybeBtn"].forEach((q) => { $(q).style.transform = ""; }); }
   function down(e) {
     const c = e.currentTarget;
     if (busy || c !== topCard() || (e.pointerType === "mouse" && e.button !== 0)) return;
@@ -1685,22 +1789,28 @@ body{letter-spacing:0}
     if (!drag || e.pointerId !== drag.id) return;
     drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
     if (Math.abs(drag.dx) + Math.abs(drag.dy) > 8) drag.moved = true;
-    drag.c.style.transform = `translate(${drag.dx}px, ${drag.dy * 0.3}px) rotate(${(drag.dx / 18) * drag.tilt}deg)`;
+    const vert = Math.abs(drag.dy) > Math.abs(drag.dx);
+    drag.c.style.transform = `translate(${drag.dx}px, ${vert ? drag.dy : drag.dy * 0.3}px) rotate(${(drag.dx / 18) * drag.tilt}deg)`;
     if (drag.fg) drag.fg.style.transform = `translateX(${-drag.dx * 0.06}px) scale(1.03)`;
-    lean(drag.c, drag.dx);
+    lean(drag.c, drag.dx, vert ? drag.dy : 0);
   }
   function up(e) {
     if (!drag || e.pointerId !== drag.id) return;
-    const { c, dx, moved, t0 } = drag;
+    const { c, dx, dy, moved, t0 } = drag;
     if (drag.fg) drag.fg.style.transform = "";
     c.removeEventListener("pointermove", move);
     c.removeEventListener("pointerup", up);
     c.removeEventListener("pointercancel", up);
-    const v = dx / Math.max(1, performance.now() - t0);
-    const th = Math.min(120, c.offsetWidth * 0.28);
+    const dt = Math.max(1, performance.now() - t0), v = dx / dt, vy = dy / dt;
+    const th = Math.min(120, c.offsetWidth * 0.28), thy = Math.min(130, c.offsetHeight * 0.2);
     if (e.type !== "pointercancel") {
-      if (dx > th || (v > 0.55 && dx > 36)) return decide("keep");
-      if (dx < -th || (v < -0.55 && dx < -36)) return decide("toss");
+      if (Math.abs(dy) > Math.abs(dx) * 1.15) {
+        if (dy < -thy || (vy < -0.55 && dy < -40)) { if (!inMaybe(cur)) return decide("maybe"); toast("Last call. Keep, sell or " + CFG.tossWord.toLowerCase() + "."); }
+        else if (dy > thy || (vy > 0.55 && dy > 40)) return decide("sell");
+      } else {
+        if (dx > th || (v > 0.55 && dx > 36)) return decide("keep");
+        if (dx < -th || (v < -0.55 && dx < -36)) return decide("toss");
+      }
     }
     drag = null;
     c.style.transition = reduce ? "none" : "transform .4s cubic-bezier(.3,1.4,.5,1)";
@@ -1712,23 +1822,27 @@ body{letter-spacing:0}
     const c = topCard();
     if (!c || busy) return;
     busy = true;
-    const dy = drag ? drag.dy * 0.3 : 0, tilt = drag ? drag.tilt : 1;
-    drag = null;
-    const dir = choice === "keep" ? 1 : -1;
     const s = st(cur);
+    if (choice === "maybe" && s.d[c.dataset.id] === "maybe") { busy = false; toast("Last call. Keep, sell or " + CFG.tossWord.toLowerCase() + "."); return; }
+    const dy = drag ? drag.dy * (choice === "sell" || choice === "maybe" ? 1 : 0.3) : 0, dx0 = drag ? drag.dx : 0, tilt = drag ? drag.tilt : 1;
+    drag = null;
+    const [vx, vy] = VEC[choice], dir = vx;
     s.d[c.dataset.id] = choice; s.order.push(c.dataset.id); save(cur);
     const rect = c.getBoundingClientRect();
-    if (choice === "keep") { burst(rect.left + rect.width * 0.62, rect.top + rect.height * 0.42, ["heart", "heart", "spark", "heart", "heart"], 16, { from: -165, to: -15, cols: HOTC }); quip(pick(KEEP_Q), "keep"); sfx("keep"); }
+    if (choice === "sell") { burst(rect.left + rect.width / 2, rect.top + rect.height * 0.6, ["coin", "coin", "spark", "coin"], 16, { from: -160, to: -20, cols: GOLDC }); quip(pick(SELL_Q), "sell"); sfx("sell"); }
+    else if (choice === "maybe") { burst(rect.left + rect.width / 2, rect.top + rect.height * 0.3, ["spark", "spark"], 8, { from: -150, to: -30, size: 16, dist: 120, cols: ["#FFE600", "#FFFFFF", "#FFB547"] }); quip(pick(MAYBE_Q), "maybe"); sfx("maybe"); }
+    else if (choice === "keep") { burst(rect.left + rect.width * 0.62, rect.top + rect.height * 0.42, ["heart", "heart", "spark", "heart", "heart"], 16, { from: -165, to: -15, cols: HOTC }); quip(pick(KEEP_Q), "keep"); sfx("keep"); }
     else { burst(rect.left + rect.width * 0.38, rect.top + rect.height * 0.42, ["chev", "chev", "spark"], 10, { from: -200, to: -100, size: 18, dist: 140, cols: INKC }); quip(pick(TOSS_Q), "toss"); sfx("toss"); }
-    buzz(choice === "keep" ? 14 : 10);
+    buzz(choice === "keep" || choice === "sell" ? 14 : 10);
     $("#swipeHint").hidden = true;
-    bumpStreak(); milestone();
+    if (choice !== "maybe") { bumpStreak(); milestone(); }
     c.classList.add("gone");
-    lean(c, dir * 200); resetButtons();
+    lean(c, vx * 200, vy * 200); resetButtons();
     const under = cards().find((x) => x.classList.contains("under"));
     if (under) { under.classList.remove("under"); under.classList.add("fresh"); }
     c.style.transition = reduce ? "none" : "transform .34s cubic-bezier(.25,.6,.3,1)";
-    c.style.transform = `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 26 * tilt}deg)`;
+    c.style.transform = vx ? `translate(${dir * (innerWidth + c.offsetWidth)}px, ${dy + 40}px) rotate(${dir * 26 * tilt}deg)`
+      : `translate(${dx0}px, ${vy * (innerHeight + c.offsetHeight)}px) rotate(${vy * 8}deg)`;
     progress();
     setTimeout(() => { c.remove(); busy = false; fillDeck(); }, reduce ? 0 : 320);
   }
@@ -1753,10 +1867,10 @@ body{letter-spacing:0}
     if (!it || onScreen !== "deckScreen") { startDeck(); return; }
     busy = true;
     cards().forEach((x) => { if (x.classList.contains("under")) x.remove(); else x.classList.add("under"); });
-    const c = cardEl(it), dir = prev === "keep" ? 1 : -1;
+    const c = cardEl(it), [ux, uy] = VEC[prev] || [-1, 0];
     c.classList.add("gone");
     c.style.transition = "none";
-    c.style.transform = `translate(${dir * (innerWidth + 300)}px, 40px) rotate(${dir * 26}deg)`;
+    c.style.transform = ux ? `translate(${ux * (innerWidth + 300)}px, 40px) rotate(${ux * 26}deg)` : `translate(0px, ${uy * (innerHeight + 200)}px)`;
     $("#deck").append(c);
     c.getBoundingClientRect();
     c.style.transition = reduce ? "none" : "transform .36s cubic-bezier(.2,.8,.25,1)";
@@ -1773,30 +1887,46 @@ body{letter-spacing:0}
   function resultText(r) {
     const s = st(r);
     const line = (it) => `• ${it.name || "Mystery item"} (#${r.items.indexOf(it) + 1})`;
-    const k = r.items.filter((i) => s.d[i.id] === "keep"), t = r.items.filter((i) => s.d[i.id] === "toss");
+    const sline = (it) => { const p = priceOf(it); return line(it) + (p && p.ask ? `, ask $${p.ask}` : ""); };
+    const by = (v) => r.items.filter((i) => s.d[i.id] === v);
+    const k = by("keep"), sl = by("sell"), t = by("toss");
     return [
       `${CFG.appName}: ${r.title}`, "",
       `${CFG.keepWord.toUpperCase()} (${k.length})`, ...(k.length ? k.map(line) : ["• none"]), "",
+      ...(sl.length ? [`SELL (${sl.length})`, ...sl.map(sline), ""] : []),
       `${CFG.tossWord.toUpperCase()} (${t.length})`, ...(t.length ? t.map(line) : ["• none"]),
     ].join("\n");
   }
-  function headline(k, t) {
-    if (!t) return `You kept all ${k}. Every single one.`;
-    if (!k) return `All ${t} are off to a new home.`;
-    return `You kept ${k} and sent ${t} off to a new home.`;
+  function headline(k, t, sl) {
+    sl = sl || 0;
+    const go = t + sl;
+    if (!go) return `You kept all ${k}. Every single one.`;
+    if (!k && !sl) return `All ${t} are off to a new home.`;
+    if (!k && !t) return `All ${sl} are going up for sale.`;
+    const parts = [k ? `kept ${k}` : "", sl ? `are selling ${sl}` : "", t ? `sent ${t} off to a new home` : ""].filter(Boolean);
+    return `You ${parts.length > 2 ? parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1] : parts.join(" and ")}.`;
   }
-  function grid(listId, emptyId, items, flipTo) {
+  const sumMoney = (list, f) => list.reduce((a, i) => { const p = priceOf(i); return a + (p ? f(p) : 0); }, 0);
+  function grid(listId, emptyId, items) {
     const out = [];
     const groups = groupByCat(items);
     groups.forEach(([c, list]) => {
       if (c && groups.length > 1) out.push(el("li", { class: "pg-h" }, catIc(c.k), el("span", { text: c.l }), el("span", { class: "n", text: String(list.length) })));
-      list.forEach((it) => out.push(el("li", null,
-        el("button", { class: "ph", type: "button", "aria-label": `${it.name}. Tap to move to ${flipTo === "keep" ? "keeping" : "donating"}.`, onclick: () => flip(it, flipTo) },
-          el("span", { class: "im" }, el("img", { src: it.thumb || it.img, alt: "", loading: "lazy" })),
-          el("span", { class: "t", text: it.name || "Mystery item" })))));
+      list.forEach((it) => {
+        const p = priceOf(it), sellish = listId === "#sellGrid" && p && p.ask;
+        out.push(el("li", null,
+          el("button", { class: "ph", type: "button", "aria-label": `${it.name}. Tap to move it.`, onclick: () => moveSheet(it) },
+            el("span", { class: "im" }, el("img", { src: it.thumb || it.img, alt: "", loading: "lazy" })),
+            el("span", { class: "t", text: it.name || "Mystery item" }),
+            sellish ? el("span", { class: "pr", text: `$${p.ask}` }) : null)));
+      });
     });
     $(listId).replaceChildren(...out);
-    $(emptyId).hidden = items.length > 0;
+    if (emptyId) $(emptyId).hidden = items.length > 0;
+  }
+  function moveSheet(it) {
+    const now = st(cur).d[it.id];
+    actionSheet(`Move ${it.name || "this"}?`, ["keep", "sell", "toss"].filter((c) => c !== now).map((c) => ({ label: `Move to ${WORD(c)}`, kind: c, fn: () => flip(it, c) })));
   }
   function paintSync() {
     const r = cur;
@@ -1820,20 +1950,25 @@ body{letter-spacing:0}
   const smsHref = (r) => `sms:${CFG.dadPhone.replace(/[^\d+]/g, "")}&body=${encodeURIComponent(resultText(r))}`;
   function renderSummary(celebrate) {
     const r = cur, s = st(r);
-    const keep = r.items.filter((i) => s.d[i.id] === "keep"), toss = r.items.filter((i) => s.d[i.id] === "toss");
+    const by = (v) => r.items.filter((i) => s.d[i.id] === v);
+    const keep = by("keep"), toss = by("toss"), sell = by("sell");
     $("#sumKicker").textContent = r.title;
-    $("#sumHead").textContent = headline(keep.length, toss.length);
-    $("#keepNum").textContent = keep.length; $("#tossNum").textContent = toss.length;
-    grid("#keepGrid", "#keepEmpty", keep, "toss");
-    grid("#tossGrid", "#tossEmpty", toss, "keep");
+    $("#sumHead").textContent = headline(keep.length, toss.length, sell.length);
+    $("#keepNum").textContent = keep.length; $("#tossNum").textContent = toss.length; $("#sellNum").textContent = sell.length;
+    grid("#keepGrid", "#keepEmpty", keep);
+    grid("#tossGrid", "#tossEmpty", toss);
+    $("#sellSect").hidden = !sell.length;
+    grid("#sellGrid", null, sell);
+    const cash = sumMoney(sell, (p) => p.ask);
+    $("#sellTot").textContent = cash ? `About $${cash}` : "";
     $("#resultText").textContent = resultText(r);
-    const [em, nm, ds] = sortStyle(keep.length, toss.length);
+    const [em, nm, ds] = sortStyle(keep.length, toss.length + sell.length);
     $("#styleArt").src = "art/badge_" + em + ".webp"; $("#styleName").textContent = nm; $("#styleDesc").textContent = ds;
     paintSync();
     if (canSync(r)) save(r, true);
     show("sumScreen");
     if (celebrate) {
-      countUp($("#keepNum"), keep.length); countUp($("#tossNum"), toss.length);
+      countUp($("#keepNum"), keep.length); countUp($("#tossNum"), toss.length); countUp($("#sellNum"), sell.length);
       setTimeout(() => { confetti(); sfx("win"); buzz(30); }, 150);
     }
   }
@@ -1844,7 +1979,7 @@ body{letter-spacing:0}
     save(cur);
     renderSummary();
     $("#sumScreen").scrollTop = keepY;
-    toast(`Moved to ${to === "keep" ? "Keeping" : "Donating"}`);
+    toast(`Moved to ${{ keep: "Keeping", sell: "Selling", toss: "Donating" }[to]}`);
   }
 
   function renderRounds() {
@@ -1869,7 +2004,7 @@ body{letter-spacing:0}
   const kidCache = new Map();
   function kidItem(d) {
     const big = d.img ? "/_blob/" + d.img : d.full || d.thumb || "";
-    return { id: d.id, img: big, thumb: d.thumb || big, name: d.name || "Mystery item", sub: d.sub || "", where: d.where || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "", stats: toStats(d.stats) };
+    return { id: d.id, img: big, thumb: d.thumb || big, name: d.name || "Mystery item", sub: d.sub || "", where: d.where || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "", stats: toStats(d.stats), price: toPrice(d.price), listing: d.listing || "" };
   }
   async function liveKidRounds() {
     const live = [...S.rounds.values()].filter((r) => r.status === "live").sort((a, b) => (a.sentAt || 0) - (b.sentAt || 0));
@@ -1906,16 +2041,16 @@ body{letter-spacing:0}
   }
   function pickStats(rid, total) {
     const p = PICKS[rid] || {};
-    let k = 0, t = 0;
-    for (const v of Object.values(p.d || {})) { if (v === "keep") k++; else if (v === "toss") t++; }
-    return { k, t, n: k + t, total: total || p.total || 0 };
+    let k = 0, t = 0, sl = 0, m = 0;
+    for (const v of Object.values(p.d || {})) { if (v === "keep") k++; else if (v === "toss") t++; else if (v === "sell") sl++; else if (v === "maybe") m++; }
+    return { k, t, sl, m, n: k + t + sl, total: total || p.total || 0 };
   }
   function roundRow(r) {
     const s = pickStats(r.id, r.count);
     let right, sub;
     if (!s.n) { sub = `${plural(r.count || 0, "thing")} · Waiting on ${kid()}`; right = el("span", { class: "stat", text: r.date || "" }); }
-    else if (s.n < s.total) { sub = `${s.k} keep · ${s.t} donate so far`; right = el("span", { class: "stat" }, ringEl(s.n / s.total), el("span", { text: `${s.n}/${s.total}` })); }
-    else { sub = `${s.k} keep · ${s.t} donate`; right = el("span", { class: "stat done" }, ic("check"), el("span", { text: "Done" })); }
+    else if (s.n < s.total) { sub = `${s.k} keep${s.sl ? ` · ${s.sl} sell` : ""} · ${s.t} donate so far`; right = el("span", { class: "stat" }, ringEl(s.n / s.total), el("span", { text: `${s.n}/${s.total}` })); }
+    else { sub = `${s.k} keep${s.sl ? ` · ${s.sl} sell` : ""} · ${s.t} donate`; right = el("span", { class: "stat done" }, ic("check"), el("span", { text: "Done" })); }
     return row({ img: r.cover || "", title: r.title || "Untitled Round", sub, right, chev: true, onclick: () => openResults(r.id) });
   }
   function renderHome() {
@@ -1937,12 +2072,12 @@ body{letter-spacing:0}
   }
 
   function renderDash(sent) {
-    let total = 0, n = 0, k = 0, t = 0, hd = 0;
-    sent.forEach((r) => { const s = pickStats(r.id, r.count); total += r.count || s.total || 0; n += s.n; k += s.k; t += s.t; hd += Object.keys(HANDLED[r.id] || {}).length; });
+    let total = 0, n = 0, k = 0, t = 0, sl = 0, hd = 0;
+    sent.forEach((r) => { const s = pickStats(r.id, r.count); total += r.count || s.total || 0; n += s.n; k += s.k; t += s.t; sl += s.sl; hd += Object.keys(HANDLED[r.id] || {}).length; });
     $("#dash").hidden = !sent.length;
     if (!sent.length) return;
     $("#dSorted").textContent = n; $("#dTotal").textContent = total;
-    $("#dKeep").textContent = k; $("#dToss").textContent = t; $("#dDone").textContent = hd;
+    $("#dKeep").textContent = k; $("#dToss").textContent = t; $("#dSell").textContent = sl; $("#dDone").textContent = hd;
     const f1 = total ? Math.min(1, n / total) : 0, f2 = n ? Math.min(1, hd / n) : 0;
     requestAnimationFrame(() => requestAnimationFrame(() => {
       $("#ring1").style.strokeDashoffset = (276.46 * (1 - f1)).toFixed(2);
@@ -1966,9 +2101,11 @@ body{letter-spacing:0}
       });
     } catch (e) {}
   }
-  function resRow(i, label) {
-    const done = !!S.handled[i.id];
-    const n = row({ img: i.thumb || "", title: i.name || "Mystery item", sub: i.sub || "" });
+  function resRow(i, label, kind) {
+    const done = !!S.handled[i.id], p = priceOf(i);
+    const sub = kind === "sell" && p ? (p.hi ? `Ask $${p.ask} · worth ${priceRange(p)}` : "Not worth much. Maybe donate.") : kind === "maybe" ? "In the maybe pile" : i.sub || "";
+    const n = row({ img: i.thumb || "", title: i.name || "Mystery item", sub });
+    if (kind === "sell") n.firstChild.append(el("button", { class: "mini lst", type: "button", "aria-label": `Copy listing for ${i.name}`, onclick: () => copyText(listingText(i)).then((ok) => toast(ok ? "Listing copied. Paste it in Marketplace." : "Couldn't copy here")) }, ic("copy"), "Listing"));
     if (label) {
       n.firstChild.classList.toggle("done", done);
       n.firstChild.append(el("button", { class: "cbox", type: "button", "aria-pressed": String(done), "aria-label": `${label}: ${i.name}`, onclick: () => toggleHandled(i.id) }, ic("check")));
@@ -1979,23 +2116,28 @@ body{letter-spacing:0}
     const r = S.rounds.get(S.resId);
     const items = S.items.get(S.resId) || [];
     const p = (PICKS[S.resId] && PICKS[S.resId].d) || {};
-    return { r, items, keep: items.filter((i) => p[i.id] === "keep"), toss: items.filter((i) => p[i.id] === "toss"), wait: items.filter((i) => !p[i.id]) };
+    return { r, items, keep: items.filter((i) => p[i.id] === "keep"), toss: items.filter((i) => p[i.id] === "toss"), sell: items.filter((i) => p[i.id] === "sell"), maybe: items.filter((i) => p[i.id] === "maybe"), wait: items.filter((i) => !p[i.id] || p[i.id] === "maybe") };
   }
   let archArmed = false;
   function renderResults() {
     if (onScreen !== "resScreen") return;
-    const { r, items, keep, toss, wait } = resSplit();
+    const { r, items, keep, toss, sell, maybe, wait } = resSplit();
     if (!r) { renderHome(); return; }
-    const total = items.length || r.count || 0, n = keep.length + toss.length;
+    const total = items.length || r.count || 0, n = keep.length + toss.length + sell.length;
     $("#resKicker").textContent = [r.date ? "Sent " + r.date : "", r.where].filter(Boolean).join(" · ");
     $("#resTitle").textContent = r.title || "Round";
     $("#navT").textContent = r.title || "Round";
-    $("#resHead").textContent = !n ? `Waiting on ${kid()} to start.` : wait.length ? `${kid()[0].toUpperCase() + kid().slice(1)} has swiped ${n} of ${total}.` : `All ${total} swiped. Time to pack.`;
-    $("#resKeepN").textContent = keep.length; $("#resTossN").textContent = toss.length; $("#resLeftN").textContent = items.length ? wait.length : total;
+    $("#resHead").textContent = !n && !maybe.length ? `Waiting on ${kid()} to start.` : wait.length ? `${kid()[0].toUpperCase() + kid().slice(1)} has decided ${n} of ${total}.${maybe.length ? ` ${plural(maybe.length, "is", "are")} in the maybe pile.`.replace(/^ (\d+) /, " $1 ") : ""}` : `All ${total} decided. Time to pack.`;
+    $("#resKeepN").textContent = keep.length; $("#resTossN").textContent = toss.length; $("#resSellN").textContent = sell.length; $("#resLeftN").textContent = items.length ? wait.length : total;
     const roomOn = S.view === "room" && (S.photos.get(r.id) || []).length > 0;
-    $("#resKeepS").hidden = roomOn || !keep.length; $("#resTossS").hidden = roomOn || !toss.length;
+    $("#resKeepS").hidden = roomOn || !keep.length; $("#resTossS").hidden = roomOn || !toss.length; $("#resSellS").hidden = roomOn || !sell.length;
     $("#resKeep").replaceChildren(...catGroups(keep, "Packed", false));
+    $("#resSell").replaceChildren(...catGroups(sell, "Sold", false, "sell"));
     $("#resToss").replaceChildren(...catGroups(toss, "Dropped off", true));
+    const ask = sumMoney(sell, (p) => p.ask), dv = sumMoney(toss, (p) => p.lo);
+    $("#resSellTot").textContent = ask ? `About $${ask}` : "";
+    $("#resTossVal").hidden = !dv;
+    $("#resTossVal").textContent = `Estimated donation value about $${dv} at thrift store prices. Keep this list for your taxes. It's a rough guess, not tax advice.`;
     const photos = S.photos.get(r.id) || [], room = S.view === "room" && photos.length > 0;
     $("#resSeg").hidden = !photos.length || !items.some((i) => i.pid);
     $("#segList").setAttribute("aria-pressed", String(!room)); $("#segRoom").setAttribute("aria-pressed", String(room));
@@ -2003,10 +2145,10 @@ body{letter-spacing:0}
     if (room) renderRoom(items, photos);
     $("#resWait").hidden = roomOn || !wait.length || !items.length || !n;
     $("#resWaitN").textContent = `(${wait.length})`;
-    $("#resWaitList").replaceChildren(...wait.map((i) => resRow(i, null)));
+    $("#resWaitList").replaceChildren(...wait.map((i) => resRow(i, null, maybe.includes(i) ? "maybe" : "")));
     const a = $("#resActions");
     a.replaceChildren(
-      row({ icon: ["copy", "tint"], title: "Copy Both Lists", cls: "tint", onclick: () => copyText(listsText()).then((ok) => toast(ok ? "Both lists copied" : "Couldn't copy here")) }),
+      row({ icon: ["copy", "tint"], title: "Copy the Lists", cls: "tint", onclick: () => copyText(listsText()).then((ok) => toast(ok ? "Both lists copied" : "Couldn't copy here")) }),
       row({ icon: ["msg", "green"], title: `Copy Message for ${kid()[0].toUpperCase() + kid().slice(1)}`, cls: "tint", onclick: () => copyText(shareText(r.title || "New round", r.count || 0)).then((ok) => toast(ok ? "Copied. Paste it in a text." : "Couldn't copy here")) }),
       row({ icon: ["pencil", "orange"], title: "Edit Items", cls: "tint", chev: true, onclick: () => resumeRound(r.id) }));
     if (wait.length && n) a.append(row({ icon: ["bell", "orange"], title: "Copy a Friendly Reminder", cls: "tint", onclick: () => copyText(`Hey ${kid()}, ${plural(wait.length, "thing is", "things are")} still waiting for you in ${CFG.appName}: ${r.title || "your round"}. ${LINK}`).then((ok) => toast(ok ? "Reminder copied. Paste it in a text." : "Couldn't copy here")) }));
@@ -2017,12 +2159,12 @@ body{letter-spacing:0}
       a.append(arch);
     }
   }
-  function catGroups(list, label, tips) {
+  function catGroups(list, label, tips, kind) {
     const groups = groupByCat(list);
-    if (groups.length === 1 && !groups[0][0]) return [el("ul", { class: "group thumbs" }, list.map((i) => resRow(i, label)))];
+    if (groups.length === 1 && !groups[0][0]) return [el("ul", { class: "group thumbs" }, list.map((i) => resRow(i, label, kind)))];
     return groups.flatMap(([c, items]) => [
       el("h3", { class: "cg-h" }, catIc(c.k), el("span", { text: c.l }), el("span", { class: "n", text: String(items.length) })),
-      el("ul", { class: "group thumbs" }, items.map((i) => resRow(i, label))),
+      el("ul", { class: "group thumbs" }, items.map((i) => resRow(i, label, kind))),
       tips ? el("p", { class: "sect-f", text: `Good home: ${c.t}.` }) : null,
     ]).filter(Boolean);
   }
@@ -2036,7 +2178,7 @@ body{letter-spacing:0}
       box.append(img);
       items.forEach((i, idx) => {
         if (i.pid !== ph.id || !i.box) return;
-        const d = pd[i.id] || "wait", word = d === "keep" ? CFG.keepWord : d === "toss" ? CFG.tossWord : "Not decided yet";
+        const raw = pd[i.id] || "wait", d = raw === "maybe" ? "wait" : raw, word = raw === "wait" ? "Not decided yet" : WORD(raw);
         const b = el("button", { class: `rmb ${d}${S.handled[i.id] ? " done" : ""}`, type: "button", "aria-label": `${i.name}: ${word}`, onclick: () => { sfx("tick"); toast(`#${idx + 1} ${i.name || "Mystery item"} · ${word}`); } }, el("span", { text: String(idx + 1) }));
         Object.assign(b.style, { left: i.box.x * 100 + "%", top: i.box.y * 100 + "%", width: i.box.w * 100 + "%", height: i.box.h * 100 + "%" });
         box.append(b);
@@ -2051,11 +2193,12 @@ body{letter-spacing:0}
     writeDoc("handled/" + S.resId, { h: S.handled }).catch(saveErr);
   }
   function listsText() {
-    const { r, items, keep, toss } = resSplit();
+    const { r, items, keep, toss, sell } = resSplit();
     const line = (i) => `• ${i.name || "Mystery item"} (#${items.indexOf(i) + 1})`;
-    return [r.title || "Round", "", `KEEP (${keep.length})`, ...(keep.length ? keep.map(line) : ["• none"]), "", `DONATE (${toss.length})`, ...(toss.length ? toss.map(line) : ["• none"])].join("\n");
+    const sline = (i) => { const p = priceOf(i); return line(i) + (p && p.ask ? `, ask $${p.ask}` : ""); };
+    return [r.title || "Round", "", `KEEP (${keep.length})`, ...(keep.length ? keep.map(line) : ["• none"]), "", ...(sell.length ? [`SELL (${sell.length})`, ...sell.map(sline), ""] : []), `DONATE (${toss.length})`, ...(toss.length ? toss.map(line) : ["• none"])].join("\n");
   }
-  const shareText = (title, n) => `New ${CFG.appName} round: ${title}. ${plural(n, "thing")} to swipe. Right to keep, left to donate.\n${LINK}`;
+  const shareText = (title, n) => `New ${CFG.appName} round: ${title}. ${plural(n, "thing")} to swipe. Right to keep, left to donate, down to sell, up for maybe.\n${LINK}`;
 
   /* ---------- new round: photos ---------- */
   function newRound() {
@@ -2549,9 +2692,11 @@ tags: three short tags.
 emoji: one emoji that fits the item.
 category: the best fit from: ${CAT_KEYS}.
 stats: your honest best guess from the photo. nostalgia is 1 to 10 for how likely it holds memories (toys, keepsakes, art and childhood favorites score high, plain basics score low). condition is 1 to 10. size is S, M or L for how much room it takes in a box.
+price: what it would realistically sell for used on Facebook Marketplace in the US, as [low, high] in whole dollars. Use [0, 0] if nobody would pay for it.
+listing: a ready to post Marketplace description, two short plain sentences in the seller's voice that mention its condition. No emojis, never use dashes.
 Also give a short title for the whole set, like "Books from the blue tote".
 Reply with only JSON in this shape:
-{"title":"...","items":[{"n":1,"name":"...","detail":"...","bio":"...","tags":["...","...","..."],"emoji":"📚","category":"books","stats":{"nostalgia":7,"condition":8,"size":"S"}}]}`;
+{"title":"...","items":[{"n":1,"name":"...","detail":"...","bio":"...","tags":["...","...","..."],"emoji":"📚","category":"books","stats":{"nostalgia":7,"condition":8,"size":"S"},"price":[5,10],"listing":"..."}]}`;
   }
   function applyName(it, r) {
     it.name = clean(r.name || it.name);
@@ -2561,6 +2706,8 @@ Reply with only JSON in this shape:
     if (r.emoji) it.emoji = String(r.emoji).trim().slice(0, 8);
     if (r.category) it.cat = normCat(r.category) || it.cat;
     const st2 = toStats(r.stats); if (st2) it.stats = st2;
+    const pr2 = toPrice(r.price); if (pr2) it.price = pr2;
+    if (r.listing) it.listing = clean(r.listing);
   }
   async function identify(only) {
     const list = (only || D.items).filter((it) => D.items.includes(it));
@@ -2705,7 +2852,7 @@ Reply with only JSON in this shape:
     clearTimeout(roundTimer);
     roundTimer = setTimeout(() => { setSaving(1); writeDoc(`rounds/${D.rid}`, roundBody()).catch(saveErr).finally(() => setSaving(-1)); }, 700);
   }
-  const itemBody = (it) => ({ emoji: it.emoji || "", cat: it.cat || "", stats: toStats(it.stats), pid: it.pid || "", box: it.box || null, n: it.n, name: clean(it.name), sub: clean(it.sub), bio: clean(it.bio), tags: it.tags.slice(0, 4), where: D.where || "", img: it.img || "", thumb: it.thumb || "", full: it.full || "" });
+  const itemBody = (it) => ({ emoji: it.emoji || "", cat: it.cat || "", stats: toStats(it.stats), price: toPrice(it.price), listing: clean(it.listing || ""), pid: it.pid || "", box: it.box || null, n: it.n, name: clean(it.name), sub: clean(it.sub), bio: clean(it.bio), tags: it.tags.slice(0, 4), where: D.where || "", img: it.img || "", thumb: it.thumb || "", full: it.full || "" });
   function saveItem(it, now) {
     if (!DB || !D || !D.items.includes(it)) return Promise.resolve();
     const rid = D.rid;
@@ -2753,7 +2900,7 @@ Reply with only JSON in this shape:
     D = {
       rid, status: r.status === "archived" ? "live" : r.status, title: r.title || "", where: r.where || "", note: r.note || "", mode: "many", photos: [],
       createdAt: r.createdAt || Date.now(), sentAt: r.sentAt || 0, date: r.date || "", naming: 0,
-      items: items.map((d) => ({ iid: d.id, n: d.n, hint: "", name: d.name || "", sub: d.sub || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "", stats: toStats(d.stats), pid: d.pid || "", box: d.box || null, img: d.img || "", thumb: d.thumb || "", full: d.full || "", state: "ready" })),
+      items: items.map((d) => ({ iid: d.id, n: d.n, hint: "", name: d.name || "", sub: d.sub || "", bio: d.bio || "", tags: Array.isArray(d.tags) ? d.tags : [], emoji: d.emoji || "", cat: d.cat || "", stats: toStats(d.stats), price: toPrice(d.price), listing: d.listing || "", pid: d.pid || "", box: d.box || null, img: d.img || "", thumb: d.thumb || "", full: d.full || "", state: "ready" })),
     };
     renderNames();
     setStatus("#nameStatus", D.status === "live" ? "Changes save as you type. They show up next time it's opened." : "Pick up where you left off.");
@@ -2762,7 +2909,7 @@ Reply with only JSON in this shape:
     if (!D.items.length) { toast("Nothing to preview yet."); return; }
     D.title = clean($("#titleIn").value) || D.title; D.note = $("#rnote").value.trim();
     const r = { id: "draft-" + D.rid, source: "draft", title: D.title || "New round", note: D.note, date: "",
-      items: D.items.map((it) => ({ id: it.iid, img: itemSrc(it), thumb: it.thumb, name: clean(it.name) || "Mystery item", sub: clean(it.sub), where: D.where, bio: clean(it.bio), tags: it.tags, emoji: it.emoji || "", cat: it.cat || "", stats: it.stats || null })) };
+      items: D.items.map((it) => ({ id: it.iid, img: itemSrc(it), thumb: it.thumb, name: clean(it.name) || "Mystery item", sub: clean(it.sub), where: D.where, bio: clean(it.bio), tags: it.tags, emoji: it.emoji || "", cat: it.cat || "", stats: it.stats || null, price: toPrice(it.price), listing: it.listing || "" })) };
     MODE = "kid"; PREVIEW = true; RETURN_TO = "nameScreen";
     mem[lkey(r)] = { d: {}, order: [], started: false };
     ROUNDS = [r]; cur = r;
@@ -2779,7 +2926,11 @@ Reply with only JSON in this shape:
     img.onerror = () => { if (it.thumb && img.getAttribute("src") !== it.thumb) { img.src = it.thumb; bg.src = it.thumb; } };
     img.src = it.img; bg.src = it.img; img.alt = it.name || "";
     $("#shEmo").hidden = !CAT[it.cat]; $("#shEmo").replaceChildren(...(CAT[it.cat] ? [catIc(it.cat)] : []));
-    const se = statsEl(it.stats); $("#shStats").replaceChildren(...(se ? [se] : []));
+    const se = statsEl(it.stats, it.price); $("#shStats").replaceChildren(...(se ? [se] : []));
+    const pp = priceOf(it);
+    $("#shPrice").hidden = !pp;
+    if (pp) $("#shPrice").replaceChildren(...(pp.hi ? ["Worth about ", el("b", { text: priceRange(pp) }), " used"] : ["Not worth selling. Donate or keep it."]));
+    $("#sheetPanel").classList.toggle("mp", inMaybe(cur));
     $("#shWhere").replaceChildren(...(it.where ? [ic("box"), el("span", { text: it.where })] : [])); $("#shWhere").hidden = !it.where;
     $("#shName").textContent = it.name || "Mystery item";
     $("#shSub").textContent = it.sub || ""; $("#shSub").hidden = !it.sub;
@@ -2841,6 +2992,8 @@ Reply with only JSON in this shape:
     $("#sheetBd").addEventListener("click", () => closeDetail());
     $("#shKeep").addEventListener("click", () => sheetDecide("keep"));
     $("#shToss").addEventListener("click", () => sheetDecide("toss"));
+    $("#shSell").addEventListener("click", () => sheetDecide("sell"));
+    $("#shMaybe").addEventListener("click", () => sheetDecide("maybe"));
   })();
 
   /* ---------- settings ---------- */
@@ -2882,12 +3035,16 @@ Reply with only JSON in this shape:
   $("#keepBtn").addEventListener("click", () => decide("keep"));
   $("#tossBtn").addEventListener("click", () => decide("toss"));
   $("#undoBtn").addEventListener("click", undo);
+  $("#sellBtn").addEventListener("click", () => decide("sell"));
+  $("#maybeBtn").addEventListener("click", () => decide("maybe"));
   addEventListener("keydown", (e) => {
     if (!$("#asheet").hidden) { if (e.key === "Escape") { e.preventDefault(); closeAS(); } return; }
     if (!$("#sheet").hidden) { if (e.key === "Escape") { e.preventDefault(); closeDetail(); } return; }
     if (onScreen !== "deckScreen" || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "ArrowRight") { e.preventDefault(); decide("keep"); }
     else if (e.key === "ArrowLeft") { e.preventDefault(); decide("toss"); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); decide("maybe"); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); decide("sell"); }
     else if (e.key === "Backspace" || e.key.toLowerCase() === "z") { e.preventDefault(); undo(); }
   });
   $("#newBtn2").addEventListener("click", newRound);
@@ -2905,12 +3062,13 @@ Reply with only JSON in this shape:
   $("#copyShare").addEventListener("click", () => copyText($("#shareText").textContent, $("#shareText")).then((ok) => toast(ok ? "Copied. Paste it in a text." : "Select the message and copy it.")));
   $("#cfgSave").addEventListener("click", saveSettings);
   $("#cbAll").addEventListener("click", () => {
-    const top = cur && left(cur)[0];
+    const top = cur && queue(cur)[0];
     if (!top || !CAT[top.cat]) return;
-    const c = CAT[top.cat], n = left(cur).filter((i) => i.cat === top.cat).length;
+    const c = CAT[top.cat], n = queue(cur).filter((i) => i.cat === top.cat && st(cur).d[i.id] !== "maybe").length;
     actionSheet(`Decide all ${n} in ${c.l} at once? You can still change any of them at the end.`, [
-      { label: `💚 ${CFG.keepWord} all ${n}`, kind: "keep", fn: () => bulkDecide(top.cat, "keep") },
-      { label: `👋 ${CFG.tossWord} all ${n}`, kind: "toss", fn: () => bulkDecide(top.cat, "toss") },
+      { label: `${CFG.keepWord} all ${n}`, kind: "keep", fn: () => bulkDecide(top.cat, "keep") },
+      { label: `Sell all ${n}`, kind: "sell", fn: () => bulkDecide(top.cat, "sell") },
+      { label: `${CFG.tossWord} all ${n}`, kind: "toss", fn: () => bulkDecide(top.cat, "toss") },
     ]);
   });
   $("#asBd").addEventListener("click", closeAS);
